@@ -29,6 +29,16 @@ const UserSchema = new mongoose.Schema({
         type: String
     },
 
+    userName: {
+        type: String,
+        required: true
+    },
+
+    password: {
+        type: String,
+        required: true
+    },
+
     articles: [
         {
             type: mongoose.Schema.Types.ObjectId,
