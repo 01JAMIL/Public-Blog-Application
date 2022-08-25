@@ -1,3 +1,4 @@
+const fs = require('fs')
 const asyncHandler = require('express-async-handler')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
@@ -89,7 +90,7 @@ const updateProfile = asyncHandler(async (req, res) => {
     try {
 
         await User.findOneAndUpdate(
-            { _id: req.params.username },
+            { userName: req.params.username },
             req.body,
             { new: true }
         ).then((user) => {
@@ -113,11 +114,16 @@ const updateProfilePic = asyncHandler(async (req, res) => {
             return res.status(400).json({ noImage: 'Select a file to upload' })
         }
 
+        const user = await User.findOne({ userName: req.params.username })
         const imageName = Date.now() + '-' + req.files.profilePic.name
         req.files.profilePic.mv('./uploads/' + imageName)
 
+        if (user.profilePic) {
+            fs.unlinkSync('./uploads/' + user.profilePic)
+        }
+
         await User.findOneAndUpdate(
-            { _id: req.params.username },
+            { userName: req.params.username },
             { profilePic: imageName },
             { new: true }
         ).then(user => {
