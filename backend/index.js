@@ -1,6 +1,7 @@
 const express = require('express')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
+const expressFileUpload = require('express-fileupload')
 
 const app = express()
 
@@ -11,7 +12,9 @@ app.use(express.json())
 app.use(logger('dev'))
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
-
+app.use(expressFileUpload({
+    createParentPath: true
+}))
 
 app.listen(process.env.PORT || 3800, (err) => {
     if (err) {

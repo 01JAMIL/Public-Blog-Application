@@ -89,7 +89,7 @@ const updateProfile = asyncHandler(async (req, res) => {
     try {
 
         await User.findOneAndUpdate(
-            { _id: req.params.userName },
+            { _id: req.params.username },
             req.body,
             { new: true }
         ).then((user) => {
@@ -107,6 +107,30 @@ const updateProfile = asyncHandler(async (req, res) => {
 })
 
 const updateProfilePic = asyncHandler(async (req, res) => {
+
+    try {
+        if (!req.files.profilePic) {
+            return res.status(400).json({ noImage: 'Select a file to upload' })
+        }
+
+        const imageName = Date.now() + '-' + req.files.profilePic.name
+        req.files.profilePic.mv('./uploads/' + imageName)
+
+        await User.findOneAndUpdate(
+            { _id: req.params.username },
+            { profilePic: imageName },
+            { new: true }
+        ).then(user => {
+            if (user) {
+                res.status(200).json({ success: 'Profile picture changed' })
+            }
+        }).catch(err => {
+            res.status(400).json(err)
+        })
+
+    } catch (error) {
+        res.status(400).json(error)
+    }
 
 })
 
