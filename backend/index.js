@@ -5,6 +5,8 @@ const logger = require('morgan')
 const cookieParser = require('cookie-parser')
 const expressFileUpload = require('express-fileupload')
 
+const userRouter = require('./routes/user.route')
+
 const app = express()
 
 require('dotenv').config({ path: '../.env' })
@@ -19,10 +21,12 @@ app.use(expressFileUpload({
 }))
 
 
+
+app.use('/api/user', userRouter)
+
 app.use('/uploads', express.static(
     path.join('__dirname', '/uploads')
 ))
-
 
 app.listen(process.env.PORT || 3800, (err) => {
     if (err) {

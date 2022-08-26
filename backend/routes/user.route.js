@@ -1,10 +1,12 @@
 const express = require('express')
 const router = express.Router()
+const { getMe, signin, signup, updateProfile, updateProfilePic } = require('../controllers/user.controller')
+const { protectUserRoute } = require('../middlewares/user.middleware')
 
-router.get('/account')
-router.post('/signup')
-router.post('/signin')
-router.put('/update-profile/:username')
-router.put('/update-profile-pic/:username')
+router.get('/account', protectUserRoute, getMe)
+router.post('/signup', signup)
+router.post('/signin', signin)
+router.put('/update-profile/:username', updateProfile)
+router.put('/update-profile-pic/:username', updateProfilePic)
 
 module.exports = router
