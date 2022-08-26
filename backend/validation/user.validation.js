@@ -52,8 +52,10 @@ const validateSignInUser = (data) => {
 
     if (data.email) {
         data.email = !isEmpty(data.email) ? data.email : ''
+        data.login = data.email
     } else {
         data.userName = !isEmpty(data.userName) ? data.userName : ''
+        data.login = data.userName
     }
 
     data.password = !isEmpty(data.password) ? data.password : ''
@@ -86,7 +88,7 @@ const validateUpdateProfile = (data) => {
     }
 
     if (validator.isEmpty(data.lastName)) {
-        errors.firstNameError = 'Last name is required'
+        errors.lastNameError = 'Last name is required'
     }
 
     return {
