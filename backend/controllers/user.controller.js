@@ -3,7 +3,7 @@ const asyncHandler = require('express-async-handler')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const User = require('../models/user.model')
-const { validateSignUpUser, validateSignInUser } = require('../validation/user.validation')
+const { validateSignUpUser, validateSignInUser, validateUpdateProfile } = require('../validation/user.validation')
 
 
 const getMe = asyncHandler(async (req, res) => {
@@ -87,7 +87,12 @@ const signin = asyncHandler(async (req, res) => {
 })
 
 const updateProfile = asyncHandler(async (req, res) => {
+    const { errors, valid } = validateUpdateProfile(req.body)
     try {
+
+        if (!valid) {
+            return res.status(400).json(errors)
+        }
 
         await User.findOneAndUpdate(
             { userName: req.params.username },
