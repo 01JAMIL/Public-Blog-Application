@@ -14,10 +14,6 @@ const ArticleSchema = new mongoose.Schema({
         type: String
     },
 
-    likes: {
-        type: Number,
-        default: 0
-    },
 
     time: {
         type: Date,
@@ -40,6 +36,13 @@ const ArticleSchema = new mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'tag',
             required: true
+        }
+    ],
+
+    likes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'user'
         }
     ],
 
