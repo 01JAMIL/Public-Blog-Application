@@ -96,11 +96,78 @@ const deleteArticle = asyncHandler = (async (req, res) => {
 })
 
 const likeArticle = asyncHandler(async (req, res) => {
+    try {
 
+        await Article.findOne({ _id: req.body.articleId }).then(async (article) => {
+            let listLikes = article.likes
+            listLikes.push(req.body.userId)
+
+            await Article.findOneAndUpdate(
+                { _id: req.body.articleId },
+                {
+                    likes: listLikes
+                },
+                { new: true }
+            ).then(() => {
+                res.status(200).json('You liked this article')
+            })
+        }).catch(err => {
+            res.status(400).json(err)
+        })
+
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+
+const unlikeArticle = asyncHandler(async (req, res) => {
+    try {
+
+        await Article.findOne({ _id: req.body.articleId }).then(async (article) => {
+            let listLikes = article.likes
+            listLikes = listLikes.filter(id => id !== req.body.userId)
+
+            await Article.findOneAndUpdate(
+                { _id: req.body.articleId },
+                {
+                    likes: listLikes
+                },
+                { new: true }
+            ).then(() => {
+                res.status(200).json('You unliked this article')
+            })
+        }).catch(err => {
+            res.status(400).json(err)
+        })
+
+    } catch (error) {
+        res.status(400).json(error)
+    }
 })
 
 const commentArticle = asyncHandler(async (req, res) => {
+    try {
 
+        await Article.findOne({ _id: req.body.articleId }).then(article => {
+            let commentsList = article.comments
+
+            commentsList.push(req.body.userId)
+            await Article.findOneAndUpdate(
+                { _id: req.body.articleId },
+                {
+                    comments: commentsList
+                },
+                { new: true }
+            ).then(() => {
+                res.status(200).json('Commented')
+            })
+        }).catch(err => {
+            res.status(400).json(err)
+        })
+
+    } catch (error) {
+        res.status(400).json(error)
+    }
 })
 
 
@@ -110,5 +177,6 @@ module.exports = {
     updateArticle,
     deleteArticle,
     likeArticle,
+    unlikeArticle,
     commentArticle,
 }
