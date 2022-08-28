@@ -11,7 +11,8 @@ const ArticleSchema = new mongoose.Schema({
     },
 
     image: {
-        type: String
+        type: String,
+        default: null
     },
 
 
@@ -22,7 +23,8 @@ const ArticleSchema = new mongoose.Schema({
 
     categoryId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'category'
+        ref: 'category',
+        required: true
     },
 
     typeId: {
@@ -34,8 +36,7 @@ const ArticleSchema = new mongoose.Schema({
     tags: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'tag',
-            required: true
+            ref: 'tag'
         }
     ],
 

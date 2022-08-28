@@ -16,7 +16,7 @@ const getArticles = asyncHandler(async (req, res) => {
     }
 })
 
-const createArticle = asyncHandler (async (req, res) => {
+const createArticle = asyncHandler(async (req, res) => {
     const { errors, valid } = validateArticleData(req.body)
     try {
 
@@ -26,11 +26,12 @@ const createArticle = asyncHandler (async (req, res) => {
 
         const newArticle = new Article(req.body)
 
-        if (req.files.image) {
-            const image = Date.now() + '-' + req.files.image.name
-            req.files.image.mv('./uploads/' + image)
-            newArticle.image = image
+        if (req.files && req.files.image) {
+            const imageName = Date.now() + '-' + req.files.image.name
+            req.files.image.mv('./uploads/' + imageName)
+            newArticle.image = imageName
         }
+
 
 
         await Article.create(newArticle).then(article => {
@@ -45,7 +46,7 @@ const createArticle = asyncHandler (async (req, res) => {
 })
 
 
-const updateArticle = asyncHandler (async (req, res) => {
+const updateArticle = asyncHandler(async (req, res) => {
     const { errors, valid } = validateArticleData(req.body)
     try {
 
@@ -81,7 +82,7 @@ const updateArticle = asyncHandler (async (req, res) => {
     }
 })
 
-const deleteArticle = asyncHandler (async (req, res) => {
+const deleteArticle = asyncHandler(async (req, res) => {
     try {
 
         await Article.findOneAndDelete({ _id: req.params.id }).then(() => {
@@ -125,12 +126,12 @@ const unlikeArticle = asyncHandler(async (req, res) => {
 
         await Article.findOne({ _id: req.body.articleId }).then(async (article) => {
             let listLikes = article.likes
-            listLikes = listLikes.filter(id => id !== req.body.userId)
+            let newList = listLikes.filter(id => id === req.body.userId)
 
             await Article.findOneAndUpdate(
                 { _id: req.body.articleId },
                 {
-                    likes: listLikes
+                    likes: newList
                 },
                 { new: true }
             ).then(() => {
