@@ -170,6 +170,20 @@ const commentArticle = asyncHandler(async (req, res) => {
     }
 })
 
+const numberOfLikes = asyncHandler(async (req, res) => {
+    try {
+
+        await Article.findOne({ _id: req.params.id }).then(article => {
+            const count = article.likes.length
+            res.status(200).json({ 'count': count })
+        }).catch(err => {
+            res.status(400).json(err)
+        })
+
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
 
 module.exports = {
     getArticles,
@@ -179,4 +193,5 @@ module.exports = {
     likeArticle,
     unlikeArticle,
     commentArticle,
+    numberOfLikes
 }
