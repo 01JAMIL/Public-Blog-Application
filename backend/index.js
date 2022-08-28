@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser')
 const expressFileUpload = require('express-fileupload')
 
 const userRouter = require('./routes/user.route')
+const articleRouter = require('./routes/article.route')
 
 const app = express()
 
@@ -23,6 +24,7 @@ app.use(expressFileUpload({
 
 
 app.use('/api/user', userRouter)
+app.use('/api/article', articleRouter)
 
 app.use('/uploads', express.static(
     path.join('__dirname', '/uploads')

@@ -16,7 +16,7 @@ const getArticles = asyncHandler(async (req, res) => {
     }
 })
 
-const createArticle = asyncHandler = (async (req, res) => {
+const createArticle = asyncHandler (async (req, res) => {
     const { errors, valid } = validateArticleData(req.body)
     try {
 
@@ -45,7 +45,7 @@ const createArticle = asyncHandler = (async (req, res) => {
 })
 
 
-const updateArticle = asyncHandler = (async (req, res) => {
+const updateArticle = asyncHandler (async (req, res) => {
     const { errors, valid } = validateArticleData(req.body)
     try {
 
@@ -81,7 +81,7 @@ const updateArticle = asyncHandler = (async (req, res) => {
     }
 })
 
-const deleteArticle = asyncHandler = (async (req, res) => {
+const deleteArticle = asyncHandler (async (req, res) => {
     try {
 
         await Article.findOneAndDelete({ _id: req.params.id }).then(() => {
@@ -148,10 +148,11 @@ const unlikeArticle = asyncHandler(async (req, res) => {
 const commentArticle = asyncHandler(async (req, res) => {
     try {
 
-        await Article.findOne({ _id: req.body.articleId }).then(article => {
+        await Article.findOne({ _id: req.body.articleId }).then(async (article) => {
             let commentsList = article.comments
 
             commentsList.push(req.body.userId)
+
             await Article.findOneAndUpdate(
                 { _id: req.body.articleId },
                 {
