@@ -146,23 +146,32 @@ const unlikeArticle = asyncHandler(async (req, res) => {
     }
 })
 
-const commentArticle = asyncHandler(async (req, res) => {
+const listComments = asyncHandler(async (req, res) => {
+    try {
+
+        await Article.findOne({ _id: req.params.id }).then(async (article) => {
+            let commentsList = article.comments
+
+            res.status(200).json(commentsList)
+
+        }).catch(err => {
+            res.status(400).json(err)
+        })
+
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+
+
+const tagList = asyncHandler(async (req, res) => {
     try {
 
         await Article.findOne({ _id: req.body.articleId }).then(async (article) => {
-            let commentsList = article.comments
+            let tags = article.tags
 
-            commentsList.push(req.body.userId)
+            res.status(200).json(tags)
 
-            await Article.findOneAndUpdate(
-                { _id: req.body.articleId },
-                {
-                    comments: commentsList
-                },
-                { new: true }
-            ).then(() => {
-                res.status(200).json('Commented')
-            })
         }).catch(err => {
             res.status(400).json(err)
         })
@@ -194,6 +203,7 @@ module.exports = {
     deleteArticle,
     likeArticle,
     unlikeArticle,
-    commentArticle,
+    listComments,
+    tagList,
     numberOfLikes
 }
