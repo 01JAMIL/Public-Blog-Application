@@ -13,6 +13,10 @@ const CommentSchema = new mongoose.Schema({
     date: {
         type: Date,
         default: time.now()
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
     }
 }, { timestamps: true })
 
