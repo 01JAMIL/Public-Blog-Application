@@ -1,7 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const Category = require('../models/category.model')
 
-const getCaegories = asyncHandler(async (req, res) => {
+const getCategories = asyncHandler(async (req, res) => {
     try {
 
         await Category.find().then(categories => {
@@ -10,6 +10,17 @@ const getCaegories = asyncHandler(async (req, res) => {
             res.status(err).json(err)
         })
 
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+
+
+const getCategoryById = asyncHandler(async (req, res) => {
+    try {
+        await Category.findOne({ _id: req.params.id }).then(cat => {
+            res.status(200).json(cat)
+        })
     } catch (error) {
         res.status(400).json(error)
     }
@@ -60,7 +71,8 @@ const deleteCategory = asyncHandler(async (req, res) => {
 })
 
 module.exports = {
-    getCaegories,
+    getCategories,
+    getCategoryById,
     saveCategory,
     updateCategory,
     deleteCategory
