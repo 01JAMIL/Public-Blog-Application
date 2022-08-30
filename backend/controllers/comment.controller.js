@@ -1,6 +1,17 @@
 const asyncHandler = require('express-async-handler')
 const Comment = require('../models/comment.model')
 const Article = require('../models/article.model')
+
+const getCommentById = asyncHandler(async (req, res) => {
+    try {
+        await Comment.findOne({ _id: req.params.id }).then(comment => {
+            res.status(200).json(comment)
+        })
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+
 const saveComment = asyncHandler(async (req, res) => {
     try {
 
@@ -51,8 +62,54 @@ const deleteComment = asyncHandler(async (req, res) => {
     }
 })
 
+const likeComment = asyncHandler(async (req, res) => {
+    try {
+        await Comment.findOne({ _id: req.params.id }).then(async (comment) => {
+            let listLikes = comment.likes
+            listLikes.push(req.body.userId)
+
+            await Comment.findOneAndUpdate(
+                { _id: req.params.id },
+                {
+                    likes: listLikes
+                },
+                { new: true }
+            ).then((comment) => {
+                res.status(200).send('You liked this comment')
+            })
+        })
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+
+const unlikeComment = asyncHandler(async (req, res) => {
+    try {
+        await Comment.findOne({ _id: req.params.id }).then(async (comment) => {
+            const listLikes = comment.likes
+
+            const newList = listLikes.filter(like => like === req.body.userId)
+
+            await Comment.findOneAndUpdate(
+                { _id: req.params.id },
+                {
+                    likes: newList
+                },
+                { new: true }
+            ).then((comment) => {
+                res.status(200).send('You unliked this comment')
+            })
+        })
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+
 module.exports = {
+    getCommentById,
     saveComment,
     updateComment,
-    deleteComment
+    deleteComment,
+    likeComment,
+    unlikeComment
 }

@@ -5,10 +5,12 @@ const CommentSchema = new mongoose.Schema({
         type: String
     },
 
-    likes: {
-        type: Number,
-        default: 0
-    },
+    likes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'user'
+        }
+    ],
 
     date: {
         type: Date,
