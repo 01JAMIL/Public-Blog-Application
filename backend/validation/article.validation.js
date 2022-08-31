@@ -23,11 +23,7 @@ const validateArticleData = (data) => {
     if (validator.isEmpty(data.categoryId)) {
         errors.categoryError = 'You need to provide a category'
     }
-
-    if (validator.isEmpty(data.typeId)) {
-        errors.typeError = 'Article must have a type'
-    }
-
+    
     return {
         errors,
         valid: isEmpty(errors)

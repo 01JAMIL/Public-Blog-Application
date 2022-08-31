@@ -27,12 +27,6 @@ const ArticleSchema = new mongoose.Schema({
         required: true
     },
 
-    typeId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'type',
-        required: true
-    },
-
     tags: [
         {
             type: mongoose.Schema.Types.ObjectId,
