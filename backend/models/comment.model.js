@@ -16,10 +16,20 @@ const CommentSchema = new mongoose.Schema({
         type: Date,
         default: time.now()
     },
+
+
     userId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'user'
-    }
+    },
+
+    comments: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'comment'
+        }
+    ]
+
 }, { timestamps: true })
 
 module.exports = mongoose.model('comment', CommentSchema)

@@ -105,11 +105,35 @@ const unlikeComment = asyncHandler(async (req, res) => {
     }
 })
 
+const comment = asyncHandler(async (req, res) => {
+    try {
+        await Comment.findOne({ _id: req.params.id }).then(async (comment) => {
+            const listComments = comment.comments
+            listComments.push(req.body)
+
+            await Comment.findOneAndUpdate(
+                { _id: req.params.id },
+                {
+                    comments: listComments
+                },
+                { new: true }
+            ).then((comment) => {
+                res.status(200).send('You commented this comment')
+            }).catch((error) => {
+                res.status(400).json(error)
+            })
+        })
+    } catch (error) {
+        res.status(400).json(error)
+    }
+})
+
 module.exports = {
     getCommentById,
     saveComment,
     updateComment,
     deleteComment,
     likeComment,
-    unlikeComment
+    unlikeComment,
+    comment
 }
