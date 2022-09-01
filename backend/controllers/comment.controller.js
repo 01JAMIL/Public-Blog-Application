@@ -17,16 +17,28 @@ const saveComment = asyncHandler(async (req, res) => {
 
         const newComment = {
             content: req.body.content,
-            likes: req.body.likes,
-            date: req.body.date,
-            userId: req.body.userId
+            likes: [],
+            date: Date.now(),
+            userId: req.body.userId,
+            comments: []
         }
 
         await Comment.create(newComment).then(async (comment) => {
-            await Article.findOneAndUpdate({ _id: req.body.articleId }).then((article) => {
-                res.status(200).json({ 'result': 'You commented this post' })
-            })
+            await Article.findOne({ _id: req.body.articleId }).then(async (article) => {
 
+                const listComments = article.comments
+                listComments.push(comment)
+
+                await Article.findOneAndUpdate(
+                    { _id: req.body.articleId },
+                    {
+                        comments: listComments
+                    },
+                    { new: true }
+                ).then((article) => {
+                    res.status(200).json({ 'result': 'You commented this post' })
+                })
+            })
         })
 
     } catch (error) {
@@ -37,7 +49,11 @@ const saveComment = asyncHandler(async (req, res) => {
 const updateComment = asyncHandler(async (req, res) => {
     try {
 
-        await Comment.findOneAndUpdate({ _id: req.params.id }).then((comment) => {
+        await Comment.findOneAndUpdate(
+            { _id: req.params.id },
+            req.body,
+            { new: true }
+        ).then((comment) => {
             res.status(200).json(comment)
         }).catch((error) => {
             res.status(400).json(error)
@@ -51,9 +67,21 @@ const updateComment = asyncHandler(async (req, res) => {
 const deleteComment = asyncHandler(async (req, res) => {
     try {
 
-        await Comment.findOneAndDelete({ _id: req.params.id }).then((
-            res.status(200).json('Comment deleted')
-        )).catch((error) => {
+        await Comment.findOneAndDelete({ _id: req.params.id }).then(async () => {
+            await Article.findOne({ _id: req.body.articleId }).then(async (article) => {
+                const listComments = article.comments.filter(comment => comment === req.params.id)
+                await Article.findOneAndUpdate(
+                    { _id: req.body.articleId },
+                    {
+                        comments: listComments
+                    },
+                    { new: true }
+                ).then(article => {
+                    res.status(200).json('Comment deleted')
+                })
+            })
+        }
+        ).catch((error) => {
             res.status(400).json(error)
         })
 
@@ -107,22 +135,27 @@ const unlikeComment = asyncHandler(async (req, res) => {
 
 const comment = asyncHandler(async (req, res) => {
     try {
-        await Comment.findOne({ _id: req.params.id }).then(async (comment) => {
-            const listComments = comment.comments
-            listComments.push(req.body)
+        const newComment = new Comment(req.body)
 
-            await Comment.findOneAndUpdate(
-                { _id: req.params.id },
-                {
-                    comments: listComments
-                },
-                { new: true }
-            ).then((comment) => {
-                res.status(200).send('You commented this comment')
-            }).catch((error) => {
-                res.status(400).json(error)
+        await Comment.create(newComment).then(async (com) => {
+            await Comment.findOne({ _id: req.params.id }).then(async (comment) => {
+                const listComments = comment.comments
+                listComments.push(com._id)
+
+                await Comment.findOneAndUpdate(
+                    { _id: req.params.id },
+                    {
+                        comments: listComments
+                    },
+                    { new: true }
+                ).then((comment) => {
+                    res.status(200).send('You commented this comment')
+                }).catch((error) => {
+                    res.status(400).json(error)
+                })
             })
         })
+
     } catch (error) {
         res.status(400).json(error)
     }

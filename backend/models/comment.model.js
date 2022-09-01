@@ -14,7 +14,7 @@ const CommentSchema = new mongoose.Schema({
 
     date: {
         type: Date,
-        default: time.now()
+        default: Date.now()
     },
 
 
