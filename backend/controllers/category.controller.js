@@ -51,7 +51,11 @@ const updateCategory = asyncHandler(async (req, res) => {
         if (!valid) {
             return res.status(400).json(errors)
         }
-        await Category.findOneAndUpdate({ _id: req.params.id }).then(category => {
+        await Category.findOneAndUpdate(
+            { _id: req.params.id },
+            req.body,
+            { new: true }
+        ).then(category => {
             res.status(200).json({
                 'result': 'Success',
                 category
