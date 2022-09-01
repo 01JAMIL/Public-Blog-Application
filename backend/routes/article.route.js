@@ -7,9 +7,9 @@ router.get('/count/:id', numberOfLikes)
 router.get('/comments/:id', listComments)
 router.get('/tags/:id', tagList)
 router.post('/create', createArticle)
-router.put('/update', updateArticle)
-router.delete('/delete', deleteArticle)
-router.put('/like', likeArticle)
-router.put('/unlike', unlikeArticle)
+router.put('/update/:id', updateArticle)
+router.delete('/delete/:id', deleteArticle)
+router.put('/like/:id', likeArticle)
+router.put('/unlike/:id', unlikeArticle)
 
 module.exports = router

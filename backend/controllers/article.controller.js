@@ -1,6 +1,7 @@
 const asyncHandler = require('express-async-handler')
 const fs = require('fs')
 const Article = require('../models/article.model')
+const Comment = require('../models/comment.model')
 const { validateArticleData } = require('../validation/article.validation')
 
 
@@ -99,12 +100,12 @@ const deleteArticle = asyncHandler(async (req, res) => {
 const likeArticle = asyncHandler(async (req, res) => {
     try {
 
-        await Article.findOne({ _id: req.body.articleId }).then(async (article) => {
+        await Article.findOne({ _id: req.params.id }).then(async (article) => {
             let listLikes = article.likes
             listLikes.push(req.body.userId)
 
             await Article.findOneAndUpdate(
-                { _id: req.body.articleId },
+                { _id: req.params.id },
                 {
                     likes: listLikes
                 },
