@@ -54,11 +54,25 @@ export const deleteComment = createAsyncThunk('comment/delete', async (data) => 
 })
 
 export const likeComment = createAsyncThunk('comment/like', async (data) => {
-
+    const { comment, token, id } = data
+    return await axios.put(`/api/comment/like/${id}`, comment, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    })
+        .then((response) => response.data)
+        .catch(err => err.message)
 })
 
 export const unlikeComment = createAsyncThunk('comment/unlike', async (data) => {
-
+    const { comment, token, id } = data
+    return await axios.put(`/api/comment/unlike/${id}`, comment, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    })
+        .then((response) => response.data)
+        .catch(err => err.message)
 })
 
 const commentSlice = createSlice({
@@ -73,7 +87,78 @@ const commentSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
+        /* GET COMMENT */
+        builder.addCase(getComment.pending, state => {
+            state.loading = true
+        })
 
+        builder.addCase(getComment.fulfilled, (state, action) => {
+            state.loading = false
+            state.comment = action.payload
+            state.success = true
+        })
+
+        builder.addCase(getComment.rejected, (state, action) => {
+            state.loading = false
+            state.comment = null
+            state.success = false
+            state.error = action.payload
+        })
+
+        /* SAVE COMMENT */
+
+        builder.addCase(saveComment.pending, state => {
+            state.loading = true
+        })
+
+        builder.addCase(saveComment.fulfilled, (state, action) => {
+            state.loading = false
+            state.comment = action.payload
+            state.success = true
+        })
+
+        builder.addCase(saveComment.rejected, (state, action) => {
+            state.loading = false
+            state.comment = null
+            state.success = false
+            state.error = action.payload
+        })
+
+        /* UPDATE COMMENT */
+
+        builder.addCase(updateComment.pending, state => {
+            state.loading = true
+        })
+
+        builder.addCase(updateComment.fulfilled, (state, action) => {
+            state.loading = false
+            state.comment = action.payload
+            state.success = true
+        })
+
+        builder.addCase(updateComment.rejected, (state, action) => {
+            state.loading = false
+            state.comment = null
+            state.success = false
+            state.error = action.payload
+        })
+
+        /* DELETE COMMENT */
+
+        builder.addCase(deleteComment.pending, state => {
+            state.loading = true
+        })
+
+        builder.addCase(deleteComment.fulfilled, (state, action) => {
+            state.loading = false
+            state.success = true
+        })
+
+        builder.addCase(deleteComment.rejected, (state, action) => {
+            state.loading = false
+            state.success = false
+            state.error = action.payload
+        })
     }
 })
 
