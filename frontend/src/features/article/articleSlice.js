@@ -183,5 +183,5 @@ const articleSlice = createSlice({
     }
 })
 
-export default articleReducer.reducer
+export default articleSlice.reducer
 export const { resetState } = articleSlice.actions
