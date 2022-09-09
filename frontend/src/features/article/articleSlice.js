@@ -92,18 +92,6 @@ export const numberOfLikes = createAsyncThunk('article/likes', async (data) => {
         .catch(error => error.message)
 })
 
-// Get one article comments
-export const getListComments = createAsyncThunk('article/comments', async (data) => {
-    const { token, id } = data
-    return await axios.get(`/api/article/comments/${id}`, {
-        headers: {
-            authorization: `Bearer ${token}`
-        }
-    }).then((response) => response.data)
-        .catch(error => error.message)
-})
-
-
 
 // Slice
 const articleSlice = createSlice({
