@@ -112,10 +112,7 @@ const updateProfile = asyncHandler(async (req, res) => {
             req.body,
             { new: true }
         ).then((user) => {
-            res.status(200).json({
-                result: 'Success',
-                user
-            })
+            res.status(200).json(user)
         }).catch((err) => {
             res.status(400).json(err)
         })
@@ -146,7 +143,7 @@ const updateProfilePic = asyncHandler(async (req, res) => {
             { new: true }
         ).then(user => {
             if (user) {
-                res.status(200).json({ success: 'Profile picture changed' })
+                res.status(200).json(user)
             }
         }).catch(err => {
             res.status(400).json(err)
