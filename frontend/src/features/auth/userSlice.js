@@ -6,6 +6,7 @@ const token = localStorage.getItem('token')
 
 const initialState = {
     token: token ? token : null,
+    user: null,
     loggedIn: false,
     loading: false,
     success: false,
@@ -75,7 +76,96 @@ const userSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
+        // SIGN UP
+        builder.addCase(signup.pending, state => {
+            state.loading = true
+        })
 
+        builder.addCase(signup.fulfilled, (state, action) => {
+            state.token = action.payload
+            state.loading = false
+            state.loggedIn = false
+            state.success = true
+        })
+
+        builder.addCase(signup.rejected, (state, action) => {
+            state.token = null
+            state.loading = false
+            state.loggedIn = false
+            state.success = false
+            state.error = action.payload
+        })
+
+        // SIGN IN
+        builder.addCase(signin.pending, state => {
+            state.loading = true
+        })
+
+        builder.addCase(signin.fulfilled, (state, action) => {
+            state.token = action.payload
+            state.loading = false
+            state.loggedIn = true
+            state.success = true
+        })
+
+        builder.addCase(signin.rejected, (state, action) => {
+            state.token = null
+            state.loading = false
+            state.loggedIn = false
+            state.success = false
+            state.error = action.payload
+        })
+
+        // GET ME
+        builder.addCase(getMe.pending, state => {
+            state.loading = true
+        })
+
+        builder.addCase(getMe.fulfilled, (state, action) => {
+            state.user = action.payload
+            state.loading = false
+            state.success = true
+        })
+
+        builder.addCase(getMe.rejected, (state, action) => {
+            state.loading = false
+            state.success = false
+            state.error = action.payload
+        })
+
+        // UPDATE PROFILE
+        builder.addCase(updateProfile.pending, state => {
+            state.loading = true
+        })
+
+        builder.addCase(updateProfile.fulfilled, (state, action) => {
+            state.user = action.payload
+            state.loading = false
+            state.success = true
+        })
+
+        builder.addCase(updateProfile.rejected, (state, action) => {
+            state.loading = false
+            state.success = false
+            state.error = action.payload
+        })
+
+        // UPDATE PROFILE PIC
+        builder.addCase(updateProfilePicture.pending, state => {
+            state.loading = true
+        })
+
+        builder.addCase(updateProfilePicture.fulfilled, (state, action) => {
+            state.user = action.payload
+            state.loading = false
+            state.success = true
+        })
+
+        builder.addCase(updateProfilePicture.rejected, (state, action) => {
+            state.loading = false
+            state.success = false
+            state.error = action.payload
+        })
     }
 })
 
