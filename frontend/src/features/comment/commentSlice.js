@@ -31,7 +31,7 @@ export const saveComment = createAsyncThunk('comment/save', async (data, { rejec
         .catch(err => rejectWithValue(err.response.data))
 })
 
-export const updateComment = createAsyncThunk('comment/update', async (data) => {
+export const updateComment = createAsyncThunk('comment/update', async (data, { rejectWithValue }) => {
     const { comment, token, id } = data
     return await axios.put(`/api/comment/${id}`, comment, {
         headers: {

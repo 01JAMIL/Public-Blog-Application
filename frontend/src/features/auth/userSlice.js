@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { response } from 'express'
 
 const token = localStorage.getItem('token')
 

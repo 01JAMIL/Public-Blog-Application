@@ -78,7 +78,7 @@ export const unlikeArticle = createAsyncThunk('article/unlike', async (data) => 
             authorization: `Bearer ${token}`
         }
     }).then((response) => response.data)
-        .catch(error => rejectWithValue(error.response.data))
+        .catch(error => error)
 })
 
 // Get number of likes
@@ -137,7 +137,7 @@ const articleSlice = createSlice({
             state.sucess = true
         })
 
-        builder.addCase(createArticle.fulfilled, (state, action) => {
+        builder.addCase(createArticle.rejected, (state, action) => {
             state.loading = false
             state.error = action.payload
             state.sucess = false
@@ -158,7 +158,7 @@ const articleSlice = createSlice({
             state.sucess = true
         })
 
-        builder.addCase(updateArticle.fulfilled, (state, action) => {
+        builder.addCase(updateArticle.rejected, (state, action) => {
             state.loading = false
             state.error = action.payload
             state.sucess = false
@@ -175,7 +175,7 @@ const articleSlice = createSlice({
             state.sucess = true
         })
 
-        builder.addCase(deleteArticle.fulfilled, (state, action) => {
+        builder.addCase(deleteArticle.rejected, (state, action) => {
             state.loading = false
             state.error = action.payload
             state.sucess = false
