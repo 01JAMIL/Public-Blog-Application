@@ -7,14 +7,14 @@ import { Routes, Route, Navigate } from 'react-router-dom'
 
 function App() {
 
-  const { loggedIn} = useSelector(state => state.auth)
+  const { token } = useSelector(state => state.auth)
 
   return (
     <>
       <Routes>
-        <Route path='/' element={loggedIn ? <HomePage /> : <Navigate to='/signin' />} />
-        <Route path='/signup' element={!loggedIn ? <SignupPage /> : <Navigate to='/' />} />
-        <Route path='/signin' element={!loggedIn ? <SigninPage /> : <Navigate to='/' />} />
+        <Route path='/' element={token ? <HomePage /> : <Navigate to='/signin' />} />
+        <Route path='/signup' element={!token ? <SignupPage /> : <Navigate to='/' />} />
+        <Route path='/signin' element={!token ? <SigninPage /> : <Navigate to='/' />} />
       </Routes>
     </>
 
