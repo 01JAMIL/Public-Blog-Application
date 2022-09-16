@@ -12,15 +12,15 @@ const initialState = {
     error: null
 }
 
-const signup = createAsyncThunk('user/signup', async (data, { rejectWithValue }) => {
+export const signup = createAsyncThunk('user/signup', async (data, { rejectWithValue }) => {
 
     return await axios.post('/api/user/signup', data)
         .then(response => response.data)
-        .catch(error => rejectWithValue(error))
+        .catch(error => rejectWithValue(error.response.data))
 
 })
 
-const signin = createAsyncThunk('user/signin', async (data, { rejectWithValue }) => {
+export const signin = createAsyncThunk('user/signin', async (data, { rejectWithValue }) => {
 
     return await axios.post('/api/user/signin', data)
         .then(response => response.data)
@@ -28,7 +28,7 @@ const signin = createAsyncThunk('user/signin', async (data, { rejectWithValue })
 
 })
 
-const getMe = createAsyncThunk('user/me', async (token) => {
+export const getMe = createAsyncThunk('user/me', async (token) => {
 
     return await axios.get('/api/user/account', {
         headers: {
@@ -39,7 +39,7 @@ const getMe = createAsyncThunk('user/me', async (token) => {
         .catch(error => error.message)
 })
 
-const updateProfile = createAsyncThunk('user/update-profile', async (data, { rejectWithValue }) => {
+export const updateProfile = createAsyncThunk('user/update-profile', async (data, { rejectWithValue }) => {
     const { body, userName, token } = data
     return await axios.post(`/api/user/update-profile/${userName}`, body, {
         headers: {
@@ -51,7 +51,7 @@ const updateProfile = createAsyncThunk('user/update-profile', async (data, { rej
 })
 
 
-const updateProfilePicture = createAsyncThunk('user/update-profile-pic', async (data, { rejectWithValue }) => {
+export const updateProfilePicture = createAsyncThunk('user/update-profile-pic', async (data, { rejectWithValue }) => {
     const { body, userName, token } = data
     return await axios.post(`/api/user/update-profile-pic/${userName}`, body, {
         headers: {
