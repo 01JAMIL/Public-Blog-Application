@@ -1,7 +1,54 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import Input from '../components/Input'
+import Loading from '../components/Loading'
+import { signup, resetState } from '../features/auth/userSlice'
+
 
 const SignupPage = () => {
+
+  const { loading, success, error } = useSelector(state => state.auth)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const [form, setForm] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    dateOfBirth: '',
+    userName: '',
+    password: ''
+  })
+
+  const changeHandler = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const submitHandler = (e) => {
+    e.preventDefault()
+
+    dispatch(signup(form))
+  }
+
+
+  useEffect(() => {
+    if (success) {
+      dispatch(resetState)
+      navigate('/signin', { replace: true })
+    } else {
+      console.log(error)
+    }
+  }, [dispatch, success, navigate, error])
+
+
+  if (loading) {
+    return <Loading />
+  }
+
   return (
     <div className="container">
       <div>
@@ -9,7 +56,7 @@ const SignupPage = () => {
 
         <div className="container-body">
 
-          <form className="form">
+          <form className="form" onSubmit={submitHandler}>
 
             <div className="form-row">
               <label htmlFor="firstName" className="form-label">First name</label>
@@ -18,7 +65,10 @@ const SignupPage = () => {
                 id="firstName"
                 name="firstName"
                 className="form-input"
+                value={form.firstName}
+                onChange={changeHandler}
               />
+              {( error && error.firstNameError) && <span className="form-input-error">{error.firstNameError}</span>}
             </div>
 
             <div className="form-row">
@@ -28,7 +78,10 @@ const SignupPage = () => {
                 id="lastName"
                 name="lastName"
                 className="form-input"
+                value={form.lastName}
+                onChange={changeHandler}
               />
+              {( error && error.lastNameError) && <span className="form-input-error">{error.lastNameError}</span>}
             </div>
 
             <div className="form-row">
@@ -38,7 +91,10 @@ const SignupPage = () => {
                 id="email"
                 name="email"
                 className="form-input"
+                value={form.email}
+                onChange={changeHandler}
               />
+              {( error && error.emailError) && <span className="form-input-error">{error.emailError}</span>}
             </div>
 
             <div className="form-row">
@@ -48,7 +104,10 @@ const SignupPage = () => {
                 id="dateOfBirth"
                 name="dateOfBirth"
                 className="form-input"
+                value={form.dateOfBirth}
+                onChange={changeHandler}
               />
+              {( error && error.dateOfBirthError) && <span className="form-input-error">{error.dateOfBirthError}</span>}
             </div>
 
             <div className="form-row">
@@ -58,7 +117,10 @@ const SignupPage = () => {
                 id="userName"
                 name="userName"
                 className="form-input"
+                value={form.userName}
+                onChange={changeHandler}
               />
+              {( error && error.userNameError) && <span className="form-input-error">{error.userNameError}</span>}
             </div>
 
             <div className="form-row">
@@ -68,7 +130,10 @@ const SignupPage = () => {
                 id="password"
                 name="password"
                 className="form-input"
+                value={form.password}
+                onChange={changeHandler}
               />
+              {( error && error.passwordError) && <span className="form-input-error">{error.passwordError}</span>}
             </div>
 
 

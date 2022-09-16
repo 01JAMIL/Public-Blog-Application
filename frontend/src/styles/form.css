@@ -26,7 +26,7 @@
 .container .form .form-row {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .container .form .form-row .form-label {
@@ -38,6 +38,13 @@
     height: 30px;
     font-size: large;
     
+}
+
+.container .form .form-row .form-input-error {
+    font-size: small;
+    margin-left: 5px;
+    color: #ff0033;
+    margin-top: 2px;
 }
 
 .container .form .form-row button {
