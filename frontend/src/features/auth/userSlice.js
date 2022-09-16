@@ -6,7 +6,6 @@ const token = localStorage.getItem('token')
 const initialState = {
     token: token ? token : null,
     user: null,
-    loggedIn: false,
     loading: false,
     success: false,
     error: null
@@ -24,7 +23,7 @@ export const signin = createAsyncThunk('user/signin', async (data, { rejectWithV
 
     return await axios.post('/api/user/signin', data)
         .then(response => response.data)
-        .catch(error => rejectWithValue(error))
+        .catch(error => rejectWithValue(error.response.data))
 
 })
 
@@ -68,7 +67,6 @@ const userSlice = createSlice({
     reducers: {
         resetState: (state) => {
             state.token = null
-            state.loggedIn = false
             state.loading = false
             state.success = false
             state.error = null
@@ -83,14 +81,12 @@ const userSlice = createSlice({
         builder.addCase(signup.fulfilled, (state, action) => {
             state.token = action.payload
             state.loading = false
-            state.loggedIn = false
             state.success = true
         })
 
         builder.addCase(signup.rejected, (state, action) => {
             state.token = null
             state.loading = false
-            state.loggedIn = false
             state.success = false
             state.error = action.payload
         })
@@ -101,16 +97,15 @@ const userSlice = createSlice({
         })
 
         builder.addCase(signin.fulfilled, (state, action) => {
-            state.token = action.payload
+            state.token = action.payload.token
+            localStorage.setItem('token', state.token)
             state.loading = false
-            state.loggedIn = true
             state.success = true
         })
 
         builder.addCase(signin.rejected, (state, action) => {
             state.token = null
             state.loading = false
-            state.loggedIn = false
             state.success = false
             state.error = action.payload
         })
