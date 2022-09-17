@@ -61,6 +61,11 @@ export const updateProfilePicture = createAsyncThunk('user/update-profile-pic', 
         .catch(error => rejectWithValue(error))
 })
 
+
+export const logout = createAsyncThunk('user/logout', async () => {
+    localStorage.removeItem('token')
+})
+
 const userSlice = createSlice({
     name: 'user',
     initialState,
