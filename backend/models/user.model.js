@@ -37,14 +37,7 @@ const UserSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true
-    },
-
-    articles: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'article'
-        }
-    ]
+    }
 }, { timestamps: true })
 
 module.exports = mongoose.model('user', UserSchema)

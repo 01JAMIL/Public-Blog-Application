@@ -27,12 +27,6 @@ const ArticleSchema = new mongoose.Schema({
         required: true
     },
 
-    tags: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'tag'
-        }
-    ],
 
     likes: [
         {
@@ -48,6 +42,10 @@ const ArticleSchema = new mongoose.Schema({
         }
     ],
 
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'user'
+    }
 
 }, { timestamps: true })
 
