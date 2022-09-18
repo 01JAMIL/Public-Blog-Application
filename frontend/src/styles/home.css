@@ -1,0 +1,28 @@
+.home-container {
+    padding: 0;
+    background-color: rgba(0,0,0,0.08);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.home-container .home-container-body {
+    margin-top: 20px ;
+    width: 70%;
+    min-height: 90vh ;
+    background-color: white;
+    transition: ease-in-out 0.2s;
+}
+
+
+@media screen and (max-width: 720px) {
+     .home-container .home-container-body {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .home-container .home-container-body {
+        width: 95%;
+    }
+}
