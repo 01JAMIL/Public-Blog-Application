@@ -81,7 +81,7 @@ const signin = asyncHandler(async (req, res) => {
 
         await User.findOne(req.body.email ? { email: req.body.email } : { userName: req.body.userName }).then(async (user) => {
             if (!user) {
-                return res.status(400).json({ loginError: 'Email or user name invalid' });
+                return res.status(400).json({ signinError: 'Email or user name invalid' });
             }
 
             if (await bcrypt.compare(req.body.password, user.password)) {
@@ -91,7 +91,7 @@ const signin = asyncHandler(async (req, res) => {
             }
 
 
-            return res.status(400).json({ passwordError: 'Password is incorrect' })
+            return res.status(400).json({ signinError: 'Password is incorrect' })
         })
 
     } catch (error) {

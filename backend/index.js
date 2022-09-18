@@ -1,5 +1,5 @@
 const express = require('express')
-const fs = require('fs')
+const cors = require('cors')
 const path = require('path')
 const logger = require('morgan')
 const cookieParser = require('cookie-parser')
@@ -15,6 +15,7 @@ const app = express()
 require('dotenv').config({ path: '../.env' })
 require('./config/connectDb')
 
+app.use(cors())
 app.use(express.json())
 app.use(logger('dev'))
 app.use(express.urlencoded({ extended: false }))
@@ -32,7 +33,7 @@ app.use('/api/category', categoryRouter)
 
 
 app.use('/uploads', express.static(
-    path.join('__dirname', '/uploads')
+    path.join(__dirname, '/uploads')
 ))
 
 app.listen(process.env.PORT || 3800, (err) => {
