@@ -4,7 +4,7 @@ const { getMe, getUserById, signin, signup, updateProfile, updateProfilePic } = 
 const { protectUserRoute } = require('../middlewares/user.middleware')
 
 router.get('/account', protectUserRoute, getMe)
-router.get('/get-data', protectUserRoute, getUserById)
+router.get('/get-data/:id', protectUserRoute, getUserById)
 router.post('/signup', signup)
 router.post('/signin', signin)
 router.put('/update-profile/:username', protectUserRoute, updateProfile)
