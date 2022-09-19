@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
+
+import 'react-toastify/dist/ReactToastify.css';
 
 import { signin, resetState } from '../features/auth/userSlice'
 
@@ -32,6 +35,9 @@ const SigninPage = () => {
     dispatch(signin(form))
   }
 
+
+  const notify = () => toast.error(error ? error.signinError : '');
+
   useEffect(() => {
 
     if (success) {
@@ -39,7 +45,10 @@ const SigninPage = () => {
       navigate('/', { replace: true })
     }
 
-  }, [dispatch, navigate, success])
+    if (error) {
+      notify()
+    }
+  }, [dispatch, navigate, success, error])
 
 
   if (loading) {
@@ -47,7 +56,9 @@ const SigninPage = () => {
   }
 
   return (
+
     <div className="container">
+      <ToastContainer />
       <div>
         <div className="title">Signin</div>
 
