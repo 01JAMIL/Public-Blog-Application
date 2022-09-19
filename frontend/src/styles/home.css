@@ -1,6 +1,6 @@
 .home-container {
     padding: 0;
-    background-color: rgba(0,0,0,0.08);
+    background-color: rgba(0,0,0,0.05);
     display: flex;
     justify-content: center;
     min-height: 100vh;
@@ -10,7 +10,7 @@
     margin-top: 20px ;
     width: 70%;
     min-height: 90vh ;
-    background-color: white;
+   /*  background-color: white; */
     transition: ease-in-out 0.2s;
 }
 

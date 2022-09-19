@@ -31,7 +31,7 @@ const NavBar = () => {
           <li className='navbar-list-item'> <Link to="/" > Home </Link> </li>
           <li className='navbar-list-item'>
             <Link to="/profile" >
-              <b>{user && user.userName}</b>
+              <b style={{color : '#4BB543'}}>{user && user.userName}</b>
             </Link>
           </li>
           <li className='navbar-list-item' > <span onClick={dispatchLogout}>Logout</span> </li>
