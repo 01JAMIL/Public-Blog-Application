@@ -1,11 +1,15 @@
 .nav {
+    background-color: white;
     display: flex;
     justify-content: center;
     padding: 0;
     height: 50px;
+    width: 100%;
+    position: fixed;
 }
 
 .navbar {
+    position: relative;
     background-color: white;
     display: flex;
     align-items: center;
