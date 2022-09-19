@@ -4,6 +4,14 @@ import axios from 'axios'
 const Category = ({ id }) => {
 
     const [category, setCategory] = useState('')
+    const style = {
+        padding: '5px',
+        fontWeight: 'bolder',
+        backgroundColor: 'rgba(0,0,0,0.05)' ,
+        border: '1px solid rgba(0,0,0,0.15)',
+        borderRadius: '5px',
+        width: 'fit-content',
+    }
 
     useEffect(() => {
 
@@ -19,7 +27,9 @@ const Category = ({ id }) => {
     }, [id])
 
     return (
-        <div> {category} </div>
+        <div style={style}>
+            {category}
+        </div>
     )
 }
 
