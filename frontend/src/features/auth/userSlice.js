@@ -84,7 +84,6 @@ const userSlice = createSlice({
         })
 
         builder.addCase(signup.fulfilled, (state, action) => {
-            state.token = action.payload
             state.loading = false
             state.success = true
         })
@@ -127,6 +126,7 @@ const userSlice = createSlice({
         })
 
         builder.addCase(getMe.rejected, (state, action) => {
+            state.token = null
             state.loading = false
             state.success = false
             state.error = action.payload

@@ -10,10 +10,15 @@ const initialState = {
 }
 
 
-const getUserById = createAsyncThunk('user/get-data', async (id) => {
-    return axios.get(`/api/user/get-data/${id}`)
+export const getUserById = createAsyncThunk('user/get-data', async (data) => {
+    const { id, token } = data
+    return await axios.get(`/api/user/get-data/${id}`, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    })
         .then((response) => response.data)
-        .catch((error) => error)
+        .catch((error) => error.message)
 })
 
 const userSlice = createSlice({
