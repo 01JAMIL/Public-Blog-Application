@@ -110,8 +110,8 @@ const likeArticle = asyncHandler(async (req, res) => {
                     likes: listLikes
                 },
                 { new: true }
-            ).then(() => {
-                res.status(200).json('You liked this article')
+            ).then((a) => {
+                res.status(200).json(a)
             })
         }).catch(err => {
             res.status(400).json(err)
@@ -125,18 +125,18 @@ const likeArticle = asyncHandler(async (req, res) => {
 const unlikeArticle = asyncHandler(async (req, res) => {
     try {
 
-        await Article.findOne({ _id: req.body.articleId }).then(async (article) => {
-            let listLikes = article.likes
-            let newList = listLikes.filter(id => id === req.body.userId)
+        await Article.findOne({ _id: req.params.id }).then(async (article) => {
 
+            const index = article.likes.indexOf(req.body.userId)
+            article.likes.splice(index, 1)
             await Article.findOneAndUpdate(
-                { _id: req.body.articleId },
+                { _id: req.params.id },
                 {
-                    likes: newList
+                    likes: article.likes
                 },
                 { new: true }
-            ).then(() => {
-                res.status(200).json('You unliked this article')
+            ).then((a) => {
+                res.status(200).json(a)
             })
         }).catch(err => {
             res.status(400).json(err)

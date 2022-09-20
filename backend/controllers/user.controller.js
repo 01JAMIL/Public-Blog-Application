@@ -100,12 +100,12 @@ const signin = asyncHandler(async (req, res) => {
 })
 
 const updateProfile = asyncHandler(async (req, res) => {
-    const { errors, valid } = validateUpdateProfile(req.body)
+    /* const { errors, valid } = validateUpdateProfile(req.body) */
     try {
 
-        if (!valid) {
+        /* if (!valid) {
             return res.status(400).json(errors)
-        }
+        } */
 
         await User.findOneAndUpdate(
             { userName: req.params.username },
