@@ -5,6 +5,7 @@
     border: 1px solid rgba(0,0,0,0.19);
     /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
     border-radius: 8px ;
+    margin-bottom: 50px;
 }
 
 .blog .blog-header {
@@ -38,6 +39,31 @@
 
 .blog .blog-image img {
     width: 100%;
+}
+
+.blog .blog-footer {
+    display: flex;
+    align-items: center;
+}
+
+.blog .blog-footer .like {
+    padding: 15px 0 15px 0;
+    width: 50%;
+    text-align: center;
+    border-right: 0.2px solid rgba(0,0,0,0.19);
+    cursor: pointer;
+}
+
+.blog .blog-footer .comment {
+    padding: 15px 0 15px 0;
+    width: 50%;
+    text-align:center;
+    border-left: 0.2px solid rgba(0,0,0,0.19);
+    cursor: pointer;
+}
+
+.blog .blog-footer .like:hover,.blog .blog-footer .comment:hover {
+    background-color: rgba(0,0,0,0.02) ;
 }
 
 .user-container {

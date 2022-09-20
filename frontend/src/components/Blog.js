@@ -26,6 +26,11 @@ const Blog = ({ time, title, content, image, categoryId, userId }) => {
             <div className="blog-image">
                 <img src={`../../../uploads/${image}`} alt="img" />
             </div>
+
+            <div className="blog-footer">
+                <div className="like">Like</div>
+                <div className="comment">Comment</div>
+            </div>
         </div>
     )
 }
