@@ -19,7 +19,7 @@ const User = ({ userId }) => {
     return (
         <div className="user-container">
             <div className="user-avatar">
-                <img src={user && (user.image ? user.image : avatar)} alt='avatar' />
+                <img src={user && (user.profilePic ? `../../../uploads/${user.profilePic}` : avatar)} alt='avatar' />
             </div>
             <div className="user-name">
                 {user && (user.firstName + ' ' + user.lastName)}

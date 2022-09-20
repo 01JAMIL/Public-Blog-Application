@@ -19,7 +19,7 @@ const HomePage = () => {
     dispatch(getArticles(token))
   }, [dispatch, token])
 
-  if (loading) {
+  if (loading && !data) {
     return <Loading />
   }
 
@@ -28,16 +28,18 @@ const HomePage = () => {
       <NavBar />
       <div className="home-container">
         <div className="home-container-body">
-          {data.map((b, index) => (
+          {data && data.map((b, index) => (
             <div key={index} style={{ display: 'flex', justifyContent: 'center' }}>
               <Blog
-                id={index}
+                id={b._id}
                 time={b.time}
                 title={b.title}
                 content={b.content}
                 image={b.image}
                 categoryId={b.categoryId}
                 userId={b.userId}
+                likes={b.likes}
+                comments={b.comments}
               />
             </div>
           ))}
