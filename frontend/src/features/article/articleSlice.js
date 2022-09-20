@@ -61,7 +61,7 @@ export const deleteArticle = createAsyncThunk('article/delete', async (data) => 
 export const likeArticle = createAsyncThunk('article/like', async (data) => {
     const { body, token, id } = data
 
-    return await axios.put(`/api/article/like/${id}`, body, {
+    return await axios.put(`/api/article/like/${id}`, { userId: body }, {
         headers: {
             authorization: `Bearer ${token}`
         }
@@ -73,7 +73,7 @@ export const likeArticle = createAsyncThunk('article/like', async (data) => {
 export const unlikeArticle = createAsyncThunk('article/unlike', async (data) => {
     const { body, token, id } = data
 
-    return await axios.put(`/api/article/unlike/${id}`, body, {
+    return await axios.put(`/api/article/unlike/${id}`, { userId: body }, {
         headers: {
             authorization: `Bearer ${token}`
         }
@@ -176,6 +176,52 @@ const articleSlice = createSlice({
         })
 
         builder.addCase(deleteArticle.rejected, (state, action) => {
+            state.loading = false
+            state.error = action.payload
+            state.sucess = false
+        })
+
+        // Like 
+
+        builder.addCase(likeArticle.pending, state => {
+            state.loading = true
+        })
+
+        builder.addCase(likeArticle.fulfilled, (state, action) => {
+            state.loading = false
+            const id = action.payload._id
+            state.data.map(e => {
+                if (e._id === id) {
+                    return e.likes = action.payload.likes
+                }
+            })
+            state.sucess = true
+        })
+
+        builder.addCase(likeArticle.rejected, (state, action) => {
+            state.loading = false
+            state.error = action.payload
+            state.sucess = false
+        })
+
+        // unlike
+
+        builder.addCase(unlikeArticle.pending, state => {
+            state.loading = true
+        })
+
+        builder.addCase(unlikeArticle.fulfilled, (state, action) => {
+            state.loading = false
+            const id = action.payload._id
+            state.data.map(e => {
+                if (e._id === id) {
+                    return e.likes = action.payload.likes
+                }
+            })
+            state.sucess = true
+        })
+
+        builder.addCase(unlikeArticle.rejected, (state, action) => {
             state.loading = false
             state.error = action.payload
             state.sucess = false
