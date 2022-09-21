@@ -93,6 +93,18 @@ export const numberOfLikes = createAsyncThunk('article/likes', async (data) => {
 })
 
 
+export const saveComment = createAsyncThunk('article/comment', async (data) => {
+    const { token, userId, articleId, content } = data
+
+    return axios.post('/api/comment', { content, userId, articleId }, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    }).then((response) => response.data)
+        .catch(error => error.response.message)
+})
+
+
 // Slice
 const articleSlice = createSlice({
     name: 'article',
@@ -194,6 +206,8 @@ const articleSlice = createSlice({
                 if (e._id === id) {
                     return e.likes = action.payload.likes
                 }
+
+                return e
             })
             state.sucess = true
         })
@@ -217,6 +231,8 @@ const articleSlice = createSlice({
                 if (e._id === id) {
                     return e.likes = action.payload.likes
                 }
+
+                return e
             })
             state.sucess = true
         })
@@ -225,6 +241,24 @@ const articleSlice = createSlice({
             state.loading = false
             state.error = action.payload
             state.sucess = false
+        })
+
+        // Comment article
+
+        builder.addCase(saveComment.pending, state => {
+            state.loading = true
+        })
+
+        builder.addCase(saveComment.fulfilled, (state, action) => {
+            state.loading = false
+            state.data.comments = action.payload
+            state.sucess = true
+        })
+
+        builder.addCase(saveComment.rejected, (state, action) => {
+            state.loading = false
+            state.sucess = false
+            state.error = action.payload
         })
     }
 })

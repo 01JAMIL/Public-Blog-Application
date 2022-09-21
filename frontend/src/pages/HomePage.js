@@ -19,7 +19,7 @@ const HomePage = () => {
     dispatch(getArticles(token))
   }, [dispatch, token])
 
-  if (loading && !data) {
+  if (loading && !data ) {
     return <Loading />
   }
 

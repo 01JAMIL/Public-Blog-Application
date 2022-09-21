@@ -36,7 +36,7 @@ const saveComment = asyncHandler(async (req, res) => {
                     },
                     { new: true }
                 ).then((article) => {
-                    res.status(200).json({ 'result': 'You commented this post' })
+                    res.status(200).json(listComments);
                 })
             })
         })

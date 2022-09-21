@@ -56,7 +56,15 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.blog .blog-status .likes-status a {
+    text-decoration: none;
+    color: #0066ff;
+}
+
 .blog .blog-footer .like {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 5px;
     padding: 15px 0 15px 0;
     width: 50%;
@@ -65,6 +73,9 @@
 }
 
 .blog .blog-footer .comment {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 5px;
     padding: 15px 0 15px 0;
     width: 50%;
@@ -77,12 +88,54 @@
     background-color: rgba(0, 0, 0, 0.05);
 }
 
+.blog .comment-box {
+    padding: 0 15px 15px 15px;
+}
+
+.blog .comment-box .comment-box-type {
+    display: flex;
+}
+
+.blog .comment-box .comment-input {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0 0 0 5px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.blog .comment-box .comment-input input {
+    border: none;
+    height: 42px;
+    width: 100%;
+    font-size: 15px;
+    border-radius: 8px;
+}
+
+.blog .comment-box .comment-input input:focus {
+    outline: none;
+}
+
+.blog .comment-box .comment-input button {
+    height: 42px;
+    cursor: pointer;
+    border: none;
+    color: #fff;
+    background-color: #0066ff;
+    border-radius: 8px;
+}
+
+.blog .comment-box .comment-input button:hover {
+    background-color: #0066ffd3;
+}
+
 .user-container {
     display: flex;
     align-items: center;
     margin-bottom: 15px;
     padding: 15px 15px 5px 15px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .user-container .user-avatar {
@@ -94,6 +147,75 @@
     height: 40px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 50%;
+}
+
+.user-container .user-name {
+    height: 30px;
+}
+
+.comment-view {
+    margin-top: 20px;
+    margin-left: 30px;
+}
+
+
+.comment-view .comment-body {
+    position: relative;
+    margin: -15px 0 0 60px;
+    background-color: rgba(0, 0, 0, 0.05);
+    padding: 5px;
+    border-radius: 8px
+}
+
+.comment-view .comment-body .comment-date {
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.comment-view .comment-body .comment-content {
+    text-align: justify;
+}
+
+.comment-view .comment-body .comment-button {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 20px;
+    border-radius: 8px
+}
+
+.comment-view .comment-body .comment-button div {
+    padding: 0 5px 0 5px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.comment-view .comment-body .comment-button div:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.comment-view .comment-body .comment-actions {
+    background-color: white;
+    box-shadow: 0 0px 6px 0px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 8px 0px 8px 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    min-width: 180px;
+    position: absolute;
+    top: 35px;
+    right: 1px;
+    z-index: 1;
+}
+
+.comment-view .comment-body .comment-actions div {
+    padding: 10px 0 10px 5px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    border-radius: 8px;
+}
+
+.comment-view .comment-body .comment-actions div:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 @media screen and (max-width: 1080px) {

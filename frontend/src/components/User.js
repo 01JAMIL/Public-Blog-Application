@@ -1,30 +1,50 @@
-import React, { useEffect } from 'react'
+import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import avatar from '../assets/avatar.png'
-
-import { getUserById } from '../features/user/userSlice'
 import '../styles/blog.css'
 
 const User = ({ userId }) => {
 
     const { token } = useSelector(state => state.auth)
-    const { user } = useSelector(state => state.user)
-    const dispatch = useDispatch()
+    const [user, setUser] = useState({})
+    const [loading, setLoading] = useState(false)
+
+
+    const getUser = async () => {
+        setLoading(true)
+        await axios.get(`/api/user/get-data/${userId}`, {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        })
+            .then((response) => {
+                setLoading(false)
+                setUser(response.data)
+            })
+            .catch((error) => error.message)
+    }
 
     useEffect(() => {
-        dispatch(getUserById({ token, id: userId }))
+        userId && getUser()
+    }, [userId])
 
-    }, [dispatch, token, userId])
+
+    if (loading) {
+        return <></>
+    }
 
     return (
-        <div className="user-container">
-            <div className="user-avatar">
-                <img src={user && (user.profilePic ? `../../../uploads/${user.profilePic}` : avatar)} alt='avatar' />
-            </div>
-            <div className="user-name">
-                {user && (user.firstName + ' ' + user.lastName)}
-            </div>
-        </div>
+        <>
+            {user && <div className="user-container">
+                <div className="user-avatar">
+                    <img src={user && (user.profilePic ? `../../../uploads/${user.profilePic}` : avatar)} alt='avatar' />
+                </div>
+                <div className="user-name">
+                    {user && (user.firstName + ' ' + user.lastName)}
+                </div>
+            </div>}
+        </>
     )
 }
 
