@@ -251,7 +251,13 @@ const articleSlice = createSlice({
 
         builder.addCase(saveComment.fulfilled, (state, action) => {
             state.loading = false
-            state.data.comments = action.payload
+            state.data.map(a => {
+                if (a._id === action.payload._id) {
+                    return a.comments = action.payload.comments
+                }
+
+                return a
+            })
             state.sucess = true
         })
 

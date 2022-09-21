@@ -10,11 +10,13 @@ import { faThumbsUp as unlikedIcon, faComment } from '@fortawesome/free-regular-
 import { Link } from 'react-router-dom'
 import UserAvatar from './UserAvatar'
 import CommentView from './CommentView'
+import { saveComment } from '../features/article/articleSlice'
 
 const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comments }) => {
 
     const { token, user } = useSelector(state => state.auth)
     const dispatch = useDispatch()
+    const { loading } = useSelector(state => state.article)
 
     let liked = likes.indexOf(user && user._id) !== -1
 
@@ -38,8 +40,16 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
         setComment(e.target.value)
     }
 
-    const commentArticle = () => {
-        console.log(comment)
+    const commentArticle = async () => {
+        const data = {
+            token,
+            content: comment,
+            articleId: id,
+            userId: user._id
+        }
+
+        dispatch(saveComment(data))
+        setComment('')
     }
 
     return (
@@ -116,13 +126,14 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
                 <div className="comment-box-type">
                     <UserAvatar />
                     <div className="comment-input">
-                        <input type="text" name="content" onChange={changeHandler} placeholder='Add a comment ... ' />
+                        <input type="text" value={comment} name="content" onChange={changeHandler} placeholder='Add a comment ... ' />
                         {comment.length !== 0 && <button type="button" onClick={commentArticle}>Comment</button>}
                     </div>
                 </div>
 
                 <div className="comment-box-list">
-                    {comments.map((c, index) => (
+
+                    {loading ? <div style={{ textAlign: 'center' , padding: '20px 0 20px 0'}}>Posting comment...</div> : comments.map((c, index) => (
                         <div key={index}>
                             <CommentView
                                 id={c}
