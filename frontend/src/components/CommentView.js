@@ -4,13 +4,14 @@ import { useSelector } from 'react-redux'
 import User from './User'
 import '../styles/blog.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEllipsisH } from '@fortawesome/free-solid-svg-icons'
+import { faEllipsisH, faTrashCan, faPenToSquare, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
 const CommentView = ({ id }) => {
 
     const [loading, setLoading] = useState(false)
     const [comment, setComment] = useState({})
     const [open, setOpen] = useState(false)
     const { token } = useSelector(state => state.auth)
+
 
 
     const getComment = async () => {
@@ -47,16 +48,28 @@ const CommentView = ({ id }) => {
                         {comment.content && comment.content}
                     </div>
                     <div className="comment-button">
-                        <div onClick={() => setOpen(!open)}>
+                        <div id="btn" onMouseOver={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
                             <FontAwesomeIcon icon={faEllipsisH} />
                         </div>
                     </div>
-                    {open && <div className="comment-actions">
-                        <div>Delete comment</div>
-                        <div>Update comment</div>
+                    {open && <div className="comment-actions" onMouseOver={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+                        <div><FontAwesomeIcon icon={faTrashCan} style={{ marginRight: '3px' }} />  Delete comment</div>
+                        <div><FontAwesomeIcon icon={faPenToSquare} style={{ marginRight: '3px' }} /> Update comment</div>
                     </div>}
                 </div>
+                <div className="comment-footer">
+                    <span style={{ marginRight: '5px', cursor: 'pointer' }}>Like</span>
+                    {comment.likes && (
+                        comment.likes.length > 0 &&
+                        <>
+                            <span style={{ marginRight: '5px' }}>.</span>
+                            <FontAwesomeIcon icon={faThumbsUp} style={{ marginRight: '2px', color: '#0066ff' }} />
+                            <span> {comment.likes.length} </span>
+                        </>
+                    )}
+                </div>
             </div>}
+
         </>
     )
 }
