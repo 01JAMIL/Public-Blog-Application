@@ -5,12 +5,12 @@ import User from './User'
 import '../styles/blog.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEllipsisH, faTrashCan, faPenToSquare, faThumbsUp } from '@fortawesome/free-solid-svg-icons'
-const CommentView = ({ id }) => {
+const CommentView = ({ id, blogOwnerId }) => {
 
     const [loading, setLoading] = useState(false)
     const [comment, setComment] = useState({})
     const [open, setOpen] = useState(false)
-    const { token } = useSelector(state => state.auth)
+    const { token, user } = useSelector(state => state.auth)
 
 
 
@@ -33,6 +33,7 @@ const CommentView = ({ id }) => {
     if (loading) {
         return <></>
     }
+
     return (
         <>
             {comment && <div className="comment-view">
@@ -47,14 +48,14 @@ const CommentView = ({ id }) => {
                     <div className="comment-content">
                         {comment.content && comment.content}
                     </div>
-                    <div className="comment-button">
+                    {(user._id === comment.userId || user._id === blogOwnerId) && <div className="comment-button">
                         <div id="btn" onMouseOver={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
                             <FontAwesomeIcon icon={faEllipsisH} />
                         </div>
-                    </div>
+                    </div>}
                     {open && <div className="comment-actions" onMouseOver={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-                        <div><FontAwesomeIcon icon={faTrashCan} style={{ marginRight: '3px' }} />  Delete comment</div>
-                        <div><FontAwesomeIcon icon={faPenToSquare} style={{ marginRight: '3px' }} /> Update comment</div>
+                        {(user._id === comment.userId || user._id === blogOwnerId) && <div><FontAwesomeIcon icon={faTrashCan} style={{ marginRight: '3px' }} />  Delete comment</div>}
+                        {(user._id === comment.userId) && <div><FontAwesomeIcon icon={faPenToSquare} style={{ marginRight: '3px' }} /> Update comment</div>}
                     </div>}
                 </div>
                 <div className="comment-footer">
@@ -68,6 +69,7 @@ const CommentView = ({ id }) => {
                         </>
                     )}
                 </div>
+
             </div>}
 
         </>

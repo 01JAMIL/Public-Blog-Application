@@ -52,6 +52,11 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
         setComment('')
     }
 
+
+    /* const showAll = () => {
+       
+    } */
+
     return (
         <div className="blog">
             <User
@@ -131,15 +136,21 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
                     </div>
                 </div>
 
-                <div className="comment-box-list">
+                <div className="comment-box-list" id="comment-box-list">
 
-                    {loading ? <div style={{ textAlign: 'center' , padding: '20px 0 20px 0'}}>Posting comment...</div> : comments.map((c, index) => (
-                        <div key={index}>
-                            <CommentView
-                                id={c}
-                            />
-                        </div>
-                    ))}
+                    {loading ? <div style={{ textAlign: 'center', padding: '20px 0 20px 0' }}>Posting comment...</div> :
+                        comments.map((c, index) => {
+                            return <div key={index}>
+                                <CommentView
+                                    id={c}
+                                    blogOwnerId={userId}
+                                />
+                            </div>
+                        })}
+
+                 {/*    <div className="show-btn" onClick={showAll}>
+                        Show all comments
+                    </div> */}
                 </div>
             </div>}
 

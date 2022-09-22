@@ -1,21 +1,22 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import avatar from '../assets/avatar.png'
 import '../styles/blog.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCircle } from '@fortawesome/free-solid-svg-icons'
 
 const User = ({ userId }) => {
 
-    const { token } = useSelector(state => state.auth)
+    const auth = useSelector(state => state.auth)
     const [user, setUser] = useState({})
     const [loading, setLoading] = useState(false)
-
 
     const getUser = async () => {
         setLoading(true)
         await axios.get(`/api/user/get-data/${userId}`, {
             headers: {
-                authorization: `Bearer ${token}`
+                authorization: `Bearer ${auth.token}`
             }
         })
             .then((response) => {
@@ -38,10 +39,19 @@ const User = ({ userId }) => {
         <>
             {user && <div className="user-container">
                 <div className="user-avatar">
-                    <img src={user && (user.profilePic ? `../../../uploads/${user.profilePic}` : avatar)} alt='avatar' />
+                    <img src={user.profilePic ? `../../../uploads/${user.profilePic}` : avatar} alt='avatar' />
+                    {userId === auth.user._id && <>
+                        <span>
+                            <FontAwesomeIcon icon={faCircle} />
+                        </span>
+
+                        <i>
+                            <FontAwesomeIcon icon={faCircle} />
+                        </i>
+                    </>}
                 </div>
                 <div className="user-name">
-                    {user && (user.firstName + ' ' + user.lastName)}
+                    {(user.firstName && user.lastName) && (user.firstName + ' ' + user.lastName)}
                 </div>
             </div>}
         </>
