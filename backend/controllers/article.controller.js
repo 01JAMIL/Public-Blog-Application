@@ -8,7 +8,7 @@ const { validateArticleData } = require('../validation/article.validation')
 const getArticles = asyncHandler(async (req, res) => {
     try {
         await Article.find().then(articles => {
-            res.status(200).json(articles)
+            res.status(200).json(articles.reverse())
         }).catch(err => {
             res.status(400).json(err)
         })

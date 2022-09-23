@@ -77,9 +77,9 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
                 </p>
             </div>
 
-            <div className="blog-image">
+            {image && <div className="blog-image">
                 <img src={`../../../uploads/${image}`} alt="img" />
-            </div>
+            </div>}
 
             {
                 (likes.length !== 0 || comments.length !== 0) &&
