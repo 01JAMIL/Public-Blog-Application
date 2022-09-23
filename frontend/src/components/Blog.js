@@ -11,6 +11,7 @@ import { Link } from 'react-router-dom'
 import UserAvatar from './UserAvatar'
 import CommentView from './CommentView'
 import { saveComment } from '../features/article/articleSlice'
+import Loading from '../components/Loading'
 
 const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comments }) => {
 
@@ -53,9 +54,9 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
     }
 
 
-    /* const showAll = () => {
-       
-    } */
+    if (loading) {
+        return <Loading />
+    }
 
     return (
         <div className="blog">
@@ -144,11 +145,12 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
                                 <CommentView
                                     id={c}
                                     blogOwnerId={userId}
+                                    articleId={id}
                                 />
                             </div>
                         })}
 
-                 {/*    <div className="show-btn" onClick={showAll}>
+                    {/*    <div className="show-btn" onClick={showAll}>
                         Show all comments
                     </div> */}
                 </div>

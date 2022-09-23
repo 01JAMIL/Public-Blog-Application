@@ -104,6 +104,18 @@ export const saveComment = createAsyncThunk('article/comment', async (data) => {
         .catch(error => error.response.message)
 })
 
+export const deleteComment = createAsyncThunk('article/deleteComment', async (data) => {
+    const { token, id, articleId } = data
+
+    return axios.put(`/api/comment/delete/${id}`, { articleId }, {
+        headers: {
+            authorization: `Bearer ${token}`
+        }
+    })
+        .then(res => res.data)
+        .catch(err => err.message)
+})
+
 
 // Slice
 const articleSlice = createSlice({
@@ -194,11 +206,6 @@ const articleSlice = createSlice({
         })
 
         // Like 
-
-        builder.addCase(likeArticle.pending, state => {
-            state.loading = true
-        })
-
         builder.addCase(likeArticle.fulfilled, (state, action) => {
             state.loading = false
             const id = action.payload._id
@@ -219,10 +226,6 @@ const articleSlice = createSlice({
         })
 
         // unlike
-
-        builder.addCase(unlikeArticle.pending, state => {
-            state.loading = true
-        })
 
         builder.addCase(unlikeArticle.fulfilled, (state, action) => {
             state.loading = false
@@ -245,10 +248,6 @@ const articleSlice = createSlice({
 
         // Comment article
 
-        builder.addCase(saveComment.pending, state => {
-            state.loading = true
-        })
-
         builder.addCase(saveComment.fulfilled, (state, action) => {
             state.loading = false
             state.data.map(a => {
@@ -262,6 +261,27 @@ const articleSlice = createSlice({
         })
 
         builder.addCase(saveComment.rejected, (state, action) => {
+            state.loading = false
+            state.sucess = false
+            state.error = action.payload
+        })
+
+        // Delete comment
+
+        builder.addCase(deleteComment.fulfilled, (state, action) => {
+            state.loading = false
+            state.sucess = true
+
+            state.data.map(a => {
+                if (a._id === action.payload._id) {
+                    return a.comments = action.payload.comments
+                }
+
+                return a
+            })
+        })
+
+        builder.addCase(deleteComment.rejected, (state, action) => {
             state.loading = false
             state.sucess = false
             state.error = action.payload

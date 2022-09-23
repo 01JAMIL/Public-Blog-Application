@@ -10,7 +10,7 @@ import Blog from '../components/Blog'
 const HomePage = () => {
 
   const { token } = useSelector(state => state.auth)
-  const { data, loading, } = useSelector(state => state.article)
+  const { data, loading } = useSelector(state => state.article)
 
   const dispatch = useDispatch()
 
@@ -19,7 +19,7 @@ const HomePage = () => {
     dispatch(getArticles(token))
   }, [dispatch, token])
 
-  if (loading && !data ) {
+  if (loading) {
     return <Loading />
   }
 

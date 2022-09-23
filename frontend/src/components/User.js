@@ -40,7 +40,7 @@ const User = ({ userId }) => {
             {user && <div className="user-container">
                 <div className="user-avatar">
                     <img src={user.profilePic ? `../../../uploads/${user.profilePic}` : avatar} alt='avatar' />
-                    {userId === auth.user._id && <>
+                    {(auth && auth.user && userId === auth.user._id) && <>
                         <span>
                             <FontAwesomeIcon icon={faCircle} />
                         </span>
