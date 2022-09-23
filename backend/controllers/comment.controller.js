@@ -68,16 +68,20 @@ const deleteComment = asyncHandler(async (req, res) => {
     try {
 
         await Comment.findOneAndDelete({ _id: req.params.id }).then(async () => {
+            console.log(req.body.articleId)
             await Article.findOne({ _id: req.body.articleId }).then(async (article) => {
-                const listComments = article.comments.filter(comment => comment === req.params.id)
+
+                const index = article.comments.indexOf(req.params.id)
+                article.comments.splice(index, 1)
+
                 await Article.findOneAndUpdate(
                     { _id: req.body.articleId },
                     {
-                        comments: listComments
+                        comments: article.comments
                     },
                     { new: true }
-                ).then(article => {
-                    res.status(200).json('Comment deleted')
+                ).then(a => {
+                    res.status(200).json(a)
                 })
             })
         }
@@ -102,8 +106,8 @@ const likeComment = asyncHandler(async (req, res) => {
                     likes: listLikes
                 },
                 { new: true }
-            ).then((comment) => {
-                res.status(200).send('You liked this comment')
+            ).then((c) => {
+                res.status(200).send(c.likes)
             })
         })
     } catch (error) {
@@ -114,18 +118,18 @@ const likeComment = asyncHandler(async (req, res) => {
 const unlikeComment = asyncHandler(async (req, res) => {
     try {
         await Comment.findOne({ _id: req.params.id }).then(async (comment) => {
-            const listLikes = comment.likes
 
-            const newList = listLikes.filter(like => like === req.body.userId)
+            const index = comment.likes.indexOf(req.body.userId)
+            comment.likes.splice(index, 1)
 
             await Comment.findOneAndUpdate(
                 { _id: req.params.id },
                 {
-                    likes: newList
+                    likes: comment.likes
                 },
                 { new: true }
-            ).then((comment) => {
-                res.status(200).send('You unliked this comment')
+            ).then((c) => {
+                res.status(200).send(c.likes)
             })
         })
     } catch (error) {

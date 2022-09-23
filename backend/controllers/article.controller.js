@@ -129,6 +129,7 @@ const unlikeArticle = asyncHandler(async (req, res) => {
 
             const index = article.likes.indexOf(req.body.userId)
             article.likes.splice(index, 1)
+            
             await Article.findOneAndUpdate(
                 { _id: req.params.id },
                 {
