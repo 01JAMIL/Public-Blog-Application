@@ -8,8 +8,9 @@ import { faEllipsisH, faTrashCan, faPenToSquare, faThumbsUp } from '@fortawesome
 import { deleteComment } from '../features/article/articleSlice'
 const CommentView = ({ id, blogOwnerId, articleId }) => {
 
-    const [loading, setLoading] = useState(false)
     const [comment, setComment] = useState({})
+    const [updateMode, setUpdateMode] = useState(false)
+    const [content, setContent] = useState('')
     const [open, setOpen] = useState(false)
     const { token, user } = useSelector(state => state.auth)
     const [changed, setChanged] = useState(false)
@@ -23,14 +24,13 @@ const CommentView = ({ id, blogOwnerId, articleId }) => {
 
 
     const getComment = async () => {
-        setLoading(true)
         await axios.get(`/api/comment/${id}`, {
             headers: {
                 authorization: `Bearer ${token}`
             }
         }).then(response => {
-            setLoading(false)
             setComment(response.data)
+            setContent(response.data.content)
         }).catch(err => console.error(err))
     }
 
@@ -77,6 +77,21 @@ const CommentView = ({ id, blogOwnerId, articleId }) => {
         dispatch(deleteComment(data))
     }
 
+
+    const handleUpdate = async () => {
+        await axios.put(`/api/comment/${id}`, { content }, {
+            headers: {
+                authorization: `Bearer ${token}`
+            }
+        }).then(response => {
+            setComment(response.data)
+            setContent(response.data.content)
+            setUpdateMode(false)
+        }).catch(err => {
+            console.log(err.message)
+        })
+    }
+
     return (
         <>
             {comment && <div className="comment-view">
@@ -85,28 +100,70 @@ const CommentView = ({ id, blogOwnerId, articleId }) => {
                 />
 
                 <div className="comment-body">
+
                     <div className="comment-date">
                         {comment.date && comment.date.substring(0, 10)}
                     </div>
+
                     <div className="comment-content">
-                        {comment.content && comment.content}
+                        {(comment.content && !updateMode) && comment.content}
+                        {updateMode &&
+                            <>
+                                <textarea
+                                    value={content}
+                                    onChange={(e) => setContent(e.target.value)}
+                                    className="comment-content-update"
+                                >
+                                </textarea>
+                                {content.length > 0 && <button className="update-btn" onClick={handleUpdate}>
+                                    Update
+                                </button>}
+                                <button className="cancel-btn" onClick={() => setUpdateMode(false)}>
+                                    Cancel
+                                </button>
+                            </>
+                        }
                     </div>
-                    {(user._id === comment.userId || user._id === blogOwnerId) && <div className="comment-button">
-                        <div id="btn" onMouseOver={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-                            <FontAwesomeIcon icon={faEllipsisH} />
+
+                    {(user._id === comment.userId || user._id === blogOwnerId) &&
+
+                        <div className="comment-button">
+                            <div id="btn" onMouseOver={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+                                <FontAwesomeIcon icon={faEllipsisH} />
+                            </div>
                         </div>
-                    </div>}
-                    {open && <div className="comment-actions" onMouseOver={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-                        {(user._id === comment.userId || user._id === blogOwnerId) &&
-                            <div onClick={handleDelete}>
-                                <FontAwesomeIcon icon={faTrashCan} style={{ marginRight: '3px' }} />  Delete comment
-                            </div>}
-                        {(user._id === comment.userId) && <div><FontAwesomeIcon icon={faPenToSquare} style={{ marginRight: '3px' }} /> Update comment</div>}
-                    </div>}
+
+                    }
+
+                    {open &&
+
+                        <div className="comment-actions" onMouseOver={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+
+                            {(user._id === comment.userId || user._id === blogOwnerId) &&
+                                <div onClick={handleDelete}>
+                                    <FontAwesomeIcon icon={faTrashCan} style={{ marginRight: '3px' }} />  Delete comment
+                                </div>}
+                            {(user._id === comment.userId) &&
+                                <div onClick={() => setUpdateMode(true)}>
+                                    <FontAwesomeIcon icon={faPenToSquare} style={{ marginRight: '3px' }} /> Update comment
+                                </div>}
+
+                        </div>
+                    }
                 </div>
-                <div className="comment-footer">
+
+
+                {!updateMode && <div className="comment-footer">
                     <span
-                        style={{ marginRight: '5px', cursor: 'pointer' }}
+                        style={!liked ? {
+                            marginRight: '5px',
+                            cursor: 'pointer',
+                        } : {
+                            marginRight: '5px',
+                            cursor: 'pointer',
+                            color: '#0066ff', 
+                            fontWeight: 'bold'
+                        }}
                         onClick={liked ? unlike : like}
                     >Like</span>
                     {comment.likes && (
@@ -118,7 +175,7 @@ const CommentView = ({ id, blogOwnerId, articleId }) => {
                             <span> {comment.likes.length} </span>
                         </>
                     )}
-                </div>
+                </div>}
 
             </div>}
 

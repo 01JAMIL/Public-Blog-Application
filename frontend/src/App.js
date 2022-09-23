@@ -1,13 +1,22 @@
 import './styles/form.css'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import SigninPage from './pages/SigninPage'
 import SignupPage from './pages/SignupPage'
 import HomePage from './pages/HomePage'
-import { Routes, Route, Navigate } from 'react-router-dom'
-
+import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
+import { isExpired } from 'react-jwt'
+import { logout, resetState } from './features/auth/userSlice'
 function App() {
 
   const { token } = useSelector(state => state.auth)
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  if (isExpired(token)) {
+    dispatch(logout())
+    dispatch(resetState())
+    navigate('/', { replace: true })
+  }
 
   return (
     <>

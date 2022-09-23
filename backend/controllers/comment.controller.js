@@ -51,7 +51,7 @@ const updateComment = asyncHandler(async (req, res) => {
 
         await Comment.findOneAndUpdate(
             { _id: req.params.id },
-            req.body,
+            { content: req.body.content },
             { new: true }
         ).then((comment) => {
             res.status(200).json(comment)

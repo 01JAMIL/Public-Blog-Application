@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+
 .blog {
     width: 60%;
     transition: ease-in-out 0.2s;
@@ -203,7 +205,53 @@
 }
 
 .comment-view .comment-body .comment-content {
+    padding: 5px;
     text-align: justify;
+}
+
+
+.comment-view .comment-body .comment-content .comment-content-update {
+    background-color: inherit;
+    min-width: 100%;
+    max-width: 100%;
+    width: 100%;
+    min-height: 50px;
+    max-height: 150px;
+    height: 150px;
+    border: 1px solid rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.comment-view .comment-body .comment-content .update-btn {
+    border: none;
+    background-color: black ;
+    color: white;
+    padding: 8px 5px 8px 5px;
+    border-radius: 8px ;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.comment-view .comment-body .comment-content .cancel-btn {
+    border: none;
+    background-color: rgba(0, 0, 0, 0.19);
+    padding: 8px 5px 8px 5px;
+    border-radius: 8px ;
+    cursor: pointer;
+}
+
+.comment-view .comment-body .comment-content .cancel-btn:hover {
+    background-color: rgba(0, 0, 0, 0.10)
+}
+
+.comment-view .comment-body .comment-content .update-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8) ;
+}
+
+.comment-view .comment-body .comment-content .comment-content-update:focus {
+    outline: none
 }
 
 .comment-view .comment-body .comment-button {
