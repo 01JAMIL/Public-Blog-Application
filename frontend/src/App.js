@@ -6,17 +6,20 @@ import HomePage from './pages/HomePage'
 import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { isExpired } from 'react-jwt'
 import { logout, resetState } from './features/auth/userSlice'
+import { useEffect } from 'react'
 function App() {
 
   const { token } = useSelector(state => state.auth)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
-  if (isExpired(token)) {
-    dispatch(logout())
-    dispatch(resetState())
-    navigate('/', { replace: true })
-  }
+  useEffect(() => {
+    if (token && isExpired(token)) {
+      dispatch(logout())
+      dispatch(resetState())
+      navigate('/', { replace: true })
+    }
+  }, [])
 
   return (
     <>
