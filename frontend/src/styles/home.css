@@ -1,28 +1,169 @@
 .home-container {
     padding: 0;
-    background-color: rgba(0,0,0,0.05);
+    background-color: rgba(0, 0, 0, 0.05);
     display: flex;
     justify-content: center;
     min-height: 100vh;
 }
 
 .home-container .home-container-body {
-    margin-top: 100px ;
     width: 70%;
-    min-height: 90vh ;
-   /*  background-color: white; */
+    min-height: 90vh;
     transition: ease-in-out 0.2s;
 }
 
+.home-container .home-container-body .new-post {
+    display: flex;
+    justify-content: center;
+    transition: ease-in-out 0.2s;
+    margin-top: 70px;
+    margin-bottom: 20px;
+}
+
+.home-container .home-container-body .new-post .create-post-container {
+    width: 60%;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+}
+
+.home-container .home-container-body .new-post .create-post-header {
+    display: flex;
+    padding: 15px 15px 15px 15px;
+}
+
+.home-container .home-container-body .new-post .create-post-header .create-post-button {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 0 0 0 5px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 32px;
+    padding: 0 0 0 10px;
+    cursor: pointer;
+}
+
+.home-container .home-container-body .new-post .create-post-header .create-post-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+
+.home-container .home-container-body .new-post .create-post-body h3 {
+    padding: 0px 15px 10px 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.19);
+}
+
+.home-container .home-container-body .new-post .create-post-body .create-post-form {
+    padding: 15px;
+}
+
+
+.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px
+}
+
+.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group label {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group input[type="text"] {
+    height: 30px;
+    border: 2px solid rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group input[type="text"]:focus {
+    outline: none
+}
+
+.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group textarea {
+    border: 2px solid rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+    max-width: 98%;
+    min-width: 98%;
+    width: 100%;
+    max-height: 200px;
+    min-height: 200px;
+    font-size: 16px;
+}
+
+.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group textarea:focus {
+    outline: none
+}
+
+
+.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group input[type="file"] {
+    display: none;
+}
+
+
+.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group .image {
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+    color: white;
+    padding: 0 0 0 10px;
+}
+
+
+.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group select {
+    height: 36px;
+    border: 2px solid rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group select:focus {
+    outline: none
+}
+
+.home-container .home-container-body .new-post .create-post-body .create-post-form button {
+    border: none;
+    padding: 10px;
+    background-color: black;
+    border-radius: 8px;
+    cursor: pointer;
+    color: #fff ;
+}
 
 @media screen and (max-width: 720px) {
-     .home-container .home-container-body {
+    .home-container .home-container-body {
         width: 80%;
     }
+
 }
 
 @media screen and (max-width: 520px) {
     .home-container .home-container-body {
+        width: 95%;
+    }
+}
+
+
+@media screen and (max-width: 1080px) {
+    .home-container .home-container-body .create-post-container {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .home-container .home-container-body .create-post-container {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .home-container .home-container-body .create-post-container {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .home-container .home-container-body .create-post-container {
         width: 95%;
     }
 }

@@ -12,12 +12,15 @@ import UserAvatar from './UserAvatar'
 import CommentView from './CommentView'
 import { saveComment } from '../features/article/articleSlice'
 import Loading from '../components/Loading'
+import { getPostingTime } from '../utils/getPosingTime'
 
 const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comments }) => {
 
     const { token, user } = useSelector(state => state.auth)
     const dispatch = useDispatch()
     const { loading } = useSelector(state => state.article)
+
+    time = getPostingTime(time)
 
     let liked = likes.indexOf(user && user._id) !== -1
 
@@ -65,7 +68,7 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
             />
             <div className="blog-header">
                 <span className="blog-title">{title}</span>
-                <span className="blog-time">Posted in <b>{time.substring(0, 10)}</b> at <b>{time.substring(11, 16)}</b></span>
+                <span className="blog-time">{time}</span>
                 <Category
                     id={categoryId}
                 />
