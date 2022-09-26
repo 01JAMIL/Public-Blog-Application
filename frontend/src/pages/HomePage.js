@@ -4,29 +4,38 @@ import NavBar from '../components/NavBar'
 import '../styles/home.css'
 import Loading from '../components/Loading'
 
-import { getArticles } from '../features/article/articleSlice'
+import { getArticles, createArticle } from '../features/article/articleSlice'
+import { getCategorys } from '../features/category/categorySlice'
 import Blog from '../components/Blog'
 import UserAvatar from '../components/UserAvatar'
 
 const HomePage = () => {
 
-  const { token } = useSelector(state => state.auth)
+  const { token, user } = useSelector(state => state.auth)
+  const { categorys } = useSelector(state => state.category)
   const { data, loading } = useSelector(state => state.article)
   const [show, setShow] = useState(false)
   const [loaded, setLoaded] = useState(false)
-  const [form, setForm] = useState({})
+  const [form, setForm] = useState(new FormData())
+  const [img, setImg] = useState('')
 
   const dispatch = useDispatch()
 
 
   useEffect(() => {
     dispatch(getArticles(token))
+    dispatch(getCategorys(token))
   }, [dispatch, token])
 
 
   const submitHandler = (e) => {
     e.preventDefault()
-    console.log(form)
+
+    form.userId = user._id
+
+    dispatch(createArticle({ article: form, token }))
+    setShow(false)
+
   }
 
   const fileChangeHandler = (e) => {
@@ -34,8 +43,9 @@ const HomePage = () => {
     const img = document.getElementById('img')
     setForm({
       ...form,
-      [e.target.name]: URL.createObjectURL(e.target.files[0])
+      [e.target.name]: e.target.files[0]
     })
+    setImg(URL.createObjectURL(e.target.files[0]))
     img.src = URL.createObjectURL(e.target.files[0])
   }
 
@@ -96,16 +106,19 @@ const HomePage = () => {
                       onChange={fileChangeHandler}
                     />
                     <div style={!loaded ? { display: 'none' } : { display: 'flex', justifyContent: 'center', padding: '10px' }}>
-                      <img src={form.image} alt="img" id="img" width="100%" style={{ borderRadius: '8px' }} />
+                      <img src={img} alt="img" id="img" width="100%" style={{ borderRadius: '8px' }} />
                     </div>
                   </div>
 
-                  <div className="form-group">
+                  {categorys && <div className="form-group">
                     <label htmlFor="category">Category</label>
-                    <select name="category" id="category" defaultValue={'null'} onChange={changeHandler}>
+                    <select name="categoryId" id="category" defaultValue={'null'} onChange={changeHandler}>
                       <option value="null" disabled>Choose category</option>
+                      {categorys.map(category => (
+                        <option key={category._id} value={category._id} >{category.name}</option>
+                      ))}
                     </select>
-                  </div>
+                  </div>}
 
                   <div>
                     <button>

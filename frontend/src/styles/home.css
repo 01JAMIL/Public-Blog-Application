@@ -145,25 +145,25 @@
 
 
 @media screen and (max-width: 1080px) {
-    .home-container .home-container-body .create-post-container {
+    .home-container .home-container-body .new-post .create-post-container {
         width: 70%;
     }
 }
 
 @media screen and (max-width: 800px) {
-    .home-container .home-container-body .create-post-container {
+    .home-container .home-container-body .new-post .create-post-container {
         width: 80%;
     }
 }
 
 @media screen and (max-width: 720px) {
-    .home-container .home-container-body .create-post-container {
+    .home-container .home-container-body .new-post .create-post-container {
         width: 90%;
     }
 }
 
 @media screen and (max-width: 520px) {
-    .home-container .home-container-body .create-post-container {
+    .home-container .home-container-body .new-post .create-post-container {
         width: 95%;
     }
 }

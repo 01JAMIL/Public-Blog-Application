@@ -24,9 +24,9 @@ export const getArticles = createAsyncThunk('article/all', async (token) => {
 // Create new article
 export const createArticle = createAsyncThunk('article/create', async (data, { rejectWithValue }) => {
     const { article, token } = data
-
     return await axios.post('/api/article/create', article, {
         headers: {
+            'Content-Type': 'multipart/form-data',
             authorization: `Bearer ${token}`
         }
     }).then((response) => response.data)
@@ -156,7 +156,7 @@ const articleSlice = createSlice({
 
         builder.addCase(createArticle.fulfilled, (state, action) => {
             state.loading = false
-            state.data.push(action.payload)
+            state.data.unshift(action.payload)
             state.error = null
             state.sucess = true
         })
