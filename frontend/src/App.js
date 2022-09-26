@@ -18,6 +18,7 @@ function App() {
       dispatch(logout())
       dispatch(resetState())
       navigate('/', { replace: true })
+      window.location.reload()
     }
   }, [])
 
