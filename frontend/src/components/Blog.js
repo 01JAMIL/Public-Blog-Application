@@ -5,17 +5,18 @@ import '../styles/blog.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { likeArticle, unlikeArticle } from '../features/article/articleSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp as likedIcon } from '@fortawesome/free-solid-svg-icons'
+import { faThumbsUp as likedIcon, faEllipsisH, faTrashCan, faPenToSquare } from '@fortawesome/free-solid-svg-icons'
 import { faThumbsUp as unlikedIcon, faComment } from '@fortawesome/free-regular-svg-icons'
 import { Link } from 'react-router-dom'
 import UserAvatar from './UserAvatar'
 import CommentView from './CommentView'
-import { saveComment } from '../features/article/articleSlice'
+import { saveComment, deleteArticle } from '../features/article/articleSlice'
 import Loading from '../components/Loading'
 import { getPostingTime } from '../utils/getPosingTime'
 
 const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comments }) => {
 
+    const [open, setOpen] = useState(false)
     const { token, user } = useSelector(state => state.auth)
     const dispatch = useDispatch()
     const { loading } = useSelector(state => state.article)
@@ -56,6 +57,10 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
         setComment('')
     }
 
+    const deleteHandler = () => {
+        dispatch(deleteArticle({ token, id }))
+    }
+
 
     if (loading) {
         return <Loading />
@@ -63,6 +68,17 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
 
     return (
         <div className="blog">
+            {(user && user._id === userId) && <div className="options-btn" onMouseOver={() => setOpen(true)} onMouseLeave={() => setOpen(false)} >
+                <FontAwesomeIcon icon={faEllipsisH} />
+            </div>}
+            {open && <div className="options-view" onMouseOver={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+                <div onClick={deleteHandler} >
+                    <FontAwesomeIcon icon={faTrashCan} style={{ marginRight: '3px' }} /> Delete
+                </div>
+                <div>
+                    <FontAwesomeIcon icon={faPenToSquare} style={{ marginRight: '3px' }} /> Update
+                </div>
+            </div>}
             <User
                 userId={userId}
             />

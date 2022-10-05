@@ -8,6 +8,50 @@
     /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
     border-radius: 8px;
     margin-bottom: 50px;
+    position: relative;
+}
+
+.blog .options-btn {
+    font-size: 18px;
+    padding: 0 5px 0 5px;
+    border-radius: 5px;
+    position: absolute;
+    right: 15px;
+    top: 20px;
+    cursor: pointer;
+
+}
+
+.blog .options-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1)
+}
+
+.blog .options-view {
+    background-color: white;
+    box-shadow: 0 0px 6px 0px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 8px 0px 8px 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    min-width: 180px;
+    position: absolute;
+    top: 48px;
+    right: 15px;
+    z-index: 1;
+    animation-duration: 100ms;
+}
+
+.blog .options-view div {
+    padding: 10px 0 10px 5px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-bottom: 5px;
+    border-radius: 8px;
+    animation-name: animate-1;
+    animation-duration: 1s;
+}
+
+.blog .options-view div:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .blog .blog-header {
@@ -226,10 +270,10 @@
 
 .comment-view .comment-body .comment-content .update-btn {
     border: none;
-    background-color: black ;
+    background-color: black;
     color: white;
     padding: 8px 5px 8px 5px;
-    border-radius: 8px ;
+    border-radius: 8px;
     cursor: pointer;
     margin-right: 5px;
 }
@@ -238,7 +282,7 @@
     border: none;
     background-color: rgba(0, 0, 0, 0.19);
     padding: 8px 5px 8px 5px;
-    border-radius: 8px ;
+    border-radius: 8px;
     cursor: pointer;
 }
 
@@ -247,7 +291,7 @@
 }
 
 .comment-view .comment-body .comment-content .update-btn:hover {
-    background-color: rgba(0, 0, 0, 0.8) ;
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .comment-view .comment-body .comment-content .comment-content-update:focus {

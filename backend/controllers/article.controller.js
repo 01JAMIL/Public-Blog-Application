@@ -87,7 +87,7 @@ const deleteArticle = asyncHandler(async (req, res) => {
     try {
 
         await Article.findOneAndDelete({ _id: req.params.id }).then(() => {
-            res.status(200).json('This article has been deleted')
+            res.status(200).json({ id: req.params.id })
         }).catch(err => {
             res.status(400).json(err)
         })
@@ -129,7 +129,7 @@ const unlikeArticle = asyncHandler(async (req, res) => {
 
             const index = article.likes.indexOf(req.body.userId)
             article.likes.splice(index, 1)
-            
+
             await Article.findOneAndUpdate(
                 { _id: req.params.id },
                 {

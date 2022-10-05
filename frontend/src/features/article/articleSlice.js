@@ -189,13 +189,10 @@ const articleSlice = createSlice({
         })
 
         // Delete article
-        builder.addCase(deleteArticle.pending, state => {
-            state.loading = true
-        })
 
         builder.addCase(deleteArticle.fulfilled, (state, action) => {
             state.loading = false
-            state.error = null
+            state.data = state.data.filter(a => a._id !== action.payload.id)
             state.sucess = true
         })
 
