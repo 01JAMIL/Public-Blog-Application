@@ -18,7 +18,7 @@ const ArticleSchema = new mongoose.Schema({
 
     time: {
         type: Date,
-        default: new Date().getTime()
+        default: Date.now()
     },
 
     categoryId: {

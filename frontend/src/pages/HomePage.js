@@ -32,6 +32,8 @@ const HomePage = () => {
     e.preventDefault()
 
     form.userId = user._id
+    form.time = Date.now()
+    
 
     dispatch(createArticle({ article: form, token }))
     setShow(false)

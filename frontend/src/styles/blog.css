@@ -327,7 +327,6 @@
     top: 30px;
     right: 1px;
     z-index: 1;
-    animation-name: animate;
     animation-duration: 100ms;
 }
 
@@ -335,7 +334,6 @@
     padding: 10px 0 10px 5px;
     cursor: pointer;
     font-size: 14px;
-    margin-bottom: 5px;
     border-radius: 8px;
     animation-name: animate-1;
     animation-duration: 1s;

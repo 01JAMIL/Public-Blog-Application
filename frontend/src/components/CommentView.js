@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import User from './User'
 import '../styles/blog.css'
@@ -17,8 +17,22 @@ const CommentView = ({ id, blogOwnerId, articleId }) => {
     const liked = (user && comment && comment.likes) && comment.likes.indexOf(user._id) !== -1
     const dispatch = useDispatch()
 
+    const listRef = useRef()
+
     useEffect(() => {
         getComment()
+
+        const closeHandler = e => {
+            if (!listRef.current.contains(e.target)) {
+                setOpen(false)
+            }
+        }
+
+        document.addEventListener('mousedown', closeHandler)
+
+        return () => {
+            document.removeEventListener('mousedown', closeHandler)
+        }
     }, [changed])
 
 
@@ -93,7 +107,7 @@ const CommentView = ({ id, blogOwnerId, articleId }) => {
     }
 
     return (
-        <>
+        <div>
             {comment && <div className="comment-view">
                 <User
                     userId={comment.userId}
@@ -125,31 +139,33 @@ const CommentView = ({ id, blogOwnerId, articleId }) => {
                         }
                     </div>
 
-                    {(user._id === comment.userId || user._id === blogOwnerId) &&
+                    <div ref={listRef}>
+                        {(user._id === comment.userId || user._id === blogOwnerId) &&
 
-                        <div className="comment-button">
-                            <div id="btn" onMouseOver={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
-                                <FontAwesomeIcon icon={faEllipsisH} />
+                            <div className="comment-button">
+                                <div id="btn" onClick={() => setOpen(!open)}>
+                                    <FontAwesomeIcon icon={faEllipsisH} />
+                                </div>
                             </div>
-                        </div>
 
-                    }
+                        }
 
-                    {open &&
+                        {open &&
 
-                        <div className="comment-actions" onMouseOver={() => setOpen(true)} onMouseLeave={() => setOpen(false)}>
+                            <div className="comment-actions">
 
-                            {(user._id === comment.userId || user._id === blogOwnerId) &&
-                                <div onClick={handleDelete}>
-                                    <FontAwesomeIcon icon={faTrashCan} style={{ marginRight: '3px' }} />  Delete comment
-                                </div>}
-                            {(user._id === comment.userId) &&
-                                <div onClick={() => setUpdateMode(true)}>
-                                    <FontAwesomeIcon icon={faPenToSquare} style={{ marginRight: '3px' }} /> Update comment
-                                </div>}
+                                {(user._id === comment.userId || user._id === blogOwnerId) &&
+                                    <div onClick={handleDelete}>
+                                        <FontAwesomeIcon icon={faTrashCan} style={{ marginRight: '3px' }} />  Delete comment
+                                    </div>}
+                                {(user._id === comment.userId) &&
+                                    <div onClick={() => setUpdateMode(true)}>
+                                        <FontAwesomeIcon icon={faPenToSquare} style={{ marginRight: '3px' }} /> Update comment
+                                    </div>}
 
-                        </div>
-                    }
+                            </div>
+                        }
+                    </div>
                 </div>
 
 
@@ -161,7 +177,7 @@ const CommentView = ({ id, blogOwnerId, articleId }) => {
                         } : {
                             marginRight: '5px',
                             cursor: 'pointer',
-                            color: '#0066ff', 
+                            color: '#0066ff',
                             fontWeight: 'bold'
                         }}
                         onClick={liked ? unlike : like}
@@ -179,7 +195,7 @@ const CommentView = ({ id, blogOwnerId, articleId }) => {
 
             </div>}
 
-        </>
+        </div>
     )
 }
 
