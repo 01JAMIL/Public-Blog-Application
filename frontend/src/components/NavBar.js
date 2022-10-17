@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+import logo  from '../assets/blog-bg.png'
 
 import '../styles/navbar.css'
 
@@ -25,7 +26,9 @@ const NavBar = () => {
   return (
     <div className='nav'>
       <div className='navbar'>
-        <div className='navbar-brand'>LOGO</div>
+        <div className='navbar-brand'>
+          <img src={logo} width="100px"/> 
+        </div>
 
         <ul className='navbar-list-items'>
           <li className='navbar-list-item'> <Link to="/" > Home </Link> </li>
