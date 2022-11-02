@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Input from '../components/Input'
 import Loading from '../components/Loading'
 import { signup, resetState } from '../features/auth/userSlice'
@@ -137,6 +137,10 @@ const SignupPage = () => {
 
             <div className="form-row">
               <button type="submit">Signup</button>
+            </div>
+
+            <div className="link">
+              You already have an account ? <Link to="/signin">Signin</Link>
             </div>
 
           </form>

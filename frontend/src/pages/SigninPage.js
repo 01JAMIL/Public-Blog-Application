@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ToastContainer, toast } from 'react-toastify'
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -98,6 +98,9 @@ const SigninPage = () => {
               <button type="submit">Signin</button>
             </div>
 
+            <div className="link">
+              You dont have account ? <Link to="/signup">Signup</Link>
+            </div>
           </form>
 
         </div>

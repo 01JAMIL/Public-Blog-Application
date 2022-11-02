@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react'
-import Category from './Category'
 import User from './User'
 import '../styles/blog.css'
 import { useDispatch, useSelector } from 'react-redux'
@@ -93,10 +92,10 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
                 {open && <div className="options-view">
                     <div onClick={deleteHandler} >
                         <FontAwesomeIcon icon={faTrashCan} style={{ marginRight: '3px' }} /> Delete
-                    </div>
+                    </div>{/* 
                     <div>
                         <FontAwesomeIcon icon={faPenToSquare} style={{ marginRight: '3px' }} /> Update
-                    </div>
+                    </div> */}
                 </div>}
             </div>
             <User
@@ -107,9 +106,9 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
                 <span className="blog-time">
                     <Moment fromNow date={new Date(time)} ></Moment>
                 </span>
-                <Category
+                {/* <Category
                     id={categoryId}
-                />
+                /> */}
             </div>
 
             <div className="blog-content">
