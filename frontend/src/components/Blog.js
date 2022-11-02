@@ -138,7 +138,7 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
 
                     {
                         comments.length !== 0 &&
-                        <div className="comments-status">
+                        <div className="comments-status" onClick={openCommentBox}>
                             {comments.length} commnets
                         </div>
                     }

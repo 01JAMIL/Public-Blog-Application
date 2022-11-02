@@ -101,6 +101,10 @@
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.blog .blog-status .comments-status {
+    cursor: pointer;
+}
+
 .blog .blog-status .likes-status a {
     text-decoration: none;
     color: #0066ff;
