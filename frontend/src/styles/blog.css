@@ -28,14 +28,14 @@
 
 .blog .options-view {
     background-color: white;
-    box-shadow: 0 0px 6px 0px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
+    /* box-shadow: 0 0px 6px 0px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19); */
     border-radius: 8px 0px 8px 8px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.19);
     padding: 10px;
     min-width: 100px;
     position: absolute;
     top: 48px;
-    right: 15px;
+    right: 0px;
     z-index: 1;
     animation-duration: 100ms;
 }
@@ -321,9 +321,9 @@
 
 .comment-view .comment-body .comment-actions {
     background-color: white;
-    box-shadow: 0 0px 6px 0px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
+    /* box-shadow: 0 0px 6px 0px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19); */
     border-radius: 8px 0px 8px 8px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.19);
     padding: 10px;
     min-width: 100px;
     position: absolute;

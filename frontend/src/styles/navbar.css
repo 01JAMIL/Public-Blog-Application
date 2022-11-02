@@ -16,7 +16,6 @@
     display: flex;
     align-items: center;
     width: 70%;
-    padding: 10px;
     transition: ease-in-out 0.2s;
     z-index: 1;
 }
@@ -36,17 +35,20 @@
 
 .navbar .navbar-list-items .navbar-list-item {
     margin-right: 20px;
+    cursor: pointer;
+    text-align: center;
+    padding: 3px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0);
 }
 
 .navbar .navbar-list-items .navbar-list-item a {
     text-decoration: none;
-    color: black;
-    padding: 8px 4px 8px 4px;
+    color: rgba(0, 0, 0, 0.6);
 }
 
-.navbar .navbar-list-items .navbar-list-item a:hover {
-    border-radius: 3px;
-    background-color: rgba(0, 0, 0, 0.15);
+.navbar .navbar-list-items .navbar-list-item:hover {
+    border-bottom: 1px solid black;
+
 }
 
 .navbar .navbar-list-items .navbar-list-item span {
@@ -63,17 +65,30 @@
 
 .options-view {
     background-color: white;
-    box-shadow: 0 0px 6px 0px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
+    margin-right: 10px;
+    /* box-shadow: 0 0px 6px 0px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19); */
     border-radius: 8px 0px 8px 8px;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 0, 0, 0.19);
     padding: 10px;
     min-width: 100px;
     position: absolute;
-    top: 48px;
+    top: 55px;
     right: 15px;
     z-index: 1;
     animation-duration: 100ms;
 }
+
+/* .options-view:before,
+.options-view:after {
+    content: '';
+    position: absolute;
+    bottom: 100%;
+    right: 10px;
+    border: 11px solid transparent;
+    border-bottom-color: white;
+}
+ */
+
 
 .options-view div a {
     text-decoration: none;
