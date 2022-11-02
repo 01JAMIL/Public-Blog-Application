@@ -26,6 +26,8 @@
 }
 
 .navbar .navbar-list-items {
+    display: flex;
+    align-items: center;
     margin: 0 0 0 auto;
     list-style: none;
     display: flex;
@@ -33,7 +35,7 @@
 }
 
 .navbar .navbar-list-items .navbar-list-item {
-    margin-left: 10px;
+    margin-right: 20px;
 }
 
 .navbar .navbar-list-items .navbar-list-item a {
@@ -50,13 +52,44 @@
 .navbar .navbar-list-items .navbar-list-item span {
     padding: 8px 4px 8px 4px;
     color: white;
-    background-color:black;
+    background-color: black;
     border-radius: 3px;
     cursor: pointer;
 }
 
 .navbar .navbar-list-items .navbar-list-item span:hover {
-    background-color:rgba(0, 0, 0, 0.774);
+    background-color: rgba(0, 0, 0, 0.774);
+}
+
+.options-view {
+    background-color: white;
+    box-shadow: 0 0px 6px 0px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 8px 0px 8px 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    min-width: 100px;
+    position: absolute;
+    top: 48px;
+    right: 15px;
+    z-index: 1;
+    animation-duration: 100ms;
+}
+
+.options-view div a {
+    text-decoration: none;
+}
+
+.options-view div {
+    padding: 10px 0 10px 5px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 8px;
+    animation-name: animate-1;
+    animation-duration: 1s;
+}
+
+.options-view div:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 @media screen and (max-width: 720px) {
