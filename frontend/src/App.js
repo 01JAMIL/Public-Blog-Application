@@ -7,6 +7,7 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { isExpired } from 'react-jwt'
 import { logout, resetState } from './features/auth/userSlice'
 import { useEffect } from 'react'
+import Profile from './components/Profile'
 function App() {
 
   const { token } = useSelector(state => state.auth)
@@ -26,6 +27,7 @@ function App() {
     <>
       <Routes>
         <Route path='/' element={token ? <HomePage /> : <Navigate to='/signin' />} />
+        <Route path='/profile' element={token ? <Profile /> : <Navigate to='/signin' />} />
         <Route path='/signup' element={!token ? <SignupPage /> : <Navigate to='/' />} />
         <Route path='/signin' element={!token ? <SigninPage /> : <Navigate to='/' />} />
       </Routes>

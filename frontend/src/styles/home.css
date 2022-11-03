@@ -9,13 +9,12 @@
 .home-container .home-container-body {
     width: 70%;
     min-height: 90vh;
-    transition: ease-in-out 0.2s;
+    transition: ease-in-out 0.2s; 
 }
 
 .home-container .home-container-body .new-post {
     display: flex;
     justify-content: center;
-    transition: ease-in-out 0.2s;
     margin-top: 70px;
     margin-bottom: 20px;
 }

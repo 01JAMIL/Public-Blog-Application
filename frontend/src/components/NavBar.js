@@ -74,7 +74,7 @@ const NavBar = () => {
         {open && <div className='options-view' >
           <div>
             <Link to="/profile" >
-              <b style={{ color: '#4BB543' }}>{user && user.userName}</b>
+              <b style={{ color: '#4BB543' }}> Profile </b>
             </Link>
           </div>
 

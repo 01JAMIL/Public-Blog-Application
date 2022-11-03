@@ -6,7 +6,8 @@ const Loading = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        fontSize: '3rem'
+        fontSize: '3rem',
+        height: '100vh'
     }
 
     return (
