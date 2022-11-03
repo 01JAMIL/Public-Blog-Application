@@ -48,7 +48,10 @@
 
 .navbar .navbar-list-items .navbar-list-item:hover {
     border-bottom: 1px solid black;
+}
 
+.navbar .navbar-list-items .navbar-list-item a:hover {
+    color: black;
 }
 
 .navbar .navbar-list-items .navbar-list-item span {
@@ -90,7 +93,7 @@
  */
 
 
-.options-view div a {
+.options-view a {
     text-decoration: none;
 }
 

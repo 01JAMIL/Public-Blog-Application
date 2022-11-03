@@ -55,28 +55,29 @@ const NavBar = () => {
           <li className='navbar-list-item'>
             <Link to="/" >
               <FontAwesomeIcon icon={faHome} style={{ fontSize: '18px' }} />
+
+              <div style={{ fontSize: '14px' }}>
+                Home
+              </div>
             </Link>
-            <div style={{ fontSize: '14px' }}>
-              Home
-            </div>
           </li>
           <li className='navbar-list-item' onClick={() => setOpen(!open)}>
             <div style={{ height: '25px' }} >
               <img src={user && (user.profilePic ? `../../../uploads/${user.profilePic}` : avatar)} style={style} alt='avatar' />
             </div>
             <div style={{ fontSize: '14px' }}>
-              You <b style={{color: 'rgba(0,0,0,0.6)'}} >{open ?
+              You <b style={{ color: 'rgba(0,0,0,0.6)' }} >{open ?
                 <FontAwesomeIcon icon={faCaretUp} />
                 : <FontAwesomeIcon icon={faCaretDown} />}</b>
             </div>
           </li>
         </ul>
         {open && <div className='options-view' >
-          <div>
-            <Link to="/profile" >
+          <Link to="profile" >
+            <div>
               <b style={{ color: '#4BB543' }}> Profile </b>
-            </Link>
-          </div>
+            </div>
+          </Link>
 
           <div onClick={dispatchLogout}>
             Logout

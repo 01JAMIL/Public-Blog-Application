@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import NavBar from '../components/NavBar'
 import '../styles/home.css'
 import Loading from '../components/Loading'
 
@@ -28,7 +27,7 @@ const HomePage = () => {
 
   return (
     <>
-      <NavBar />
+      
       <div className="home-container">
         <div className="home-container-body">
 
