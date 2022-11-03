@@ -6,10 +6,11 @@ import '../styles/blog.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
 
-const User = ({ userId }) => {
+const User = ({ userId, setUserDataLoaded }) => {
 
     const auth = useSelector(state => state.auth)
     const [user, setUser] = useState({})
+    const [loaded, setLoaded] = useState(false)
     const [loading, setLoading] = useState(false)
 
     const getUser = async () => {
@@ -22,6 +23,8 @@ const User = ({ userId }) => {
             .then((response) => {
                 setLoading(false)
                 setUser(response.data)
+                setLoaded(true)
+                setUserDataLoaded(true)
             })
             .catch((error) => error.message)
     }
@@ -37,7 +40,7 @@ const User = ({ userId }) => {
 
     return (
         <>
-            {user && <div className="user-container">
+            {loaded ? <div className="user-container">
                 <div className="user-avatar">
                     <img src={user.profilePic ? `../../../uploads/${user.profilePic}` : avatar} alt='avatar' />
                     {(auth && auth.user && userId === auth.user._id) && <>
@@ -51,9 +54,9 @@ const User = ({ userId }) => {
                     </>}
                 </div>
                 <div className="user-name">
-                    {(user.firstName && user.lastName) && (user.firstName + ' ' + user.lastName)}
+                    {user.firstName + ' ' + user.lastName}
                 </div>
-            </div>}
+            </div> : null}
         </>
     )
 }
