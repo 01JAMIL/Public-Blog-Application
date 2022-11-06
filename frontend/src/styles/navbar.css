@@ -6,8 +6,10 @@
     height: 50px;
     width: 100%;
     position: fixed;
+    top: 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0.19);
     z-index: 1;
+    
 }
 
 .navbar {
@@ -37,7 +39,7 @@
     margin-right: 20px;
     cursor: pointer;
     text-align: center;
-    padding: 3px;
+    padding: 3px 0 2px 0;
     border-bottom: 1px solid rgba(0, 0, 0, 0);
 }
 
@@ -54,16 +56,12 @@
     color: black;
 }
 
-.navbar .navbar-list-items .navbar-list-item span {
-    padding: 8px 4px 8px 4px;
-    color: white;
-    background-color: black;
-    border-radius: 3px;
-    cursor: pointer;
+.navbar .navbar-list-items .navbar-list-item a span {
+    display: block;
 }
 
-.navbar .navbar-list-items .navbar-list-item span:hover {
-    background-color: rgba(0, 0, 0, 0.774);
+.navbar .navbar-list-items .navbar-list-item a span:hover {
+    color: black;
 }
 
 .options-view {

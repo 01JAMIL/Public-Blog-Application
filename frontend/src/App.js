@@ -7,8 +7,8 @@ import { Routes, Route, Navigate, useNavigate } from 'react-router-dom'
 import { isExpired } from 'react-jwt'
 import { logout, resetState } from './features/auth/userSlice'
 import { useEffect } from 'react'
-import Profile from './components/Profile'
 import NavBar from './components/NavBar'
+import ProfilePage from './pages/ProfilePage'
 function App() {
 
   const { token } = useSelector(state => state.auth)
@@ -22,14 +22,14 @@ function App() {
       navigate('/', { replace: true })
       window.location.reload()
     }
-  }, [])
+  }, [dispatch, navigate, token])
 
   return (
     <>
       {token ? <NavBar /> : null}
       <Routes>
         <Route path='/' element={token ? <HomePage /> : <Navigate to='/signin' />} />
-        <Route path='/profile' element={token ? <Profile /> : <Navigate to='/signin' />} />
+        <Route path='/profile' element={token ? <ProfilePage /> : <Navigate to='/signin' />} />
         <Route path='/signup' element={!token ? <SignupPage /> : <Navigate to='/' />} />
         <Route path='/signin' element={!token ? <SigninPage /> : <Navigate to='/' />} />
       </Routes>

@@ -48,28 +48,31 @@ const NavBar = () => {
     <div className='nav'>
       <div className='navbar' ref={listRef}>
         <div className='navbar-brand'>
-          <img src={logo} width="100px" />
+          <img src={logo} width="100px" alt=''/>
         </div>
 
         <ul className='navbar-list-items'>
           <li className='navbar-list-item'>
             <Link to="/" >
-              <FontAwesomeIcon icon={faHome} style={{ fontSize: '18px' }} />
-
-              <div style={{ fontSize: '14px' }}>
-                Home
+              <div>
+                <FontAwesomeIcon icon={faHome} style={{ fontSize: '18px' }} />
+                <span style={{ fontSize: '14px' }}>
+                  Home
+                </span>
               </div>
             </Link>
           </li>
           <li className='navbar-list-item' onClick={() => setOpen(!open)}>
-            <div style={{ height: '25px' }} >
-              <img src={user && (user.profilePic ? `../../../uploads/${user.profilePic}` : avatar)} style={style} alt='avatar' />
-            </div>
-            <div style={{ fontSize: '14px' }}>
-              You <b style={{ color: 'rgba(0,0,0,0.6)' }} >{open ?
-                <FontAwesomeIcon icon={faCaretUp} />
-                : <FontAwesomeIcon icon={faCaretDown} />}</b>
-            </div>
+            {(user && user._id) ? <>
+              <div style={{ height: '25px' }} >
+                <img src={user && (user.profilePic ? `../../../uploads/${user.profilePic}` : avatar)} style={style} alt='avatar' />
+              </div>
+              <div style={{ fontSize: '14px', color: 'rgba(0,0,0,0.6)' }}>
+                You <b>{open ?
+                  <FontAwesomeIcon icon={faCaretUp} />
+                  : <FontAwesomeIcon icon={faCaretDown} />}</b>
+              </div>
+            </> : null}
           </li>
         </ul>
         {open && <div className='options-view' >

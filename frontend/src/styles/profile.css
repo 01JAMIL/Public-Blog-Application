@@ -1,0 +1,112 @@
+.profile-container {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.05);
+    min-height: 100vh;
+}
+
+.container-content {
+    display: flex;
+    justify-content: center;
+    width: 40%;
+    padding: 10px;
+    height: fit-content;
+    margin-top: 70px;
+    transition: ease-in-out 0.2s;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    background-color: white;
+}
+
+.profile-data {
+    padding: 10px;
+    width: 100%;
+    position: relative;
+}
+
+.profile-header {
+    display: flex;
+    justify-content: center;
+}
+
+.profile-pic {
+    position: relative;
+    width: 200px;
+}
+
+.profile-pic img {
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    padding: 2px;
+    width: 200px;
+}
+
+.profile-pic span {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    padding: 3px;
+    background-color: white;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    bottom: 20px;
+    right: 15px;
+}
+
+.profile-pic span:hover {
+    box-shadow: 0 0px 6px 0px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.19);
+}
+
+.profile-description {
+    padding: 10px;
+    text-align: center;
+}
+
+.profile-description .profile-full-name {
+    font-weight: bold;
+    font-size: 30px;
+}
+
+.profile-description .profile-user-name {
+    margin-bottom: 20px;
+}
+
+.profile-description .profile-bio {
+    margin-bottom: 40px;
+    text-align: justify;
+}
+
+.profile-actions button{
+    padding: 10px;
+    background-color: #0066ff;
+    color: white;
+    border: 1px solid #0066ff;
+    border-radius: 8px;
+    cursor: pointer;
+}   
+
+.profile-actions button:hover {
+    background-color: #0066ffc7;
+}
+
+@media screen and (max-width: 860px) {
+    .container-content {
+        width: 60%;
+    }
+
+}
+
+@media screen and (max-width: 720px) {
+    .container-content {
+        width: 80%;
+    }
+
+}
+
+@media screen and (max-width: 520px) {
+    .container-content {
+        width: 95%;
+    }
+}
