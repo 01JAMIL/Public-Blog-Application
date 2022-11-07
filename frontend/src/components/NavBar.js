@@ -48,7 +48,7 @@ const NavBar = () => {
     <div className='nav'>
       <div className='navbar' ref={listRef}>
         <div className='navbar-brand'>
-          <img src={logo} width="100px" alt=''/>
+          <img src={logo} width="100px" alt='' />
         </div>
 
         <ul className='navbar-list-items'>
@@ -76,7 +76,7 @@ const NavBar = () => {
           </li>
         </ul>
         {open && <div className='options-view' >
-          <Link to="profile" >
+          <Link to={`profile/${user.userName}`} >
             <div>
               <b style={{ color: '#4BB543' }}> Profile </b>
             </div>

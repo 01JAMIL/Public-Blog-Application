@@ -12,26 +12,27 @@
     transition: ease-in-out 0.2s; 
 }
 
-.home-container .home-container-body .new-post {
+
+.new-post {
     display: flex;
     justify-content: center;
     margin-top: 70px;
     margin-bottom: 20px;
 }
 
-.home-container .home-container-body .new-post .create-post-container {
+.new-post .create-post-container {
     width: 50%;
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.19);
     border-radius: 8px;
 }
 
-.home-container .home-container-body .new-post .create-post-header {
+.new-post .create-post-header {
     display: flex;
     padding: 15px 15px 15px 15px;
 }
 
-.home-container .home-container-body .new-post .create-post-header .create-post-button {
+.new-post .create-post-header .create-post-button {
     display: flex;
     align-items: center;
     width: 100%;
@@ -42,44 +43,44 @@
     cursor: pointer;
 }
 
-.home-container .home-container-body .new-post .create-post-header .create-post-button:hover {
+.new-post .create-post-header .create-post-button:hover {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
 
-.home-container .home-container-body .new-post .create-post-body h3 {
+.new-post .create-post-body h3 {
     padding: 0px 15px 10px 15px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.19);
 }
 
-.home-container .home-container-body .new-post .create-post-body .create-post-form {
+.new-post .create-post-body .create-post-form {
     padding: 15px;
 }
 
 
-.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group {
+.new-post .create-post-body .create-post-form .form-group {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px
 }
 
-.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group label {
+.new-post .create-post-body .create-post-form .form-group label {
     font-size: 18px;
     margin-bottom: 5px;
 }
 
-.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group input[type="text"] {
+.new-post .create-post-body .create-post-form .form-group input[type="text"] {
     height: 30px;
     border: 2px solid rgba(0, 0, 0, 0.19);
     border-radius: 8px;
     font-size: 15px;
 }
 
-.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group input[type="text"]:focus {
+.new-post .create-post-body .create-post-form .form-group input[type="text"]:focus {
     outline: none
 }
 
-.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group textarea {
+.new-post .create-post-body .create-post-form .form-group textarea {
     border: 2px solid rgba(0, 0, 0, 0.19);
     border-radius: 8px;
     max-width: 98%;
@@ -90,17 +91,17 @@
     font-size: 16px;
 }
 
-.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group textarea:focus {
+.new-post .create-post-body .create-post-form .form-group textarea:focus {
     outline: none
 }
 
 
-.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group input[type="file"] {
+.new-post .create-post-body .create-post-form .form-group input[type="file"] {
     display: none;
 }
 
 
-.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group .image {
+.new-post .create-post-body .create-post-form .form-group .image {
     height: 30px;
     background-color: rgba(0, 0, 0, 0.19);
     border-radius: 8px;
@@ -109,18 +110,18 @@
 }
 
 
-.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group select {
+.new-post .create-post-body .create-post-form .form-group select {
     height: 36px;
     border: 2px solid rgba(0, 0, 0, 0.19);
     border-radius: 8px;
     font-size: 15px;
 }
 
-.home-container .home-container-body .new-post .create-post-body .create-post-form .form-group select:focus {
+.new-post .create-post-body .create-post-form .form-group select:focus {
     outline: none
 }
 
-.home-container .home-container-body .new-post .create-post-body .create-post-form button {
+.new-post .create-post-body .create-post-form button {
     border: none;
     padding: 10px;
     background-color: black;
@@ -144,25 +145,25 @@
 
 
 @media screen and (max-width: 1080px) {
-    .home-container .home-container-body .new-post .create-post-container {
+    .new-post .create-post-container {
         width: 70%;
     }
 }
 
 @media screen and (max-width: 800px) {
-    .home-container .home-container-body .new-post .create-post-container {
+    .new-post .create-post-container {
         width: 80%;
     }
 }
 
 @media screen and (max-width: 720px) {
-    .home-container .home-container-body .new-post .create-post-container {
+    .new-post .create-post-container {
         width: 90%;
     }
 }
 
 @media screen and (max-width: 520px) {
-    .home-container .home-container-body .new-post .create-post-container {
+    .new-post .create-post-container {
         width: 95%;
     }
 }

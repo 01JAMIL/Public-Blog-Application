@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import UserAvatar from '../components/UserAvatar'
 import { createArticle } from '../features/article/articleSlice'
+import '../styles/home.css'
 
 const NewPost = () => {
 

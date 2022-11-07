@@ -27,11 +27,10 @@ const HomePage = () => {
 
   return (
     <>
-      
+
       <div className="home-container">
         <div className="home-container-body">
 
-          {/* NEW POST */}
           <NewPost />
 
           {data && data.map((b, index) => (

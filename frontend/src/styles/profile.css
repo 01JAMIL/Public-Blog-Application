@@ -1,18 +1,28 @@
+.profile-home {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.profile-home-container {
+    width: 70%;
+    transition: ease-in-out 0.2s; 
+}
+
 .profile-container {
     display: flex;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.05);
-    min-height: 100vh;
+    margin-bottom: 20px;
 }
+
 
 .container-content {
     display: flex;
     justify-content: center;
-    width: 40%;
-    padding: 10px;
+    width: 50%;
     height: fit-content;
     margin-top: 70px;
-    transition: ease-in-out 0.2s;
     border: 1px solid rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     background-color: white;
@@ -78,31 +88,61 @@
     text-align: justify;
 }
 
-.profile-actions button{
+.profile-actions {
+    display: flex;
+}
+
+.profile-actions button {
     padding: 10px;
     background-color: #0066ff;
     color: white;
     border: 1px solid #0066ff;
     border-radius: 8px;
     cursor: pointer;
-}   
+}
 
 .profile-actions button:hover {
     background-color: #0066ffc7;
 }
 
-@media screen and (max-width: 860px) {
+@media screen and (max-width: 1000px) {
     .container-content {
-        width: 60%;
+        width: 70%;
     }
 
 }
 
+
 @media screen and (max-width: 720px) {
-    .container-content {
+    .profile-home-container {
         width: 80%;
     }
 
+}
+
+@media screen and (max-width: 520px) {
+    .profile-home-container {
+        width: 95%;
+    }
+}
+
+
+@media screen and (max-width: 1080px) {
+    .container-content {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .container-content {
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .container-content {
+        width: 90%;
+    }
 }
 
 @media screen and (max-width: 520px) {

@@ -1,17 +1,11 @@
 import React from 'react'
+import '../styles/loading.css'
 
 const Loading = () => {
-
-    const style = {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        fontSize: '3rem',
-        height: '100vh'
-    }
-
     return (
-        <div style={style}>Please wait...</div>
+        <div className='loading-page'>
+            <span className="loader"></span>
+        </div>
     )
 }
 

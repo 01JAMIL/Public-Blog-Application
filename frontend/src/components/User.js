@@ -5,6 +5,7 @@ import avatar from '../assets/avatar.png'
 import '../styles/blog.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
 
 const User = ({ userId, setUserDataLoaded }) => {
 
@@ -54,7 +55,9 @@ const User = ({ userId, setUserDataLoaded }) => {
                     </>}
                 </div>
                 <div className="user-name">
-                    {user.firstName + ' ' + user.lastName}
+                    <Link to={`/profile/${user.userName}`} style={{ textDecoration: 'none', color: 'black' }}>
+                        {user.firstName + ' ' + user.lastName}
+                    </Link>
                 </div>
             </div> : null}
         </>
