@@ -29,6 +29,18 @@ const getUserById = asyncHandler(async (req, res) => {
     }
 })
 
+const getUserByUserName = asyncHandler(async (req, res) => {
+    try {
+        await User.findOne({ userName: req.params.username }).then(user => {
+            res.status(200).json(user)
+        }).catch(error => {
+            res.status(400).json(error)
+        })
+    } catch (error) {
+
+    }
+})
+
 const signup = asyncHandler(async (req, res) => {
 
     const { errors, valid } = validateSignUpUser(req.body)
@@ -163,6 +175,7 @@ const generateToken = (id, userName) =>
 module.exports = {
     getMe,
     getUserById,
+    getUserByUserName,
     signup,
     signin,
     updateProfile,
