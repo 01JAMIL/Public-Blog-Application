@@ -6,6 +6,7 @@ import '../styles/blog.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
 import { Link } from 'react-router-dom'
+import UserLoading from './UserLoading'
 
 const User = ({ userId, setUserDataLoaded }) => {
 
@@ -36,7 +37,7 @@ const User = ({ userId, setUserDataLoaded }) => {
 
 
     if (loading) {
-        return <></>
+        return <UserLoading />
     }
 
     return (

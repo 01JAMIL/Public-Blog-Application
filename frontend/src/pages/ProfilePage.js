@@ -12,6 +12,7 @@ import Blog from '../components/Blog'
 import { getArticles } from '../features/article/articleSlice'
 import { getMe } from '../features/auth/userSlice'
 import Loading from '../components/Loading'
+import UserLoading from '../components/UserLoading'
 
 const ProfilePage = () => {
 
@@ -50,9 +51,9 @@ const ProfilePage = () => {
 
   }, [dispatch, auth.token, username])
 
-  if (Object.keys(user).length === 0) {
-    return <Loading />
-  }
+   if (Object.keys(user).length === 0) {
+     return <Loading />
+   }
 
   return (
     <div className='profile-home'>
@@ -111,8 +112,7 @@ const ProfilePage = () => {
                     />
                   </div>
                   : null
-              )) :
-              null
+              )) : null
           }
 
         </div>

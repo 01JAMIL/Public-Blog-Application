@@ -10,7 +10,7 @@
     height: 32px;
     position: relative;
     border-radius: 50%;
-    color: #0066ff;
+    color: rgba(0, 0, 0, 0.19);
     animation: fill 1s ease-in infinite alternate;
 }
 
