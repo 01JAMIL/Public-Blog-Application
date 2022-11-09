@@ -48,5 +48,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://beamish-dasik-b06b7b.netlify.app/"
+  "proxy": "http://localhost:3700"
 }
