@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "cd backend && nodemon index.js",
     "start": "npm start --prefix frontend",
-    "devstart": "concurrently \"npm run dev\" \"npm run start\""
+    "devstart": "concurrently \"npm run dev\" \"npm run start\"",
+    "heroku-postbuild": "npm install --prefix frontend && npm run build --prefix frontend"
   },
   "keywords": [],
   "author": "",
