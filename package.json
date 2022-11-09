@@ -20,7 +20,7 @@
     "cors": "^2.8.5",
     "cros": "^1.0.1",
     "dotenv": "^16.0.1",
-    "express": "^4.18.1",
+    "express": "^4.18.2",
     "express-async-handler": "^1.2.0",
     "express-fileupload": "^1.4.0",
     "jsonwebtoken": "^8.5.1",
