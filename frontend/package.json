@@ -48,5 +48,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://e-blog-me.netlify.app"
+  "proxy": "http://localhost:3700"
 }
