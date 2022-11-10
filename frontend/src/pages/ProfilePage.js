@@ -12,9 +12,10 @@ import Blog from '../components/Blog'
 import { getArticles } from '../features/article/articleSlice'
 import { getMe } from '../features/auth/userSlice'
 import Loading from '../components/Loading'
-import UserLoading from '../components/UserLoading'
 
 const ProfilePage = () => {
+
+  document.title = 'Blogy - Profile'
 
   const { data } = useSelector(state => state.article)
   const auth = useSelector(state => state.auth)
@@ -51,9 +52,9 @@ const ProfilePage = () => {
 
   }, [dispatch, auth.token, username])
 
-   if (Object.keys(user).length === 0) {
-     return <Loading />
-   }
+  if (Object.keys(user).length === 0) {
+    return <Loading />
+  }
 
   return (
     <div className='profile-home'>
@@ -64,7 +65,9 @@ const ProfilePage = () => {
               <div className='profile-data'>
                 <div className='profile-header'>
                   <div className='profile-pic'>
-                    <img src={user.profilePic ? `../../../uploads/${user.profilePic}` : avatar} alt='avatar' />
+                    <div className='profile-avatar-label'>
+                      <img src={user.profilePic ? `../../../uploads/${user.profilePic}` : avatar} alt='avatar' />
+                    </div>
                     {(username === auth.user.userName) ? <span> <FontAwesomeIcon icon={faPenAlt} /> </span> : null}
                   </div>
                 </div>

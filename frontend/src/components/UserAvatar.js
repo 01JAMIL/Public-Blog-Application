@@ -6,16 +6,26 @@ import '../styles/blog.css'
 const UserAvatar = () => {
     const { user } = useSelector(state => state.auth)
 
-    const style = {
+    const imageStyle = {
         width: '40px',
         height: '40px',
+        borderRadius: '50%'
+    }
+
+    const containerStyle = {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '1px',
         border: '1px solid rgba(0, 0, 0, 0.2)',
+        width: '45px',
+        height: '40px',
         borderRadius: '50%'
     }
 
     return (
-        <div style={{height: '40px'}}>
-            <img src={user && (user.profilePic ? `../../../uploads/${user.profilePic}` : avatar)} style={style} alt='avatar' />
+        <div style={containerStyle}>
+            <img src={user && (user.profilePic ? `../../../uploads/${user.profilePic}` : avatar)} style={imageStyle} alt='avatar' />
         </div>
     )
 }

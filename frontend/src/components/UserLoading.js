@@ -4,7 +4,7 @@ import '../styles/user-loding.css'
 const UserLoading = () => {
     return (
         <div className='user-loader'>
-            <span class="loading"></span>
+            <span className="loading"></span>
         </div>
     )
 }

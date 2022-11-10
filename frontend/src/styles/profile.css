@@ -7,7 +7,7 @@
 
 .profile-home-container {
     width: 70%;
-    transition: ease-in-out 0.2s; 
+    transition: ease-in-out 0.2s;
 }
 
 .profile-container {
@@ -44,11 +44,22 @@
     width: 200px;
 }
 
-.profile-pic img {
+.profile-pic .profile-avatar-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border: 2px solid rgba(0, 0, 0, 0.2);
     border-radius: 50%;
     padding: 2px;
+    height: 200px;
     width: 200px;
+}
+
+.profile-pic .profile-avatar-label img {
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    z-index: 0;
 }
 
 .profile-pic span {

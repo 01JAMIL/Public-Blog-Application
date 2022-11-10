@@ -48,12 +48,12 @@ const NavBar = () => {
     <div className='nav'>
       <div className='navbar' ref={listRef}>
         <div className='navbar-brand'>
-          <img src={logo} width="100px" alt='' />
+          <img src={logo} width="50px" alt='' />
         </div>
 
         <ul className='navbar-list-items'>
           <li className='navbar-list-item'>
-            <Link to="/" >
+            <Link to="/" onClick={() => setOpen(false)}>
               <div>
                 <FontAwesomeIcon icon={faHome} style={{ fontSize: '18px' }} />
                 <span style={{ fontSize: '14px' }}>
@@ -76,9 +76,9 @@ const NavBar = () => {
           </li>
         </ul>
         {open && <div className='options-view' >
-          <Link to={`profile/${user.userName}`} >
+          <Link to={`profile/${user.userName}`} onClick={() => setOpen(false)}>
             <div>
-              <b style={{ color: '#4BB543' }}> Profile </b>
+              <b style={{ color: 'black' }}> Profile </b>
             </div>
           </Link>
 

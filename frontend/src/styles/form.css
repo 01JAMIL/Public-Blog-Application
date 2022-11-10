@@ -14,7 +14,7 @@
 .container .title {
     font-size: 3rem;
     font-weight: bold;
-    margin-bottom: 0.6rem;
+    margin-bottom: 1.6rem;
     letter-spacing: 0.5rem;
     text-align: center;
 }
@@ -76,7 +76,19 @@
 }
 
 @media only screen and (max-width: 500px) {
+    .container .title {
+        font-size: 2rem;
+    }
+
+    .container .form .form-row .form-label {
+        font-size: small;
+    }
+
     .container .container-body {
-        width: 350px;
+        width: 300px;
+    }
+
+    .container .form .link {
+        font-size: 12px;
     }
 }

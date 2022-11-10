@@ -12,6 +12,8 @@ import Loading from '../components/Loading'
 
 const SigninPage = () => {
 
+  document.title = 'Blogy - Sign In'
+
   const { loading, success, error } = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()

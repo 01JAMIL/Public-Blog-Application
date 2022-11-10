@@ -44,7 +44,9 @@ const User = ({ userId, setUserDataLoaded }) => {
         <>
             {loaded ? <div className="user-container">
                 <div className="user-avatar">
-                    <img src={user.profilePic ? `../../../uploads/${user.profilePic}` : avatar} alt='avatar' />
+                    <div className='user-avatar-label'> 
+                        <img src={user.profilePic ? `../../../uploads/${user.profilePic}` : avatar} alt='avatar' />
+                    </div>
                     {(auth && auth.user && userId === auth.user._id) && <>
                         <span>
                             <FontAwesomeIcon icon={faCircle} />

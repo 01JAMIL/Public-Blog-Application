@@ -10,6 +10,8 @@ import NewPost from '../components/NewPost'
 
 const HomePage = () => {
 
+  document.title = 'Blogy - Home'
+
   const { token } = useSelector(state => state.auth)
   const { data, loading } = useSelector(state => state.article)
 

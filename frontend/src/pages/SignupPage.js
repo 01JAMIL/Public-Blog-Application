@@ -8,6 +8,8 @@ import { signup, resetState } from '../features/auth/userSlice'
 
 const SignupPage = () => {
 
+  document.title = 'Blogy - Sign Up'
+
   const { loading, success, error } = useSelector(state => state.auth)
   const dispatch = useDispatch()
   const navigate = useNavigate()
