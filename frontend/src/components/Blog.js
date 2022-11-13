@@ -6,7 +6,6 @@ import { likeArticle, unlikeArticle } from '../features/article/articleSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp as likedIcon, faEllipsisH, faTrashCan, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faThumbsUp as unlikedIcon, faComment } from '@fortawesome/free-regular-svg-icons'
-import { Link } from 'react-router-dom'
 import UserAvatar from './UserAvatar'
 import CommentView from './CommentView'
 import { saveComment, deleteArticle } from '../features/article/articleSlice'
@@ -37,7 +36,7 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
             bottom: 'auto',
             marginRight: '-50%',
             transform: 'translate(-50%, -50%)',
-            width: '280px'
+            width: '300px'
         },
     }
 

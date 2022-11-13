@@ -52,8 +52,9 @@ export const updateProfile = createAsyncThunk('user/update-profile', async (data
 
 export const updateProfilePicture = createAsyncThunk('user/update-profile-pic', async (data, { rejectWithValue }) => {
     const { body, userName, token } = data
-    return await axios.post(`/api/user/update-profile-pic/${userName}`, body, {
+    return await axios.put(`/api/user/update-profile-pic/${userName}`, body, {
         headers: {
+            'Content-Type': 'multipart/form-data',
             authorization: `Bearer ${token}`
         }
     })

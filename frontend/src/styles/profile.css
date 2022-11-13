@@ -116,6 +116,47 @@
     background-color: #0066ffc7;
 }
 
+.update-pic-modal-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.update-pic-modal-body {
+    margin-bottom: 40px;
+}
+
+.modal-pic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.modal-pic input[type="file"] {
+    display: none;
+}
+
+.modal-pic-label {
+    background-color: rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+    color: white;
+    padding: 5px;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: center;
+}
+
+.modal-footer button {
+    padding: 10px;
+    background-color: #0066ff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 1000px) {
     .container-content {
         width: 70%;
