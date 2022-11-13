@@ -17,7 +17,6 @@ const HomePage = () => {
 
   const dispatch = useDispatch()
 
-
   useEffect(() => {
     dispatch(getArticles(token))
     dispatch(getCategorys(token))
@@ -29,10 +28,8 @@ const HomePage = () => {
 
   return (
     <>
-
       <div className="home-container">
         <div className="home-container-body">
-
           <NewPost />
 
           {data && data.map((b, index) => (

@@ -4,7 +4,7 @@ import '../styles/blog.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { likeArticle, unlikeArticle } from '../features/article/articleSlice'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp as likedIcon, faEllipsisH, faTrashCan } from '@fortawesome/free-solid-svg-icons'
+import { faThumbsUp as likedIcon, faEllipsisH, faTrashCan, faTimes } from '@fortawesome/free-solid-svg-icons'
 import { faThumbsUp as unlikedIcon, faComment } from '@fortawesome/free-regular-svg-icons'
 import { Link } from 'react-router-dom'
 import UserAvatar from './UserAvatar'
@@ -12,10 +12,14 @@ import CommentView from './CommentView'
 import { saveComment, deleteArticle } from '../features/article/articleSlice'
 import Loading from '../components/Loading'
 import Moment from 'react-moment'
+import Modal from 'react-modal'
+
 
 const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comments }) => {
 
     const [open, setOpen] = useState(false)
+    const [isOpen, setIsOpen] = useState(false)
+    const [userDataLoaded, setUserDataLoaded] = useState(false)
     const { token, user } = useSelector(state => state.auth)
 
     const listRef = useRef()
@@ -24,7 +28,18 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
     const { loading } = useSelector(state => state.article)
 
     let liked = likes.indexOf(user && user._id) !== -1
-    
+
+    const modalStyle = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+            width: '280px'
+        },
+    }
 
     useEffect(() => {
         const handleClose = (e) => {
@@ -127,13 +142,14 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
                 <div className="blog-status">
 
                     {
-                        likes.length !== 0 &&
+                        likes.length !== 0 ?
+                            <div className="likes-status" onClick={() => setIsOpen(true)}>
+                                <div style={{ cursor: 'pointer', color: '#0066ff' }}>
+                                    <FontAwesomeIcon icon={likedIcon} /> <span>{likes.length}</span>
+                                </div>
+                            </div>
 
-                        <div className="likes-status">
-                            <Link to="/">
-                                <FontAwesomeIcon icon={likedIcon} /> <span>{likes.length}</span>
-                            </Link>
-                        </div>
+                            : null
                     }
 
                     {
@@ -145,6 +161,35 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
                 </div>
 
             }
+
+            {/* Likes list modal -- */}
+
+            <Modal
+                isOpen={isOpen}
+                style={modalStyle}
+                onRequestClose={() => setIsOpen(false)}
+                contentLabel="Likes"
+                ariaHideApp={false}
+            >
+
+                <div className='modal-header'>
+                    <div>Reactions</div>
+                    <div className='modal-btn' onClick={() => setIsOpen(false)}>
+                        <FontAwesomeIcon icon={faTimes} />
+                    </div>
+                </div>
+
+                <div className='modal-body'>
+                    {likes.map((like, index) => (
+                        <div className='modal-body-row' key={index}>
+                            <User
+                                userId={like}
+                                setUserDataLoaded={setUserDataLoaded}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </Modal>
 
             <div className="blog-footer">
                 <div
