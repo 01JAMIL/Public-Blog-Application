@@ -6,196 +6,161 @@ const { validateArticleData } = require('../validation/article.validation')
 
 
 const getArticles = asyncHandler(async (req, res) => {
-    try {
-        await Article.find().then(articles => {
-            res.status(200).json(articles.reverse())
-        }).catch(err => {
-            res.status(400).json(err)
-        })
-    } catch (error) {
-        res.status(400).json(error)
-    }
+
+    await Article.find().then(articles => {
+        res.status(200).json(articles.reverse())
+    }).catch(err => {
+        res.status(400).json(err)
+    })
+
 })
 
 const createArticle = asyncHandler(async (req, res) => {
     const { errors, valid } = validateArticleData(req.body)
-    try {
-
-        if (!valid) {
-            return res.status(400).json(errors)
-        }
-
-        const newArticle = new Article(req.body)
-
-        if (req.files && req.files.image) {
-            const imageName = Date.now() + '-' + req.files.image.name
-            req.files.image.mv('./uploads/' + imageName)
-            newArticle.image = imageName
-        }
 
 
-
-        await Article.create(newArticle).then(article => {
-            res.status(200).json(article)
-        }).catch(err => {
-            res.status(400).json(err)
-        })
-
-    } catch (error) {
-        res.status(400).json(error)
+    if (!valid) {
+        return res.status(400).json(errors)
     }
+
+    const newArticle = new Article(req.body)
+
+    if (req.files && req.files.image) {
+        const imageName = Date.now() + '-' + req.files.image.name
+        req.files.image.mv('./uploads/' + imageName)
+        newArticle.image = imageName
+    }
+
+
+
+    await Article.create(newArticle).then(article => {
+        res.status(200).json(article)
+    }).catch(err => {
+        res.status(400).json(err)
+    })
+
+
 })
 
 
 const updateArticle = asyncHandler(async (req, res) => {
     const { errors, valid } = validateArticleData(req.body)
-    try {
 
-        if (!valid) {
-            return res.status(400).json(errors)
-        }
 
-        const currentArticle = await Article.findOne({ _id: req.params.id })
-
-        if (req.files.image !== currentArticle.image) {
-            const image = Date.now() + '-' + req.files.image.name
-            req.files.image.mv('./uploads/' + image)
-            req.body.image = image
-            fs.unlinkSync('./uploads/' + currentArticle.image)
-        }
-
-        await Article.findOneAndUpdate(
-            { _id: req.params.id },
-            req.body,
-            { new: true }
-        ).then(article => {
-            res.status(200).json({
-                result: 'Success',
-                article
-            })
-        }).catch(err => {
-            res.status(400).json(err
-            )
-        })
-
-    } catch (error) {
-        res.status(400).json(error)
+    if (!valid) {
+        return res.status(400).json(errors)
     }
+
+    const currentArticle = await Article.findOne({ _id: req.params.id })
+
+    if (req.files.image !== currentArticle.image) {
+        const image = Date.now() + '-' + req.files.image.name
+        req.files.image.mv('./uploads/' + image)
+        req.body.image = image
+        fs.unlinkSync('./uploads/' + currentArticle.image)
+    }
+
+    await Article.findOneAndUpdate(
+        { _id: req.params.id },
+        req.body,
+        { new: true }
+    ).then(article => {
+        res.status(200).json({
+            result: 'Success',
+            article
+        })
+    }).catch(err => {
+        res.status(400).json(err
+        )
+    })
+
 })
 
 const deleteArticle = asyncHandler(async (req, res) => {
-    try {
 
-        await Article.findOneAndDelete({ _id: req.params.id }).then(() => {
-            res.status(200).json({ id: req.params.id })
-        }).catch(err => {
-            res.status(400).json(err)
-        })
+    await Article.findOneAndDelete({ _id: req.params.id }).then(() => {
+        res.status(200).json({ id: req.params.id })
+    }).catch(err => {
+        res.status(400).json(err)
+    })
 
-    } catch (error) {
-        res.status(400).json(error)
-    }
 })
 
 const likeArticle = asyncHandler(async (req, res) => {
-    try {
 
-        await Article.findOne({ _id: req.params.id }).then(async (article) => {
-            let listLikes = article.likes
-            listLikes.push(req.body.userId)
+    await Article.findOne({ _id: req.params.id }).then(async (article) => {
+        let listLikes = article.likes
+        listLikes.push(req.body.userId)
 
-            await Article.findOneAndUpdate(
-                { _id: req.params.id },
-                {
-                    likes: listLikes
-                },
-                { new: true }
-            ).then((a) => {
-                res.status(200).json(a)
-            })
-        }).catch(err => {
-            res.status(400).json(err)
+        await Article.findOneAndUpdate(
+            { _id: req.params.id },
+            {
+                likes: listLikes
+            },
+            { new: true }
+        ).then((a) => {
+            res.status(200).json(a)
         })
-
-    } catch (error) {
-        res.status(400).json(error)
-    }
+    }).catch(err => {
+        res.status(400).json(err)
+    })
 })
 
 const unlikeArticle = asyncHandler(async (req, res) => {
-    try {
 
-        await Article.findOne({ _id: req.params.id }).then(async (article) => {
+    await Article.findOne({ _id: req.params.id }).then(async (article) => {
 
-            const index = article.likes.indexOf(req.body.userId)
-            article.likes.splice(index, 1)
+        const index = article.likes.indexOf(req.body.userId)
+        article.likes.splice(index, 1)
 
-            await Article.findOneAndUpdate(
-                { _id: req.params.id },
-                {
-                    likes: article.likes
-                },
-                { new: true }
-            ).then((a) => {
-                res.status(200).json(a)
-            })
-        }).catch(err => {
-            res.status(400).json(err)
+        await Article.findOneAndUpdate(
+            { _id: req.params.id },
+            {
+                likes: article.likes
+            },
+            { new: true }
+        ).then((a) => {
+            res.status(200).json(a)
         })
-
-    } catch (error) {
-        res.status(400).json(error)
-    }
+    }).catch(err => {
+        res.status(400).json(err)
+    })
 })
 
 const listComments = asyncHandler(async (req, res) => {
-    try {
 
-        await Article.findOne({ _id: req.params.id }).then(async (article) => {
-            let commentsList = article.comments
 
-            res.status(200).json(commentsList)
+    await Article.findOne({ _id: req.params.id }).then(async (article) => {
+        let commentsList = article.comments
 
-        }).catch(err => {
-            res.status(400).json(err)
-        })
+        res.status(200).json(commentsList)
 
-    } catch (error) {
-        res.status(400).json(error)
-    }
+    }).catch(err => {
+        res.status(400).json(err)
+    })
 })
 
 
 const tagList = asyncHandler(async (req, res) => {
-    try {
 
-        await Article.findOne({ _id: req.body.articleId }).then(async (article) => {
-            let tags = article.tags
+    await Article.findOne({ _id: req.body.articleId }).then(async (article) => {
+        let tags = article.tags
 
-            res.status(200).json(tags)
+        res.status(200).json(tags)
 
-        }).catch(err => {
-            res.status(400).json(err)
-        })
-
-    } catch (error) {
-        res.status(400).json(error)
-    }
+    }).catch(err => {
+        res.status(400).json(err)
+    })
 })
 
 const numberOfLikes = asyncHandler(async (req, res) => {
-    try {
 
-        await Article.findOne({ _id: req.params.id }).then(article => {
-            const count = article.likes.length
-            res.status(200).json({ 'count': count })
-        }).catch(err => {
-            res.status(400).json(err)
-        })
-
-    } catch (error) {
-        res.status(400).json(error)
-    }
+    await Article.findOne({ _id: req.params.id }).then(article => {
+        const count = article.likes.length
+        res.status(200).json({ 'count': count })
+    }).catch(err => {
+        res.status(400).json(err)
+    })
 })
 
 module.exports = {
