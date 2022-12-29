@@ -50,19 +50,10 @@ const validateSignUpUser = (data) => {
 const validateSignInUser = (data) => {
     let errors = {}
 
-    if (data.email) {
-        data.email = !isEmpty(data.email) ? data.email : ''
-        data.login = data.email
-    } else {
-        data.userName = !isEmpty(data.userName) ? data.userName : ''
-        data.login = data.userName
-    }
-
+    data.userName = !isEmpty(data.userName) ? data.userName : ''
     data.password = !isEmpty(data.password) ? data.password : ''
 
-    const { login, password } = data
-
-    if (validator.isEmpty(login)) {
+    if (validator.isEmpty(data.userName)) {
         errors.loginError = 'User name or email is required'
     }
 
