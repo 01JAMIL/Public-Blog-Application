@@ -15,25 +15,26 @@ const User = ({ userId, setUserDataLoaded }) => {
     const [loaded, setLoaded] = useState(false)
     const [loading, setLoading] = useState(false)
 
-    const getUser = async () => {
-        setLoading(true)
-        await axios.get(`/api/user/get-data/${userId}`, {
-            headers: {
-                authorization: `Bearer ${auth.token}`
-            }
-        })
-            .then((response) => {
-                setLoading(false)
-                setUser(response.data)
-                setLoaded(true)
-                setUserDataLoaded(true)
-            })
-            .catch((error) => error.message)
-    }
+
 
     useEffect(() => {
+        const getUser = async () => {
+            setLoading(true)
+            await axios.get(`/api/user/get-data/${userId}`, {
+                headers: {
+                    authorization: `Bearer ${auth.token}`
+                }
+            })
+                .then((response) => {
+                    setLoading(false)
+                    setUser(response.data)
+                    setLoaded(true)
+                    setUserDataLoaded(true)
+                })
+                .catch((error) => error.message)
+        }
         userId && getUser()
-    }, [userId])
+    }, [userId, auth.token, setUser, setUserDataLoaded])
 
 
     if (loading) {
@@ -44,8 +45,8 @@ const User = ({ userId, setUserDataLoaded }) => {
         <>
             {loaded ? <div className="user-container">
                 <div className="user-avatar">
-                    <div className='user-avatar-label'> 
-                        <img src={user.profilePic ? `../../../uploads/${user.profilePic}` : avatar} alt='avatar' />
+                    <div className='user-avatar-label'>
+                        <img src={user.profilePic ? `data:image/png;base64,${user.profilePic}` : avatar} alt='avatar' />
                     </div>
                     {(auth && auth.user && userId === auth.user._id) && <>
                         <span>

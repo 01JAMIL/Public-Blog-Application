@@ -94,11 +94,7 @@ const validateUpdateProfile = (data) => {
     if (validator.isEmpty(data.userName)) {
         errors.userNameError = 'Username is required'
     }
-
-    if (validator.isEmpty(data.bio)) {
-        errors.bioError = 'Bio is required'
-    }
-
+    
     return {
         errors,
         valid: isEmpty(errors)

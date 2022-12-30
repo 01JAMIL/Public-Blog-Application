@@ -11,7 +11,6 @@ const NewPost = () => {
     const [form, setForm] = useState(new FormData())
     const [img, setImg] = useState('')
 
-    const { categorys } = useSelector(state => state.category)
     const { user, token } = useSelector(state => state.auth)
     const dispatch = useDispatch()
 
@@ -62,6 +61,7 @@ const NewPost = () => {
                         <div className="form-group">
                             <label htmlFor="title">Title</label>
                             <input
+                                className='input'
                                 type="text"
                                 name="title"
                                 id="title"
@@ -71,7 +71,7 @@ const NewPost = () => {
 
                         <div className="form-group">
                             <label htmlFor="content">Content</label>
-                            <textarea name="content" id="content" onChange={changeHandler}>
+                            <textarea name="content" className='textarea' id="content" onChange={changeHandler}>
 
                             </textarea>
                         </div>
@@ -80,6 +80,7 @@ const NewPost = () => {
                             <label htmlFor="image" className="image">Choose image</label>
                             <input
                                 type="file"
+                                className='file'
                                 name="image"
                                 id="image"
                                 onChange={fileChangeHandler}
@@ -88,16 +89,6 @@ const NewPost = () => {
                                 <img src={img} alt="img" id="img" width="100%" style={{ borderRadius: '8px' }} />
                             </div>
                         </div>
-
-                        {categorys && <div className="form-group">
-                            <label htmlFor="category">Category</label>
-                            <select name="categoryId" id="category" defaultValue={'null'} onChange={changeHandler}>
-                                <option value="null" disabled>Choose category</option>
-                                {categorys.map(category => (
-                                    <option key={category._id} value={category._id} >{category.name}</option>
-                                ))}
-                            </select>
-                        </div>}
 
                         <div>
                             <button>

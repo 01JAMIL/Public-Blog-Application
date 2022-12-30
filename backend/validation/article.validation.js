@@ -8,7 +8,6 @@ const validateArticleData = (data) => {
 
     data.title = !isEmpty(data.title) ? data.title : ''
     data.content = !isEmpty(data.content) ? data.content : ''
-    data.categoryId = !isEmpty(data.categoryId) ? data.categoryId : ''
     data.typeId = !isEmpty(data.typeId) ? data.typeId : ''
 
 
@@ -18,10 +17,6 @@ const validateArticleData = (data) => {
 
     if (validator.isEmpty(data.content)) {
         errors.contentError = 'Article content is required'
-    }
-
-    if (validator.isEmpty(data.categoryId)) {
-        errors.categoryError = 'You need to provide a category'
     }
     
     return {

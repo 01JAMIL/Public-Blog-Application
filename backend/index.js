@@ -31,11 +31,6 @@ app.use('/api/article', articleRouter)
 app.use('/api/comment', commentRouter)
 app.use('/api/category', categoryRouter)
 
-
-app.use('/uploads', express.static(
-    path.join(__dirname, '/uploads')
-))
-
 app.listen(process.env.PORT || 3800, (err) => {
     if (err) {
         console.log('Listining error : ', err)

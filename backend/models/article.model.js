@@ -21,12 +21,6 @@ const ArticleSchema = new mongoose.Schema({
         default: Date.now()
     },
 
-    categoryId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'category',
-        required: true
-    },
-
 
     likes: [
         {
