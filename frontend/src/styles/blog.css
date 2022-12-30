@@ -400,7 +400,7 @@
 
 .modal-body-row {
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     min-height: 60px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.07);

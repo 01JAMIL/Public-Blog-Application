@@ -50,6 +50,7 @@ const validateSignUpUser = (data) => {
 const validateSignInUser = (data) => {
     let errors = {}
 
+
     data.userName = !isEmpty(data.userName) ? data.userName : ''
     data.password = !isEmpty(data.password) ? data.password : ''
 
@@ -57,7 +58,7 @@ const validateSignInUser = (data) => {
         errors.loginError = 'User name or email is required'
     }
 
-    if (validator.isEmpty(password)) {
+    if (validator.isEmpty(data.password)) {
         errors.passwordError = 'Password is required'
     }
 
@@ -73,6 +74,10 @@ const validateUpdateProfile = (data) => {
 
     data.firstName = !isEmpty(data.firstName) ? data.firstName : ''
     data.lastName = !isEmpty(data.lastName) ? data.lastName : ''
+    data.dateOfBirth = !isEmpty(data.dateOfBirth) ? data.dateOfBirth : ''
+    data.userName = !isEmpty(data.userName) ? data.userName : ''
+    data.bio = !isEmpty(data.bio) ? data.bio : ''
+
 
     if (validator.isEmpty(data.firstName)) {
         errors.firstNameError = 'First name is required'
@@ -80,6 +85,18 @@ const validateUpdateProfile = (data) => {
 
     if (validator.isEmpty(data.lastName)) {
         errors.lastNameError = 'Last name is required'
+    }
+
+    if (validator.isEmpty(data.dateOfBirth)) {
+        errors.dateOfBirthError = 'Date of birth is required'
+    }
+
+    if (validator.isEmpty(data.userName)) {
+        errors.userNameError = 'Username is required'
+    }
+
+    if (validator.isEmpty(data.bio)) {
+        errors.bioError = 'Bio is required'
     }
 
     return {

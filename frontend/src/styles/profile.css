@@ -101,19 +101,21 @@
 
 .profile-actions {
     display: flex;
+    flex-direction: column;
 }
 
 .profile-actions button {
     padding: 10px;
-    background-color: #0066ff;
-    color: white;
-    border: 1px solid #0066ff;
-    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0.05);
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: 600;
+    border: 1px solid rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
     cursor: pointer;
 }
 
 .profile-actions button:hover {
-    background-color: #0066ffc7;
+    background-color: rgba(0, 0, 0, 0.07);
 }
 
 .update-pic-modal-header {
@@ -155,6 +157,62 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 5px;
+    gap: 5px;
+}
+
+.form-group input {
+    width: 100%;
+    outline: none;
+    background-color: white;
+    height: 28px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+}
+
+
+.form-group textarea {
+    width: 100%;
+    min-height: 80px;
+    max-width: 100%;
+    min-width: 100%;
+    outline: none;
+    background-color: white;
+    height: 28px;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+}
+
+.form-btns {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.form-btns button {
+    min-width: 80px;
+}
+
+.form-btns .save-btn {
+    color: white;
+    background-color: #2da44e;
+}
+
+
+.form-btns .save-btn:hover {
+    color: white;
+    background-color: #239744;
 }
 
 @media screen and (max-width: 1000px) {

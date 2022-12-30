@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenAlt, faTimes } from '@fortawesome/free-solid-svg-icons'
 import '../styles/profile.css'
 import avatar from '../assets/avatar.png'
-import { useLocation, useParams } from 'react-router-dom'
+import { useLocation, useParams, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import NewPost from '../components/NewPost'
@@ -26,6 +26,19 @@ const ProfilePage = () => {
   const [imgForm, setImgForm] = useState(new FormData())
   const [img, setImg] = useState('')
   const location = useLocation()
+  const navigate = useNavigate()
+
+  const [updated, setUpdated] = useState(false)
+  const [showUpdateForm, setShowUpdateForm] = useState(false)
+  const [updateForm, setUpdateForm] = useState({
+    _id: '',
+    firstName: '',
+    lastName: '',
+    dateOfBirth: '',
+    userName: '',
+    bio: ''
+  })
+  const [updateErrors, setUpdateErrors] = useState({})
 
   // GET THE USER_ID FROM THE URL PARAMS -
   const { username } = useParams()
@@ -44,18 +57,6 @@ const ProfilePage = () => {
     },
   }
 
-  const getUserDataByUserName = async () => {
-    await axios.get(`/api/user/get-data-username/${username}`, {
-      headers: {
-        authorization: 'Bearer ' + auth.token
-      }
-    }).then(res => {
-      const data = res.data
-      setUser(data)
-    }).catch(err => {
-      console.log(err)
-    })
-  }
 
   const closeModal = () => {
     setIsOpen(false)
@@ -88,7 +89,51 @@ const ProfilePage = () => {
     setIsOpen(false)
   }
 
+  const chnageHandler = (e) => {
+    setUpdateForm({
+      ...updateForm,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const editProfileHandler = async (e) => {
+    e.preventDefault()
+    await axios.put('/api/user/update-profile', updateForm, {
+      headers: {
+        authorization: `Bearer ${auth.token}`
+      }
+    }).then(res => {
+      setShowUpdateForm(false)
+      setUpdated(!updated)
+      navigate(`/profile/${updateForm.userName}`)
+    }).catch(err => {
+      setUpdateErrors(err.response.data)
+    })
+  }
+
   useEffect(() => {
+    const getUserDataByUserName = async () => {
+      await axios.get(`/api/user/get-data-username/${username}`, {
+        headers: {
+          authorization: 'Bearer ' + auth.token
+        }
+      }).then(res => {
+        const data = res.data
+        setUser(data)
+
+        setUpdateForm({
+          _id: data._id,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          dateOfBirth: data.dateOfBirth,
+          userName: data.userName,
+          bio: data.bio
+        })
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+
     dispatch(getArticles(auth.token))
     dispatch(getMe(auth.token))
     getUserDataByUserName()
@@ -98,7 +143,7 @@ const ProfilePage = () => {
       window.scrollTo(0, 0);
     }
 
-  }, [dispatch, auth.token, username, updatedPic])
+  }, [dispatch, auth.token, username, updatedPic, updated, location.hash])
 
   if (Object.keys(user).length === 0) {
     return <Loading />
@@ -134,9 +179,55 @@ const ProfilePage = () => {
                   </div> : null}
 
                   {(username === auth.user.userName) ? <div className='profile-actions'>
-                    <button>
-                      Update profile
-                    </button>
+                    {
+                      !showUpdateForm ?
+                        <button onClick={() => setShowUpdateForm(true)}>
+                          Edit profile
+                        </button> :
+                        null
+                    }
+
+                    {showUpdateForm ?
+                      <div>
+                        <form className='form' onSubmit={editProfileHandler}>
+                          <div className='form-group'>
+                            <input
+                              name='firstName'
+                              defaultValue={updateForm.firstName}
+                              onChange={chnageHandler}
+                            />
+                            <input
+                              name='lastName'
+                              defaultValue={updateForm.lastName}
+                              onChange={chnageHandler}
+                            />
+                          </div>
+                          <div className='form-group'>
+                            <input
+                              type="date"
+                              name='dateOfBirth'
+                              defaultValue={updateForm.dateOfBirth}
+                              onChange={chnageHandler}
+                            />
+                            <input
+                              name='userName'
+                              defaultValue={updateForm.userName}
+                              onChange={chnageHandler}
+                            />
+                          </div>
+                          <div className='form-group'>
+                            <textarea name='bio' defaultValue={updateForm.bio} onChange={chnageHandler} />
+                          </div>
+
+                          <div className='form-btns'>
+                            <button type='submit' className='save-btn'>Save</button>
+                            <button type='button' onClick={() => setShowUpdateForm(false)}>Cancel</button>
+                          </div>
+                        </form>
+                      </div> : null
+                    }
+
+
                   </div> : null}
                 </div>
               </div>

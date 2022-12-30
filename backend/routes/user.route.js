@@ -8,7 +8,7 @@ router.get('/get-data/:id', protectUserRoute, getUserById)
 router.get('/get-data-username/:username', protectUserRoute, getUserByUserName)
 router.post('/signup', signup)
 router.post('/signin', signin)
-router.put('/update-profile/:username', protectUserRoute, updateProfile)
+router.put('/update-profile', protectUserRoute, updateProfile)
 router.put('/update-profile-pic/:username', protectUserRoute, updateProfilePic)
 
 module.exports = router

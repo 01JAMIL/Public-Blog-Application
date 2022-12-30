@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
 const User = require('../models/user.model')
 const { validateSignUpUser, validateSignInUser, validateUpdateProfile } = require('../validation/user.validation')
-
+const validator = require('validator')
 
 const getMe = asyncHandler(async (req, res) => {
     await User.findOne({ _id: req.user.id }).then(user => {
@@ -71,7 +71,13 @@ const signin = asyncHandler(async (req, res) => {
         return res.status(400).json(errors)
     }
 
-    await User.findOne(req.body.email ? { email: req.body.email } : { userName: req.body.userName }).then(async (user) => {
+
+    let isEmail = false
+    if (validator.isEmail(req.body.userName)) {
+        isEmail = true
+    }
+
+    await User.findOne(isEmail ? { email: req.body.userName } : { userName: req.body.userName }).then(async (user) => {
         if (!user) {
             return res.status(400).json({ signinError: 'Email or user name invalid' });
         }
@@ -89,14 +95,14 @@ const signin = asyncHandler(async (req, res) => {
 })
 
 const updateProfile = asyncHandler(async (req, res) => {
-    /* const { errors, valid } = validateUpdateProfile(req.body) */
+    const { errors, valid } = validateUpdateProfile(req.body)
 
-    /* if (!valid) {
+    if (!valid) {
         return res.status(400).json(errors)
-    } */
+    }
 
     await User.findOneAndUpdate(
-        { userName: req.params.username },
+        { _id: req.body._id },
         req.body,
         { new: true }
     ).then((user) => {
