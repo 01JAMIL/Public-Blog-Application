@@ -63,7 +63,7 @@ const ProfilePage = () => {
   }
 
   const openModal = () => {
-    setImg(user.profilePic ? `../../../uploads/${user.profilePic}` : avatar)
+    setImg(user.profilePic ? `data:image/png;base64,${user.profilePic}` : avatar)
     setIsOpen(true)
   }
 
@@ -159,7 +159,7 @@ const ProfilePage = () => {
                 <div className='profile-header'>
                   <div className='profile-pic'>
                     <div className='profile-avatar-label'>
-                      <img src={user.profilePic ? `../../../uploads/${user.profilePic}` : avatar} alt='avatar' />
+                      <img src={user.profilePic ? `data:image/png;base64, ${user.profilePic}` : avatar} alt='avatar' />
                     </div>
                     {(username === auth.user.userName) ? <span onClick={openModal}> <FontAwesomeIcon icon={faPenAlt} /> </span> : null}
                   </div>
@@ -188,35 +188,48 @@ const ProfilePage = () => {
                     }
 
                     {showUpdateForm ?
-                      <div>
+                      <div className='update-profle'>
                         <form className='form' onSubmit={editProfileHandler}>
                           <div className='form-group'>
                             <input
                               name='firstName'
+                              className='input'
                               defaultValue={updateForm.firstName}
                               onChange={chnageHandler}
+                              style={updateErrors.firstNameError ? { border: '1px solid #FF9494' } : null}
                             />
                             <input
                               name='lastName'
+                              className='input'
                               defaultValue={updateForm.lastName}
                               onChange={chnageHandler}
+                              style={updateErrors.lastNameError ? { border: '1px solid #FF9494' } : null}
                             />
                           </div>
                           <div className='form-group'>
                             <input
                               type="date"
+                              className='input'
                               name='dateOfBirth'
                               defaultValue={updateForm.dateOfBirth}
                               onChange={chnageHandler}
+                              style={updateErrors.dateOfBirthError ? { border: '1px solid #FF9494' } : null}
                             />
                             <input
                               name='userName'
+                              className='input'
                               defaultValue={updateForm.userName}
                               onChange={chnageHandler}
+                              style={updateErrors.userNameError ? { border: '1px solid #FF9494' } : null}
                             />
                           </div>
                           <div className='form-group'>
-                            <textarea name='bio' defaultValue={updateForm.bio} onChange={chnageHandler} />
+                            <textarea
+                              name='bio'
+                              className='textarea'
+                              defaultValue={updateForm.bio}
+                              onChange={chnageHandler}
+                            />
                           </div>
 
                           <div className='form-btns'>
@@ -265,7 +278,7 @@ const ProfilePage = () => {
                 </div>
 
                 <div className='modal-footer'>
-                  {imgForm.profilePic ? <button>
+                  {imgForm.profilePic ? <button className='update-btn'>
                     Update
                   </button> : null}
                 </div>

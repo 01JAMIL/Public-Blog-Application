@@ -65,7 +65,7 @@ const NavBar = () => {
           <li className='navbar-list-item' onClick={() => setOpen(!open)}>
             {(user && user._id) ? <>
               <div style={{ height: '25px' }} >
-                <img src={user && (user.profilePic ? `../../../uploads/${user.profilePic}` : avatar)} style={style} alt='avatar' />
+                <img src={user && (user.profilePic ? `data:image/png;base64,${user.profilePic}` : avatar)} style={style} alt='avatar' />
               </div>
               <div style={{ fontSize: '14px', color: 'rgba(0,0,0,0.6)' }}>
                 You <b>{open ?

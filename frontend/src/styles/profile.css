@@ -150,29 +150,35 @@
     justify-content: center;
 }
 
-.modal-footer button {
+.modal-footer .update-btn {
+    width: 100%;
     padding: 10px;
-    background-color: #0066ff;
-    color: white;
-    border: none;
+    background-color: rgba(0, 0, 0, 0.05);
+    color: rgba(0, 0, 0, 0.8);
+    font-weight: 600;
+    border: 1px solid rgba(0, 0, 0, 0.19);
     border-radius: 5px;
     cursor: pointer;
 }
 
-.form {
+.modal-footer .update-btn:hover {
+    background-color: rgba(0, 0, 0, 0.07);
+}
+
+.update-profle .form {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.form-group {
+.update-profle .form .form-group {
     display: flex;
     justify-content: space-around;
     margin-bottom: 5px;
     gap: 5px;
 }
 
-.form-group input {
+.update-profle .form .form-group .input {
     width: 100%;
     outline: none;
     background-color: white;
@@ -182,7 +188,7 @@
 }
 
 
-.form-group textarea {
+.update-profle .form .form-group .textarea {
     width: 100%;
     min-height: 80px;
     max-width: 100%;
@@ -194,23 +200,23 @@
     border-radius: 5px;
 }
 
-.form-btns {
+.update-profle .form .form-btns {
     display: flex;
     justify-content: flex-start;
     gap: 5px;
 }
 
-.form-btns button {
+.update-profle .form .form-btns button {
     min-width: 80px;
 }
 
-.form-btns .save-btn {
+.update-profle .form .form-btns .save-btn {
     color: white;
     background-color: #2da44e;
 }
 
 
-.form-btns .save-btn:hover {
+.update-profle .form .form-btns .save-btn:hover {
     color: white;
     background-color: #239744;
 }

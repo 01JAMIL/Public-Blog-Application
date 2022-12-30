@@ -119,17 +119,9 @@ const updateProfilePic = asyncHandler(async (req, res) => {
         return res.status(400).json({ noImage: 'Select a file to upload' })
     }
 
-    const user = await User.findOne({ userName: req.params.username })
-    const imageName = Date.now() + '-' + req.files.profilePic.name
-    req.files.profilePic.mv('./uploads/' + imageName)
-
-    if (user.profilePic) {
-        fs.unlinkSync('./uploads/' + user.profilePic)
-    }
-
     await User.findOneAndUpdate(
         { userName: req.params.username },
-        { profilePic: imageName },
+        { profilePic: base64EncodeImage(req.files.profilePic.data) },
         { new: true }
     ).then(user => {
         if (user) {
@@ -145,6 +137,12 @@ const generateToken = (id, userName) =>
     jwt.sign({ id, userName }, process.env.JWT_SECRET, {
         expiresIn: '5h'
     })
+
+const base64EncodeImage = (data) => {
+    // URI prefix -- data:image/png;base64,
+    //const image = fs.readFileSync(data)
+    return new Buffer.from(data).toString('base64')
+}
 
 module.exports = {
     getMe,

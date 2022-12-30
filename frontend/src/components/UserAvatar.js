@@ -25,7 +25,7 @@ const UserAvatar = () => {
 
     return (
         <div style={containerStyle}>
-            <img src={user && (user.profilePic ? `../../../uploads/${user.profilePic}` : avatar)} style={imageStyle} alt='avatar' />
+            <img src={user && (user.profilePic ? `data:image/png;base64,${user.profilePic}` : avatar)} style={imageStyle} alt='avatar' />
         </div>
     )
 }

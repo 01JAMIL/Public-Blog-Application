@@ -53,7 +53,7 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
         return () => {
             document.removeEventListener('mousedown', handleClose)
         }
-    })
+    }, [])
 
     const like = () => {
         dispatch(likeArticle({ body: user._id, token, id }))
@@ -106,10 +106,7 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
                 {open && <div className="options-view">
                     <div onClick={deleteHandler} >
                         <FontAwesomeIcon icon={faTrashCan} style={{ marginRight: '3px' }} /> Delete
-                    </div>{/* 
-                    <div>
-                        <FontAwesomeIcon icon={faPenToSquare} style={{ marginRight: '3px' }} /> Update
-                    </div> */}
+                    </div>
                 </div>}
             </div>
             <User
@@ -120,9 +117,6 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
                 <span className="blog-time">
                     <Moment fromNow date={new Date(time)} ></Moment>
                 </span>
-                {/* <Category
-                    id={categoryId}
-                /> */}
             </div>
 
             <div className="blog-content">
@@ -132,7 +126,7 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
             </div>
 
             {image && <div className="blog-image">
-                <img src={`../../../uploads/${image}`} alt="img" />
+                <img src={`data:image/png;base64,${image}`} alt="img" />
             </div>}
 
             {

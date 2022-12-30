@@ -9,7 +9,7 @@
 .home-container .home-container-body {
     width: 70%;
     min-height: 90vh;
-    transition: ease-in-out 0.2s; 
+    transition: ease-in-out 0.2s;
 }
 
 
@@ -18,18 +18,21 @@
     justify-content: center;
     margin-top: 70px;
     margin-bottom: 20px;
+
 }
 
 .new-post .create-post-container {
     width: 50%;
     background-color: #fff;
     border: 1px solid rgba(0, 0, 0, 0.19);
-    border-radius: 8px;
+    border-radius: 5px;
+
 }
 
 .new-post .create-post-header {
     display: flex;
     padding: 15px 15px 15px 15px;
+
 }
 
 .new-post .create-post-header .create-post-button {
@@ -54,14 +57,13 @@
 }
 
 .new-post .create-post-body .create-post-form {
-    padding: 15px;
+    padding: 5px;
 }
 
 
 .new-post .create-post-body .create-post-form .form-group {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px
 }
 
 .new-post .create-post-body .create-post-form .form-group label {
@@ -69,50 +71,53 @@
     margin-bottom: 5px;
 }
 
-.new-post .create-post-body .create-post-form .form-group input[type="text"] {
+.new-post .create-post-body .create-post-form .form-group .input {
     height: 30px;
-    border: 2px solid rgba(0, 0, 0, 0.19);
-    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
     font-size: 15px;
 }
 
-.new-post .create-post-body .create-post-form .form-group input[type="text"]:focus {
-    outline: none
+.new-post .create-post-body .create-post-form .form-group .input:focus {
+    outline: none;
+    border-color: rgba(0, 0, 0, 0.45);
 }
 
-.new-post .create-post-body .create-post-form .form-group textarea {
-    border: 2px solid rgba(0, 0, 0, 0.19);
-    border-radius: 8px;
-    max-width: 98%;
-    min-width: 98%;
-    width: 100%;
-    max-height: 200px;
+.new-post .create-post-body .create-post-form .form-group .textarea {
+    border: 1px solid rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+    resize: none;
     min-height: 200px;
     font-size: 16px;
+    margin-bottom: 15px;
 }
 
-.new-post .create-post-body .create-post-form .form-group textarea:focus {
-    outline: none
+.new-post .create-post-body .create-post-form .form-group .textarea:focus {
+    outline: none;
+    border-color: rgba(0, 0, 0, 0.45);
 }
 
 
-.new-post .create-post-body .create-post-form .form-group input[type="file"] {
+.new-post .create-post-body .create-post-form .form-group .file {
     display: none;
 }
 
 
 .new-post .create-post-body .create-post-form .form-group .image {
-    height: 30px;
+    display: flex;
+    align-items: center;
+    height: 35px;
     background-color: rgba(0, 0, 0, 0.19);
     border-radius: 8px;
     color: white;
     padding: 0 0 0 10px;
+    margin-bottom: 15px;
 }
 
 
-.new-post .create-post-body .create-post-form .form-group select {
+/* .new-post .create-post-body .create-post-form .form-group select {
     height: 36px;
-    border: 2px solid rgba(0, 0, 0, 0.19);
+    border: 1px solid rgba(0, 0, 0, 0.19);
     border-radius: 8px;
     font-size: 15px;
 }
@@ -120,14 +125,20 @@
 .new-post .create-post-body .create-post-form .form-group select:focus {
     outline: none
 }
-
+ */
 .new-post .create-post-body .create-post-form button {
-    border: none;
+    width: 100%;
     padding: 10px;
-    background-color: black;
-    border-radius: 8px;
+    border-radius: 5px;
     cursor: pointer;
-    color: #fff ;
+    color: white;
+    background-color: #2da44e;
+    border: 1px solid #1d7d38;
+    font-weight: 600;
+}
+
+.new-post .create-post-body .create-post-form button:hover {
+    background-color: #249645;
 }
 
 @media screen and (max-width: 720px) {
