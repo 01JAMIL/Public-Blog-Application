@@ -4,7 +4,7 @@ import logo from '../assets/blog-bg.png'
 const Loading = () => {
     return (
         <div className='loading-page'>
-            <div className='image'>
+            <div className='app-logo'>
                 <img src={logo} width="80px" alt="logo" />
             </div>
             <div className="loader">Please wait ...</div>

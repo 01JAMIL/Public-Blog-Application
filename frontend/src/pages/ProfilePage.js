@@ -269,7 +269,7 @@ const ProfilePage = () => {
                       onChange={fileChangeHandler}
                     />
                     <div style={{ display: 'flex', justifyContent: 'center', padding: '10px', width: '250px', height: '250px', borderRadius: '50%' }}>
-                      <img src={img} alt="img" id="img" width="100%" style={{ borderRadius: '50%' }} />
+                      <img src={img} alt="img" id="img" width="100%" style={{ borderRadius: '50%', objectFit: 'cover' }} />
                     </div>
 
                     <label htmlFor="image" className="modal-pic-label">Choose image</label>
