@@ -53,7 +53,7 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
         return () => {
             document.removeEventListener('mousedown', handleClose)
         }
-    }, [])
+    }, [userDataLoaded])
 
     const like = () => {
         dispatch(likeArticle({ body: user._id, token, id }))

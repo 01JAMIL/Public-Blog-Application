@@ -23,6 +23,7 @@ const CommentView = ({ id, blogOwnerId, articleId }) => {
     useEffect(() => {
         getComment()
 
+        console.log(listRef)
         const closeHandler = e => {
             if (!listRef.current.contains(e.target)) {
                 setOpen(false)

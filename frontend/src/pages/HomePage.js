@@ -4,7 +4,6 @@ import '../styles/home.css'
 import Loading from '../components/Loading'
 
 import { getArticles } from '../features/article/articleSlice'
-import { getCategorys } from '../features/category/categorySlice'
 import Blog from '../components/Blog'
 import NewPost from '../components/NewPost'
 
@@ -19,7 +18,6 @@ const HomePage = () => {
 
   useEffect(() => {
     dispatch(getArticles(token))
-    dispatch(getCategorys(token))
   }, [dispatch, token])
 
   if (loading) {

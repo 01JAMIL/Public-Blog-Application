@@ -22,7 +22,6 @@ const ProfilePage = () => {
   const auth = useSelector(state => state.auth)
   const [user, setUser] = useState({})
   const [isOpen, setIsOpen] = useState(false)
-  const [updatedPic, setUpdatedPic] = useState(false)
   const [imgForm, setImgForm] = useState(new FormData())
   const [img, setImg] = useState('')
   const location = useLocation()
@@ -85,7 +84,7 @@ const ProfilePage = () => {
       token: auth.token
     }
     dispatch(updateProfilePicture(data))
-    setUpdatedPic(!updatedPic)
+    setUpdated(!updated)
     setIsOpen(false)
   }
 
@@ -143,7 +142,7 @@ const ProfilePage = () => {
       window.scrollTo(0, 0);
     }
 
-  }, [dispatch, auth.token, username, updatedPic, updated, location.hash])
+  }, [dispatch, auth.token, username, updated, location.hash])
 
   if (Object.keys(user).length === 0) {
     return <Loading />
