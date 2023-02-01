@@ -17,10 +17,16 @@ const NewPost = () => {
     const submitHandler = (e) => {
         e.preventDefault()
 
+        let content = form.content
+
+        content = content.replace(/ /g, " ")
+        content = content.replace(/\n/g, "\n")
+
         form.userId = user._id
         form.time = Date.now()
 
-
+        form.content = content
+        console.log(form)
         dispatch(createArticle({ article: form, token }))
         setShow(false)
 

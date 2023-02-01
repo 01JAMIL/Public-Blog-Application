@@ -104,6 +104,7 @@ const userSlice = createSlice({
         builder.addCase(signin.fulfilled, (state, action) => {
             state.token = action.payload.token
             localStorage.setItem('token', state.token)
+            getMe(state.token)
             state.loading = false
             state.success = true
         })

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenAlt, faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -97,6 +97,16 @@ const ProfilePage = () => {
 
   const editProfileHandler = async (e) => {
     e.preventDefault()
+    let userBio = updateForm.bio
+
+    userBio = userBio.replace(/ /g, " ")
+    userBio = userBio.replace(/\n/g, "\n")
+
+    setUpdateForm({
+      ...updateForm,
+      bio: userBio
+    })
+
     await axios.put('/api/user/update-profile', updateForm, {
       headers: {
         authorization: `Bearer ${auth.token}`
@@ -109,30 +119,30 @@ const ProfilePage = () => {
       setUpdateErrors(err.response.data)
     })
   }
+  const getUserDataByUserName = useCallback(async () => {
+    await axios.get(`/api/user/get-data-username/${username}`, {
+      headers: {
+        authorization: 'Bearer ' + auth.token
+      }
+    }).then(res => {
+      const data = res.data
+      setUser(data)
+
+      setUpdateForm({
+        _id: data._id,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        dateOfBirth: data.dateOfBirth,
+        userName: data.userName,
+        bio: data.bio
+      })
+    }).catch(err => {
+      console.log(err)
+    })
+  }, [username, auth.token, setUser, setUpdateForm])
+
 
   useEffect(() => {
-    const getUserDataByUserName = async () => {
-      await axios.get(`/api/user/get-data-username/${username}`, {
-        headers: {
-          authorization: 'Bearer ' + auth.token
-        }
-      }).then(res => {
-        const data = res.data
-        setUser(data)
-
-        setUpdateForm({
-          _id: data._id,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          dateOfBirth: data.dateOfBirth,
-          userName: data.userName,
-          bio: data.bio
-        })
-      }).catch(err => {
-        console.log(err)
-      })
-    }
-
     dispatch(getArticles(auth.token))
     dispatch(getMe(auth.token))
     getUserDataByUserName()
@@ -142,7 +152,7 @@ const ProfilePage = () => {
       window.scrollTo(0, 0);
     }
 
-  }, [dispatch, auth.token, username, updated, location.hash])
+  }, [dispatch, auth.token, updated, location.hash, getUserDataByUserName])
 
   if (Object.keys(user).length === 0) {
     return <Loading />
@@ -150,7 +160,7 @@ const ProfilePage = () => {
 
   return (
     <div className='profile-home'>
-      {auth.user !== null ?
+      {user !== null ?
         <div className='profile-home-container'>
           <div className='profile-container'>
             {(Object.keys(user).length !== 0) ? <div className='container-content'>
@@ -172,7 +182,7 @@ const ProfilePage = () => {
                   </div>
                   {user.bio ? <div className='profile-bio'>
                     <div style={{ fontWeight: 'bold', fontSize: '20px' }} >Bio</div>
-                    <div style={{ padding: '10px' }} >
+                    <div style={{ padding: '10px', whiteSpace: 'pre-wrap' }} >
                       {user.bio}
                     </div>
                   </div> : null}

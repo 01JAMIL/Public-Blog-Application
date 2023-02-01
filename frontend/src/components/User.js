@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import avatar from '../assets/avatar.png'
 import '../styles/blog.css'
@@ -15,26 +15,26 @@ const User = ({ userId, setUserDataLoaded }) => {
     const [loaded, setLoaded] = useState(false)
     const [loading, setLoading] = useState(false)
 
-
+    const getUser = useCallback(async () => {
+        setLoading(true)
+        await axios.get(`/api/user/get-data/${userId}`, {
+            headers: {
+                authorization: `Bearer ${auth.token}`
+            }
+        })
+            .then((response) => {
+                setLoading(false)
+                setUser(response.data)
+                setLoaded(true)
+                setUserDataLoaded(true)
+            })
+            .catch((error) => error.message)
+    }, [auth.token, setLoaded, setLoading, setUser, setUserDataLoaded, userId])
 
     useEffect(() => {
-        const getUser = async () => {
-            setLoading(true)
-            await axios.get(`/api/user/get-data/${userId}`, {
-                headers: {
-                    authorization: `Bearer ${auth.token}`
-                }
-            })
-                .then((response) => {
-                    setLoading(false)
-                    setUser(response.data)
-                    setLoaded(true)
-                    setUserDataLoaded(true)
-                })
-                .catch((error) => error.message)
-        }
         userId && getUser()
-    }, [userId, auth.token, setUser, setUserDataLoaded])
+
+    }, [userId, getUser])
 
 
     if (loading) {

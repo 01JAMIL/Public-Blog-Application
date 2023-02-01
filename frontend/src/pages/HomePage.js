@@ -6,19 +6,21 @@ import Loading from '../components/Loading'
 import { getArticles } from '../features/article/articleSlice'
 import Blog from '../components/Blog'
 import NewPost from '../components/NewPost'
+import { getMe } from '../features/auth/userSlice'
 
 const HomePage = () => {
 
   document.title = 'Blogy - Home'
 
-  const { token } = useSelector(state => state.auth)
+  const { token, user } = useSelector(state => state.auth)
   const { data, loading } = useSelector(state => state.article)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(getArticles(token))
-  }, [dispatch, token])
+    data.length === 0 && dispatch(getArticles(token))
+    user === null && dispatch(getMe(token))
+  }, [dispatch, token, data.length, user])
 
   if (loading) {
     return <Loading />

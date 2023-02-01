@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import User from './User'
 import '../styles/blog.css'
@@ -20,26 +20,9 @@ const CommentView = ({ id, blogOwnerId, articleId }) => {
 
     const listRef = useRef()
 
-    useEffect(() => {
-        getComment()
-
-        console.log(listRef)
-        const closeHandler = e => {
-            if (!listRef.current.contains(e.target)) {
-                setOpen(false)
-            }
-        }
-
-        document.addEventListener('mousedown', closeHandler)
-
-        return () => {
-            document.removeEventListener('mousedown', closeHandler)
-        }
-    }, [changed])
 
 
-
-    const getComment = async () => {
+    const getComment = useCallback(async () => {
         await axios.get(`/api/comment/${id}`, {
             headers: {
                 authorization: `Bearer ${token}`
@@ -48,8 +31,23 @@ const CommentView = ({ id, blogOwnerId, articleId }) => {
             setComment(response.data)
             setContent(response.data.content)
         }).catch(err => console.error(err))
+    }, [id, token, setComment, setContent])
+
+    const closeHandler = e => {
+        if (listRef.current !== undefined && !listRef.current.contains(e.target)) {
+            setOpen(false)
+        }
     }
 
+    useEffect(() => {
+        getComment()
+
+        document.addEventListener('mousedown', closeHandler)
+
+        return () => {
+            document.removeEventListener('mousedown', closeHandler)
+        }
+    }, [changed, getComment])
 
 
     const like = async () => {
@@ -144,10 +142,10 @@ const CommentView = ({ id, blogOwnerId, articleId }) => {
                                 }
                             </div>
 
-                            <div ref={listRef}>
+                            <div>
                                 {(user._id === comment.userId || user._id === blogOwnerId) &&
 
-                                    <div className="comment-button">
+                                    <div ref={listRef} className="comment-button">
                                         <div id="btn" onClick={() => setOpen(!open)}>
                                             <FontAwesomeIcon icon={faEllipsisH} />
                                         </div>
