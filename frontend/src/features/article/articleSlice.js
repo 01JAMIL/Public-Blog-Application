@@ -15,6 +15,7 @@ const initialState = {
 export const getArticles = createAsyncThunk('article/all', async (token) => {
     return await axios.get('/api/article/articles', {
         headers: {
+            'Content-Type': 'application/json',
             authorization: `Bearer ${token}`
         }
     }).then(response => response.data)
@@ -39,6 +40,7 @@ export const updateArticle = createAsyncThunk('article/update', async (data, { r
 
     return await axios.put(`/api/article/update/${id}`, article, {
         headers: {
+            'Content-Type': 'application/json',
             authorization: `Bearer ${token}`
         }
     }).then((response) => response.data)
@@ -51,6 +53,7 @@ export const deleteArticle = createAsyncThunk('article/delete', async (data) => 
 
     return await axios.delete(`/api/article/delete/${id}`, {
         headers: {
+            'Content-Type': 'application/json',
             authorization: `Bearer ${token}`
         }
     }).then((response) => response.data)
@@ -63,6 +66,7 @@ export const likeArticle = createAsyncThunk('article/like', async (data) => {
 
     return await axios.put(`/api/article/like/${id}`, { userId: body }, {
         headers: {
+            'Content-Type': 'application/json',
             authorization: `Bearer ${token}`
         }
     }).then((response) => response.data)
@@ -75,6 +79,7 @@ export const unlikeArticle = createAsyncThunk('article/unlike', async (data) => 
 
     return await axios.put(`/api/article/unlike/${id}`, { userId: body }, {
         headers: {
+            'Content-Type': 'application/json',
             authorization: `Bearer ${token}`
         }
     }).then((response) => response.data)
@@ -86,6 +91,7 @@ export const numberOfLikes = createAsyncThunk('article/likes', async (data) => {
     const { token, id } = data
     return await axios.get(`/api/article/count/${id}`, {
         headers: {
+            'Content-Type': 'application/json',
             authorization: `Bearer ${token}`
         }
     }).then((response) => response.data)
@@ -98,6 +104,7 @@ export const saveComment = createAsyncThunk('article/comment', async (data) => {
 
     return axios.post('/api/comment', { content, userId, articleId }, {
         headers: {
+            'Content-Type': 'application/json',
             authorization: `Bearer ${token}`
         }
     }).then((response) => response.data)
@@ -109,6 +116,7 @@ export const deleteComment = createAsyncThunk('article/deleteComment', async (da
 
     return axios.put(`/api/comment/delete/${id}`, { articleId }, {
         headers: {
+            'Content-Type': 'application/json',
             authorization: `Bearer ${token}`
         }
     })
