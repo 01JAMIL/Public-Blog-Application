@@ -60,6 +60,7 @@
     width: 200px;
     height: 200px;
     z-index: 0;
+    object-fit: cover;
 }
 
 .profile-pic span {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenAlt, faTimes } from '@fortawesome/free-solid-svg-icons'
@@ -22,7 +22,6 @@ const ProfilePage = () => {
   const auth = useSelector(state => state.auth)
   const [user, setUser] = useState({})
   const [isOpen, setIsOpen] = useState(false)
-  const [updatedPic, setUpdatedPic] = useState(false)
   const [imgForm, setImgForm] = useState(new FormData())
   const [img, setImg] = useState('')
   const location = useLocation()
@@ -85,7 +84,7 @@ const ProfilePage = () => {
       token: auth.token
     }
     dispatch(updateProfilePicture(data))
-    setUpdatedPic(!updatedPic)
+    setUpdated(!updated)
     setIsOpen(false)
   }
 
@@ -98,6 +97,16 @@ const ProfilePage = () => {
 
   const editProfileHandler = async (e) => {
     e.preventDefault()
+    let userBio = updateForm.bio
+
+    userBio = userBio.replace(/ /g, " ")
+    userBio = userBio.replace(/\n/g, "\n")
+
+    setUpdateForm({
+      ...updateForm,
+      bio: userBio
+    })
+
     await axios.put('/api/user/update-profile', updateForm, {
       headers: {
         authorization: `Bearer ${auth.token}`
@@ -110,30 +119,30 @@ const ProfilePage = () => {
       setUpdateErrors(err.response.data)
     })
   }
+  const getUserDataByUserName = useCallback(async () => {
+    await axios.get(`/api/user/get-data-username/${username}`, {
+      headers: {
+        authorization: 'Bearer ' + auth.token
+      }
+    }).then(res => {
+      const data = res.data
+      setUser(data)
+
+      setUpdateForm({
+        _id: data._id,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        dateOfBirth: data.dateOfBirth,
+        userName: data.userName,
+        bio: data.bio
+      })
+    }).catch(err => {
+      console.log(err)
+    })
+  }, [username, auth.token, setUser, setUpdateForm])
+
 
   useEffect(() => {
-    const getUserDataByUserName = async () => {
-      await axios.get(`/api/user/get-data-username/${username}`, {
-        headers: {
-          authorization: 'Bearer ' + auth.token
-        }
-      }).then(res => {
-        const data = res.data
-        setUser(data)
-
-        setUpdateForm({
-          _id: data._id,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          dateOfBirth: data.dateOfBirth,
-          userName: data.userName,
-          bio: data.bio
-        })
-      }).catch(err => {
-        console.log(err)
-      })
-    }
-
     dispatch(getArticles(auth.token))
     dispatch(getMe(auth.token))
     getUserDataByUserName()
@@ -143,7 +152,7 @@ const ProfilePage = () => {
       window.scrollTo(0, 0);
     }
 
-  }, [dispatch, auth.token, username, updatedPic, updated, location.hash])
+  }, [dispatch, auth.token, updated, location.hash, getUserDataByUserName])
 
   if (Object.keys(user).length === 0) {
     return <Loading />
@@ -151,7 +160,7 @@ const ProfilePage = () => {
 
   return (
     <div className='profile-home'>
-      {auth.user !== null ?
+      {user !== null ?
         <div className='profile-home-container'>
           <div className='profile-container'>
             {(Object.keys(user).length !== 0) ? <div className='container-content'>
@@ -173,7 +182,7 @@ const ProfilePage = () => {
                   </div>
                   {user.bio ? <div className='profile-bio'>
                     <div style={{ fontWeight: 'bold', fontSize: '20px' }} >Bio</div>
-                    <div style={{ padding: '10px' }} >
+                    <div style={{ padding: '10px', whiteSpace: 'pre-wrap' }} >
                       {user.bio}
                     </div>
                   </div> : null}
@@ -270,7 +279,7 @@ const ProfilePage = () => {
                       onChange={fileChangeHandler}
                     />
                     <div style={{ display: 'flex', justifyContent: 'center', padding: '10px', width: '250px', height: '250px', borderRadius: '50%' }}>
-                      <img src={img} alt="img" id="img" width="100%" style={{ borderRadius: '50%' }} />
+                      <img src={img} alt="img" id="img" width="100%" style={{ borderRadius: '50%', objectFit: 'cover' }} />
                     </div>
 
                     <label htmlFor="image" className="modal-pic-label">Choose image</label>

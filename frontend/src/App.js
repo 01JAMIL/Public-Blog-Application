@@ -12,6 +12,7 @@ import ProfilePage from './pages/ProfilePage'
 function App() {
 
   const { token } = useSelector(state => state.auth)
+
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -28,7 +29,12 @@ function App() {
     <>
       {token ? <NavBar /> : null}
       <Routes>
-        <Route path='/' element={token ? <HomePage /> : <Navigate to='/signin' />} />
+        <Route path='/' element={
+          token ?
+            <HomePage /> :
+            <Navigate to='/signin' />
+        }
+        />
         <Route path='/profile/:username' element={token ? <ProfilePage /> : <Navigate to='/signin' />} />
         <Route path='/signup' element={!token ? <SignupPage /> : <Navigate to='/' />} />
         <Route path='/signin' element={!token ? <SigninPage /> : <Navigate to='/' />} />

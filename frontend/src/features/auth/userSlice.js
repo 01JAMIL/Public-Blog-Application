@@ -13,7 +13,11 @@ const initialState = {
 
 export const signup = createAsyncThunk('user/signup', async (data, { rejectWithValue }) => {
 
-    return await axios.post('/api/user/signup', data)
+    return await axios.post('/api/user/signup', data, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
         .then(response => response.data)
         .catch(error => rejectWithValue(error.response.data))
 
@@ -21,7 +25,11 @@ export const signup = createAsyncThunk('user/signup', async (data, { rejectWithV
 
 export const signin = createAsyncThunk('user/signin', async (data, { rejectWithValue }) => {
 
-    return await axios.post('/api/user/signin', data)
+    return await axios.post('/api/user/signin', data, {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
         .then(response => response.data)
         .catch(error => rejectWithValue(error.response.data))
 
@@ -31,6 +39,7 @@ export const getMe = createAsyncThunk('user/me', async (token) => {
 
     return await axios.get('/api/user/account', {
         headers: {
+            'Content-Type': 'application/json',
             authorization: `Bearer ${token}`
         }
     })
@@ -42,6 +51,7 @@ export const updateProfile = createAsyncThunk('user/update-profile', async (data
     const { body, userName, token } = data
     return await axios.post(`/api/user/update-profile/${userName}`, body, {
         headers: {
+            'Content-Type': 'application/json',
             authorization: `Bearer ${token}`
         }
     })
@@ -104,6 +114,7 @@ const userSlice = createSlice({
         builder.addCase(signin.fulfilled, (state, action) => {
             state.token = action.payload.token
             localStorage.setItem('token', state.token)
+            getMe(state.token)
             state.loading = false
             state.success = true
         })

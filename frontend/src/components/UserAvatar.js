@@ -9,7 +9,8 @@ const UserAvatar = () => {
     const imageStyle = {
         width: '40px',
         height: '40px',
-        borderRadius: '50%'
+        borderRadius: '50%',
+        objectFit: 'cover'
     }
 
     const containerStyle = {

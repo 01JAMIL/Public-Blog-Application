@@ -73,6 +73,11 @@
     padding: 0 15px 0 15px;
     text-align: justify;
     font-size: 0.9rem;
+    margin-bottom: 15px;
+}
+
+.blog .blog-content div {
+    white-space: pre-wrap;
 }
 
 .blog .blog-image {
@@ -232,6 +237,7 @@
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    object-fit: cover;
 }
 
 .user-container .user-name {
@@ -397,7 +403,7 @@
 .modal-body::-webkit-scrollbar-thumb {
     background: rgba(0, 0, 0, 0.2);
     border-radius: 10px;
-  }
+}
 
 .modal-body-row {
     display: flex;

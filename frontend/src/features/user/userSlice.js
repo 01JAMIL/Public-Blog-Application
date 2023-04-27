@@ -14,6 +14,7 @@ export const getUserById = createAsyncThunk('user/get-data', async (data) => {
     const { id, token } = data
     return await axios.get(`/api/user/get-data/${id}`, {
         headers: {
+            'Content-Type': 'application/json',
             authorization: `Bearer ${token}`
         }
     })

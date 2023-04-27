@@ -20,7 +20,6 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
     const [isOpen, setIsOpen] = useState(false)
     const [userDataLoaded, setUserDataLoaded] = useState(false)
     const { token, user } = useSelector(state => state.auth)
-
     const listRef = useRef()
 
     const dispatch = useDispatch()
@@ -53,7 +52,7 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
         return () => {
             document.removeEventListener('mousedown', handleClose)
         }
-    }, [])
+    }, [userDataLoaded])
 
     const like = () => {
         dispatch(likeArticle({ body: user._id, token, id }))
@@ -93,6 +92,8 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
     }
 
 
+
+
     if (loading) {
         return <Loading />
     }
@@ -111,6 +112,7 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
             </div>
             <User
                 userId={userId}
+                setUserDataLoaded={setUserDataLoaded}
             />
             <div className="blog-header">
                 <span className="blog-title">{title}</span>
@@ -120,9 +122,9 @@ const Blog = ({ id, time, title, content, image, categoryId, userId, likes, comm
             </div>
 
             <div className="blog-content">
-                <p>
+                <div>
                     {content}
-                </p>
+                </div>
             </div>
 
             {image && <div className="blog-image">
