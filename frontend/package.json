@@ -49,5 +49,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy":"http://localhost:3700"
+  "proxy":"https://blogy-web-service.onrender.com"
 }
